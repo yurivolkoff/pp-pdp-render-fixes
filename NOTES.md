@@ -105,3 +105,8 @@ benchmarking; no new competitor claims introduced.
 ## Change Log
 - 2026-07-30 Initial corrected prototype: all 40 register problems dispositioned
   (see DISPOSITION.md), Fixed + Annotated views, corrected configurator state, mobile 390 path.
+- 2026-07-30 Tier cells at theme-scale padding so all 7 tiers fit the 522px pane (P-02 desktop parity).
+- 2026-07-30 Mobile: thumbnail rail min-width:0; reordered flex items capped at viewport width —
+  the 620px natural image width was re-creating P-24's horizontal scroll via flex min-content floors.
+- 2026-07-30 Contact affordance reduced to a 48px icon positioned clear of the buy pane
+  (P-09 desktop facet: live bubble covered "Price each").
