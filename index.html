@@ -277,7 +277,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 /* ============================================================
    12. Floating contact (P-09: one affordance, desktop only)
    ============================================================ */
-.contact-bubble{position:fixed;right:16px;bottom:16px;background:#0d6efd;color:#fff;border-radius:24px;padding:10px 18px;font-family:"latomedium",sans-serif;font-size:14px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:500;border:0;cursor:pointer}
+.contact-bubble{position:fixed;right:6px;bottom:16px;width:48px;height:48px;background:#0d6efd;color:#fff;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:500;border:0;cursor:pointer}   /* P-09: reduced-size single affordance, clear of the 522px pane at 1440 */
 
 /* ============================================================
    13. Fixed | Annotated toggle + annotation chips + register drawer
@@ -654,7 +654,7 @@ body.annotated .drawer-toggle{display:block}
 </main>
 
 <!-- Floating contact — one affordance, desktop only (P-09) -->
-<button type="button" class="contact-bubble"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>Contact Us</button>
+<button type="button" class="contact-bubble" aria-label="Contact Us" title="Contact Us"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg></button>
 
 <!-- ================= Price Breakdown modal ================= -->
 <div class="modal-backdrop" id="modalBackdrop">
