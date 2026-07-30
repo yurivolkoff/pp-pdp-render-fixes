@@ -1,0 +1,968 @@
+<!-- Design library: _temporary/pdp-proto/2026-07-30/base/ (theme.styles.css excerpts; font-face rules mirrored) -->
+<!-- Spec: research/reports/2026-07-30-pdp-enriched-render-ux-review.md — all 40 problems dispositioned, see DISPOSITION.md -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- P-04: the compound SEO/feed string routes to metaTitle only; the visible H1 renders the v5.2 pdpTitle -->
+<title>Promotion Pros - Fairweather Johnson Gilmore Lightweight Tee | Custom 4.3 oz Unisex T-Shirt with Full Color Logo | Sizes S–4XL No Upcharge</title>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<style>
+/* ============================================================
+   1. @font-face — mirrors the theme exactly: single-weight family
+   aliases, every face registered at weight normal. Bold is achieved
+   by SWITCHING family to latobold, never by font-weight:700 (P-05).
+   latosemibold intentionally re-aliases lato-bold.woff2 (same file,
+   as on the live site).
+   ============================================================ */
+@font-face{font-family:"latoregular";src:url("fonts/lato-regular.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latobold";src:url("fonts/lato-bold.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latosemibold";src:url("fonts/lato-bold.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latomedium";src:url("fonts/lato-medium-webfont.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latoblack";src:url("fonts/lato-black.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latolight";src:url("fonts/lato-light.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+
+/* ============================================================
+   2. Base — theme values. Every family chain ends ", sans-serif" (P-05:
+   no bare latosemibold/latobold anywhere, incl. price + CTA).
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;background:#fff}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p,ul,figure{margin:0}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input{font:inherit}
+a{color:#001542}
+/* P-05: inline emphasis = the H1's own family-switch pattern — real Bold glyphs, no synthesis */
+strong,b{font-family:"latobold",sans-serif;font-weight:normal}
+.text-success{color:rgb(95,224,100)}   /* theme --bs-success-rgb */
+.line-height-26{line-height:26px}
+:focus-visible{outline:2px solid #fe5000;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* ============================================================
+   3. Header (simplified chrome) + breadcrumb (theme values)
+   ============================================================ */
+.site-header{border-bottom:1px solid #eee}
+.site-header__inner{max-width:1320px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:32px}
+.site-header__logo img{height:44px;width:auto}
+.site-header__search{flex:1;max-width:560px;position:relative}
+.site-header__search input{width:100%;height:42px;border:1px solid #b3b3b3;border-radius:4px;padding:0 40px 0 14px;font-family:"latoregular",sans-serif;font-size:14px;color:#525252}
+.site-header__search svg{position:absolute;right:12px;top:50%;transform:translateY(-50%)}
+.page-wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+.breadcrumb{display:flex;flex-wrap:wrap;list-style:none;margin:16px 0;padding:0;font-size:14px}
+.breadcrumb li+li::before{content:"›";padding:0 8px;color:#6c757d}
+.breadcrumb a{color:#919191;text-decoration:none}
+.breadcrumb a:hover{color:#001542}
+.breadcrumb .active{color:#919191}
+
+/* ============================================================
+   4. Layout — ONE DOM stack (P-21). Desktop: grid, left content +
+   sticky right column (P-16/P-29). Mobile: display:contents + order
+   re-sequences gallery → hero → Key Facts → buy flow → content
+   (P-01/P-14) with no duplicate trees.
+   ============================================================ */
+.pdp-grid{display:grid;grid-template-columns:minmax(0,1fr) 522px;gap:0 48px;align-items:start}
+.col-right{position:sticky;top:16px}   /* P-16: existing right-column container, sticky */
+.qa-fullwidth{margin-top:32px}
+
+/* ============================================================
+   5. Gallery (theme .product-gallery values; P-30 labels + no clipping)
+   ============================================================ */
+.product-gallery{position:relative;display:flex;flex-direction:column;gap:16px}
+.gallery-main{position:relative;background:#fff}
+.gallery-main img{width:100%;height:auto}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid #525252;background:#fff;z-index:10;display:flex;align-items:center;justify-content:center;transition:border-color .2s ease}
+.gallery-arrow:hover{border-color:#ff6b00}
+.gallery-arrow:hover svg path{stroke:#ff6b00}
+.gallery-arrow--prev{left:12px}
+.gallery-arrow--next{right:12px}
+.thumbnails-carousel{display:flex;align-items:center;gap:16px}
+.thumbnails-scroll{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;flex:1;padding:2px;scrollbar-width:none} /* 2px padding: no thumb clips at the rail edge (P-30) */
+.thumbnails-scroll::-webkit-scrollbar{display:none}
+.thumbnail-item{width:72px;height:72px;border:2px solid #e0e0e0;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .2s ease;background:#f8f8f8;padding:0}
+.thumbnail-item img{max-width:100%;max-height:100%;object-fit:contain}
+.thumbnail-item:hover:not(.active){border-color:#111}
+.thumbnail-item.active{border-color:#fe5000}
+
+/* ============================================================
+   6. Hero / product summary (theme .product-summary-section)
+   ============================================================ */
+.product-summary-section{display:flex;flex-direction:column;gap:12px}
+.product-sku-row{display:flex;align-items:center;justify-content:space-between}
+.sku-text{font-family:"latolight",sans-serif;font-size:16px;color:#909090}
+.wishlist-link{display:inline-flex;align-items:center;gap:6px;color:#909090;font-size:16px;text-decoration:none}
+.product-name{font-family:"latobold",sans-serif;font-size:24px;line-height:1.2;color:#1f1f1f;margin-bottom:0} /* P-04: rendering unchanged; content = pdpTitle */
+.ask-line{font-size:16px;color:#525252}
+.ask-line a{color:#001542}
+.product-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252} /* P-05: latoregular, sans-serif — no weight-ladder chain */
+
+/* ============================================================
+   7. Buy box — step bars (P-22 static h2), swatches (P-03/P-23),
+   tier table (P-02/P-06), size grid (P-07), subtotal (P-13/P-18)
+   ============================================================ */
+.step-header{display:flex;align-items:center;background:#525252;color:#fff;height:40px;padding:0 14px;margin:24px 0 12px}
+.step-header .step-number{font-family:"latobold",sans-serif;font-size:20px;margin-right:10px;font-weight:normal}
+.step-header .step-label{font-family:"latomedium",sans-serif;font-size:16px;font-weight:normal}
+
+.color-circles-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center} /* P-23: 8px gap (project standard), was 2px */
+.color-circle-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:6px;transition:background .1s ease-in-out;border:2px solid transparent}
+.color-circle-btn.selected{background:#fff;border:2px solid #ff6b00;padding:4px}
+.color-circle-btn:hover:not(.selected){border-color:#e2e2e2}
+.color-circle{width:36px;height:36px;border-radius:50%;overflow:hidden}   /* theme .color-circle metrics, now inside a real button (P-03) */
+.color-circle-btn.light-color .color-circle{border:1px solid #525252}
+.color-info-text{margin-top:12px;font-size:16px}
+.color-info-text .color-name{font-family:"latosemibold",sans-serif;color:#1f1f1f}
+
+.tier-scroll{overflow-x:auto}   /* P-02: the verified minimal fix — tiers reachable at every width */
+.size-table .table{border-collapse:separate;border-spacing:0;width:100%}
+.size-table .table tr td{font-size:14px;font-family:"latomedium",sans-serif;border:1px solid transparent;color:#1f1f1f;padding:6px 8px;text-align:center;transition:background-color .15s ease,border-color .15s ease}
+.size-table .table tr td:first-child{font-family:"latoregular",sans-serif;text-align:left;white-space:nowrap;cursor:default}
+.size-table .table tr td:not(:first-child){cursor:pointer}
+.size-table .table tr td:not(:first-child):hover{background-color:#f5f5f5}
+.size-table .table tr td.attr-active{background:#fff6f2;border-left-color:#fe5000;border-right-color:#fe5000}   /* theme attr-active — highlight only, never mutates quantities (P-06) */
+.size-table .table tr:first-child td.attr-active{border-top-color:#fe5000;border-top-left-radius:4px;border-top-right-radius:4px}
+.size-table .table tr:last-child td.attr-active{border-bottom-color:#fe5000;border-bottom-left-radius:4px;border-bottom-right-radius:4px}
+
+.size-grid-heading{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f;margin:16px 0 12px;font-weight:normal}
+.size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.size-cell label{display:block;font-size:16px;color:#1f1f1f;margin-bottom:4px}
+.size-cell input{width:100%;height:44px;border:1px solid #b3b3b3;border-radius:0;padding:0 10px;font-size:16px;color:#1f1f1f;font-family:"latoregular",sans-serif}
+.size-cell.filled input{border-color:#fe5000;background:#fff6f2}
+.moq-hint{margin-top:12px;font-size:14px;color:#525252}
+.moq-hint.warn{color:#f80a0a}   /* theme text-danger */
+
+.subtotal-band{background:#f5f5f5;padding:14px 16px;margin-top:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.subtotal-label{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f}   /* label stays 16px (P-13); "Subtotal:" when setup = $0 (P-18) */
+.subtotal-value{font-family:"latosemibold",sans-serif;font-size:20px;line-height:30px;color:#1f1f1f;display:block;text-align:right}   /* P-13: span.pdp-section__title metrics on the money; a styled span, not a heading (P-15) */
+.subtotal-value.dim{color:#909090}
+.price-each{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;text-align:right}   /* P-13: promoted from smallest-in-band to standard body */
+.view-price-breakdown-link{font-size:14px;font-family:"latoregular",sans-serif;color:#fe5000;cursor:pointer;padding:4px 0}   /* theme link class on a real <button> (P-08) */
+.view-price-breakdown-link:hover{color:#cb4000;text-decoration:underline}
+
+.btn-secondary{display:block;width:100%;background:#fe5000;border:1px solid #fe5000;color:#f5f5f5;text-align:center;transition:.3s}
+.btn-secondary:hover{background:#fe6a26;border-color:#fe621a}
+.btn-secondary:disabled{background:rgba(179,179,179,.5);border-color:rgba(179,179,179,.5);color:#fff;cursor:not-allowed}
+.add-to-cart-lg{height:54px;font-size:20px;font-family:"latobold",sans-serif;font-weight:normal;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px}   /* P-05: latobold + the sans-serif terminator via inheritance chain below */
+.add-to-cart-lg{font-family:"latobold",sans-serif}
+
+/* ============================================================
+   8. Content sections — theme .pdp-content-sections verbatim, with
+   the review-prescribed deltas marked
+   ============================================================ */
+.pdp-content-sections{font-family:"latoregular",sans-serif;margin-top:24px}
+.pdp-section{border-top:1px solid #eee}
+.pdp-section__h{margin:0}   /* P-15: h2 wrapper; visual stays on the classes */
+.pdp-section__header{display:flex;align-items:center;gap:12px;width:100%;padding:14px 0;background:none;border:0;text-align:left;cursor:pointer}
+.pdp-section__header:hover .pdp-section__title{color:#fe5000}
+.pdp-section__title{font-size:20px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal}
+.pdp-section__badge{font-size:12px;font-family:"latosemibold",sans-serif;color:#fe5000;border:1px solid rgba(254,80,0,.35);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pdp-section__chevron{margin-left:auto;margin-bottom:4px;width:9px;height:9px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease-in-out;flex-shrink:0}
+.pdp-section--open>.pdp-section__h>.pdp-section__header .pdp-section__chevron{margin-bottom:0;margin-top:4px;transform:rotate(225deg)}
+.pdp-section__body{padding:0 0 16px}
+.pdp-section:not(.pdp-section--open)>.pdp-section__body{display:none}
+/* P-38: collapsed-header summary — the method-block __summary pattern applied to section headers */
+.pdp-section__hsummary{display:none;font-size:13px;color:#525252;font-family:"latoregular",sans-serif;margin-left:4px}
+.pdp-section:not(.pdp-section--open) .pdp-section__hsummary{display:inline}
+.pdp-section__subheading{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;margin:12px 0 4px;font-weight:normal}
+
+.pdp-key-facts{background:rgba(254,80,0,.05);border:1px solid rgba(254,80,0,.25);border-radius:8px;padding:14px 18px;margin-bottom:16px}
+.pdp-key-facts__title{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-family:"latobold",sans-serif;color:#1f1f1f;margin-bottom:8px;font-weight:normal}   /* THE one kicker style page-wide (P-36) */
+.pdp-key-facts__list{list-style:none;margin:0;padding:0}
+.pdp-key-facts__list li{position:relative;padding-left:22px;margin-bottom:6px}
+.pdp-key-facts__list li::before{content:"✓" / "";position:absolute;left:0;color:#fe5000;font-family:"latobold",sans-serif}   /* P-10: marker hidden from AT via alt-text syntax */
+.pdp-key-facts__list li:last-child{margin-bottom:0}
+
+.pdp-spec-table{width:100%;border-collapse:collapse}
+.pdp-spec-table th,.pdp-spec-table td{padding:8px 12px 8px 0;vertical-align:top;border-bottom:1px solid #eee;font-weight:normal;text-align:left;font-size:16px;line-height:24px;color:#525252}
+.pdp-spec-table th[scope=row]{width:38%;font-family:"latosemibold",sans-serif}
+
+/* Decoration method block — P-27: summary suppressed, inner facts box
+   borderless; facts re-rendered AS a pdp-spec-table (P-11/P-12/P-26/P-33) */
+.pdp-method-block{border:1px solid #eee;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.pdp-method-block__header{display:flex;align-items:center;gap:12px;width:100%;padding:12px 16px;background:rgba(238,238,238,.45);border:0;text-align:left;cursor:pointer}
+.pdp-method-block__name{display:block;font-size:16px;font-family:"latosemibold",sans-serif;color:#001542;font-weight:normal}
+.pdp-method-block__chevron{margin-left:auto;width:8px;height:8px;border-right:2px solid #fe5000;border-bottom:2px solid #fe5000;transform:rotate(45deg);transition:transform .15s ease-in-out;flex-shrink:0}
+.pdp-method-block--open>.pdp-method-block__header .pdp-method-block__chevron{transform:rotate(225deg)}
+.pdp-method-block__body{padding:2px 16px 8px}
+.pdp-method-block:not(.pdp-method-block--open)>.pdp-method-block__body{display:none}
+.included-tick{font-family:"latobold",sans-serif}
+
+.static-list{padding-left:1rem;margin:0}
+.static-list li{list-style:disc;margin-bottom:8px}
+/* P-08: tooltip trigger is a real button, ≥24px hit area, shows on hover AND focus */
+.rush-info-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;margin-left:6px;cursor:pointer;z-index:100;width:24px;height:24px;padding:0;border:0;background:none}
+.rush-tooltip{display:none;position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);width:276px;background:#fff;border:1px solid #fe5000;border-radius:4px;padding:8px;font-family:"latoregular",sans-serif;font-size:14px;line-height:16px;color:#525252;z-index:200;white-space:normal}
+.rush-info-icon:hover .rush-tooltip,.rush-info-icon:focus-visible .rush-tooltip{display:block}
+.rush-info-icon:hover svg path,.rush-info-icon:focus-visible svg path{fill:#fe5000}
+.pdp-content-sections__footer{border-top:1px solid #eee;padding-top:14px}
+
+/* ============================================================
+   9. Q&A module — P-28: headings join the section-title system
+   ============================================================ */
+.qa-title{font-size:20px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;margin-bottom:12px}
+.qa-ask{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.qa-avatar{width:36px;height:36px;border-radius:50%;background:#eee;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#909090}
+.qa-ask input{flex:1;height:44px;border:1px solid #b3b3b3;border-radius:4px;padding:0 14px;font-size:16px;color:#525252}
+.qa-sub{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;margin-bottom:8px}
+.qa-empty{font-size:16px;color:#525252}
+
+/* ============================================================
+   10. Configurator pane — corrected static state (P-35…P-39)
+   ============================================================ */
+.btn-outline-edit{border:1px solid #fe5000;color:#fe5000;background:#fff;padding:10px 16px;font-family:"latomedium",sans-serif;font-size:16px}
+.btn-outline-edit:hover{background:rgba(254,80,0,.05)}
+.config-summary-line{display:flex;gap:24px;align-items:center;font-size:16px;color:#1f1f1f;margin:12px 0 0;flex-wrap:wrap}
+.config-h{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f;font-weight:normal;margin:16px 0 8px}   /* P-36: Title Case unified on the shared 16px latosemibold style */
+.imprint-method-badge{display:inline-block;border:0;border-radius:4px;padding:4px 10px;font-size:14px;color:#333;background:#fafafa;white-space:nowrap}
+.imprint-method-badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.imprint-method-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin:0 0 12px}   /* P-35: promoted from 13px gray — the pane's body style */
+
+.imprint-method-decision{background:rgba(254,80,0,.05);border:1px solid rgba(254,80,0,.25);border-radius:8px;margin:12px 0}
+.imprint-method-decision__toggle{display:flex;align-items:center;width:100%;background:none;border:0;padding:12px 16px;cursor:pointer;text-align:left}
+.imprint-method-decision__title{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-family:"latobold",sans-serif;color:#1f1f1f;flex:1;font-weight:normal}   /* P-36: joins the ONE kicker system (was 12px orange, 3rd competing idiom) */
+.imprint-method-decision__chevron{flex-shrink:0;width:8px;height:8px;border-right:2px solid #fe5000;border-bottom:2px solid #fe5000;transform:rotate(45deg);transition:transform .15s ease-in-out}
+.imprint-method-decision--open .imprint-method-decision__chevron{transform:rotate(225deg)}
+.imprint-method-decision__content{padding:0 16px 14px}
+.imprint-method-decision:not(.imprint-method-decision--open) .imprint-method-decision__content{display:none}
+.imprint-method-decision__body{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin-bottom:8px}   /* P-35: demoted from all-semibold slab; semibold reserved for the strong lead-in */
+.imprint-method-decision__body strong{color:#1f1f1f}
+
+.imprint-method-anchor{display:flex;gap:10px;align-items:flex-start;background:#eef6ef;border:1px solid rgba(46,125,50,.3);border-radius:6px;padding:10px 12px;margin-bottom:12px}   /* verified-correct reference implementation (P-10) — unchanged */
+.imprint-method-anchor__tick{color:#2e7d32;font-family:"latobold",sans-serif;font-size:16px;line-height:1.4}
+.imprint-method-anchor__text{margin:0;font-size:14px;line-height:1.5;color:#1f1f1f}
+.imprint-method-anchor__text strong{color:#2e7d32}
+.imprint-method-anchor__detail{display:block;font-size:13px;color:#666}
+
+.imprint-charges-table{width:100%;font-size:14px;border-collapse:collapse;margin-bottom:4px}
+.imprint-charges-table th{font-family:"latosemibold",sans-serif;font-weight:normal;color:#525252;padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid #eee}   /* P-36: th adopts the spec-table semibold pattern (was latoregular — lighter than body) */
+.imprint-charges-table td{padding:5px 12px 5px 0;color:#1f1f1f;font-family:"latoregular",sans-serif}
+.imprint-charges-table tr td:first-child{font-family:"latosemibold",sans-serif}
+.imprint-charges-table__free{color:#2e7d32;font-family:"latosemibold",sans-serif}
+.imprint-charges-table__first-row td{background:#eef6ef}
+
+.artwork-status-bar{background:rgba(248,184,109,.12);display:flex;align-items:center;gap:10px;padding:12px 10px;cursor:pointer;margin:12px 0}
+.artwork-status-bar span{font-family:"latomedium",sans-serif;font-size:16px;color:#f05323}
+.imprint-block{border:1px dashed #fe5000;padding:16px;margin-bottom:12px}
+.location-select{position:relative;margin-bottom:16px}   /* P-39: overlay anchor */
+.location-select__btn{width:100%;display:flex;align-items:center;justify-content:space-between;border:1px solid #525252;background:#fff;padding:15px 16px;font-family:"latomedium",sans-serif;font-size:16px;color:#1f1f1f;text-transform:capitalize}
+.location-select__list{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e2e2e2;border-radius:4px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;margin:0;padding:0;list-style:none;display:none}   /* P-39: position:absolute overlay — no longer pushes Subtotal/CTA */
+.location-select.open .location-select__list{display:block}
+.location-select__list li{height:40px;display:flex;align-items:center;padding:0 16px;cursor:pointer;font-size:16px;color:#1f1f1f;text-transform:capitalize}
+.location-select__list li:hover{background:#f5f5f5}
+.location-select__list li[aria-selected="true"]{background:#fff6f2}
+.imprint-cost-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.imprint-cost-box{background:#fafafa;padding:10px 14px;font-size:14px;color:#1f1f1f;display:flex;align-items:center;gap:8px}
+.add-imprint-link{display:inline-flex;align-items:center;gap:6px;color:#fe5000;font-size:16px;margin:4px 0 8px;background:none;border:0;cursor:pointer;padding:4px 0}
+.add-imprint-link:hover{text-decoration:underline}
+.secure-line{display:flex;align-items:center;gap:8px;color:#0d6efd;font-size:16px;margin-top:14px}
+
+/* ============================================================
+   11. Price Breakdown modal (P-08 real button trigger, P-19 caption)
+   ============================================================ */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;display:none}
+.modal-backdrop.open{display:flex;align-items:center;justify-content:center;padding:20px}
+.price-details-modal{background:#fff;border-radius:6px;max-width:520px;width:100%;max-height:85vh;overflow-y:auto;padding:24px}
+.price-details-modal h3{font-family:"latosemibold",sans-serif;font-size:20px;line-height:30px;color:#1f1f1f;font-weight:normal;margin-bottom:4px}
+.price-breakdown-caption{font-size:14px;color:#525252;margin-bottom:14px}   /* P-19: states the included config + when imprint is configured */
+.price-breakdown-row{display:flex;justify-content:space-between;gap:8px;padding:4px 0;font-size:14px;color:#1f1f1f}
+.price-breakdown-row .bd-free{color:#2e7d32;font-family:"latomedium",sans-serif}
+.price-breakdown-total-row{display:flex;justify-content:space-between;font-size:16px;padding-top:8px;margin-top:8px;border-top:1px solid #e2e2e2;color:#1f1f1f;font-family:"latosemibold",sans-serif}
+.price-breakdown-unit-row{display:flex;justify-content:flex-end;font-size:12px;color:#666;padding-bottom:12px}
+.price-breakdown-close-btn{background:#fe5000;border:1px solid #fe5000;color:#fff;padding:10px 48px;font-size:14px;font-family:"latomedium",sans-serif;display:block;margin:8px auto 0}
+.price-breakdown-close-btn:hover{background:#e54800}
+
+/* ============================================================
+   12. Floating contact (P-09: one affordance, desktop only)
+   ============================================================ */
+.contact-bubble{position:fixed;right:16px;bottom:16px;background:#0d6efd;color:#fff;border-radius:24px;padding:10px 18px;font-family:"latomedium",sans-serif;font-size:14px;display:flex;align-items:center;gap:8px;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:500;border:0;cursor:pointer}
+
+/* ============================================================
+   13. Fixed | Annotated toggle + annotation chips + register drawer
+   (meta-UI — not part of the page's design system)
+   ============================================================ */
+.proto-bar{position:fixed;top:12px;right:12px;z-index:1000;display:flex;align-items:center;gap:8px;background:#1f1f1f;border-radius:999px;padding:4px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.proto-bar button{color:#b3b3b3;font-family:"latomedium",sans-serif;font-size:13px;padding:6px 14px;border-radius:999px}
+.proto-bar button[aria-pressed="true"]{background:#fe5000;color:#fff}
+.anno{display:none;vertical-align:middle;margin:0 4px;align-items:center;font-family:"latobold",sans-serif;font-size:11px;line-height:1;letter-spacing:.02em;padding:3px 7px;border-radius:999px;background:#fe5000;color:#fff;border:1px solid #fe5000;cursor:pointer;white-space:nowrap}
+.anno--cfg{background:#fff;color:#fe5000}   /* annotated-only: outline chip */
+body.annotated .anno{display:inline-flex}
+.anno-strip{display:none;margin:12px 0;padding:10px 14px;background:#fff6f2;border:1px dashed rgba(254,80,0,.5);border-radius:6px;font-size:13px;color:#525252;align-items:center;gap:6px;flex-wrap:wrap}
+body.annotated .anno-strip{display:flex}
+.anno-panel{position:fixed;right:12px;top:64px;width:360px;max-width:calc(100vw - 24px);max-height:70vh;overflow-y:auto;background:#fff;border:1px solid #e2e2e2;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:1001;padding:16px;display:none}
+.anno-panel.open{display:block}
+.anno-panel h3{font-family:"latosemibold",sans-serif;font-size:16px;color:#1f1f1f;font-weight:normal;margin-bottom:6px;padding-right:28px}
+.anno-panel .ap-meta{font-size:12px;color:#909090;margin-bottom:8px;font-family:"latomedium",sans-serif}
+.anno-panel .ap-fix{font-size:14px;line-height:20px;color:#525252}
+.anno-panel .ap-fix strong{color:#1f1f1f}
+.anno-close{position:absolute;top:10px;right:10px;width:24px;height:24px;color:#909090;font-size:18px;line-height:1}
+.drawer-toggle{position:fixed;left:12px;bottom:12px;z-index:1000;display:none;background:#1f1f1f;color:#fff;font-family:"latomedium",sans-serif;font-size:13px;padding:10px 16px;border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+body.annotated .drawer-toggle{display:block}
+.drawer{position:fixed;left:12px;bottom:56px;width:520px;max-width:calc(100vw - 24px);max-height:70vh;overflow-y:auto;background:#fff;border:1px solid #e2e2e2;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.25);z-index:1001;padding:16px;display:none}
+.drawer.open{display:block}
+.drawer h3{font-family:"latosemibold",sans-serif;font-size:16px;color:#1f1f1f;font-weight:normal;margin-bottom:4px}
+.drawer .drawer-counts{font-size:13px;color:#525252;margin-bottom:10px}
+.drawer table{width:100%;border-collapse:collapse;font-size:13px}
+.drawer td{padding:5px 8px 5px 0;border-bottom:1px solid #f0f0f0;vertical-align:top;color:#525252}
+.drawer td:first-child{white-space:nowrap;font-family:"latobold",sans-serif;color:#1f1f1f;cursor:pointer;text-decoration:underline;text-decoration-color:#f0c0aa}
+.drawer .d-sev{white-space:nowrap;color:#909090}
+
+/* ============================================================
+   14. Responsive — theme breakpoints (768 Bootstrap tier, 480 custom
+   theme tier). Mobile: single stack, reordered (P-01/P-14/P-21),
+   no horizontal scroll (P-24), sticky off, contact hidden (P-09).
+   ============================================================ */
+@media (max-width:991.98px){
+  .pdp-grid{display:flex;flex-direction:column}
+  .col-left,.col-right{display:contents}
+  .gallery-order{order:1}
+  .hero-order{order:2;margin-top:20px}
+  .keyfacts-order{order:3;margin-top:20px}
+  .pane-order{order:4}
+  .content-order{order:5}
+  .col-right{position:static}
+  .contact-bubble{display:none}
+}
+@media (max-width:576px){
+  .size-grid{grid-template-columns:repeat(2,1fr)}
+  .site-header__search{display:none}
+  .page-wrap{padding:0 16px}
+}
+@media (max-width:480px){
+  .subtotal-band{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- ======== Prototype meta-UI: view toggle ======== -->
+<div class="proto-bar" role="group" aria-label="Prototype view">
+  <button type="button" id="viewFixed" aria-pressed="true">Fixed</button>
+  <button type="button" id="viewAnno" aria-pressed="false">Annotated</button>
+</div>
+
+<!-- ======== Simplified site chrome ======== -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="#" aria-label="Promotion Pros home"><img src="images/logo.png" alt="Promotion Pros — Put your brand on it" width="160" height="44"></a>
+    <div class="site-header__search"><input type="search" aria-label="Search for items and brands" placeholder="Search for items and brands">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="#525252" stroke-width="2"/><path d="M20 20l-4-4" stroke="#525252" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+</header>
+
+<main class="page-wrap">
+  <nav aria-label="Breadcrumb"><ol class="breadcrumb">
+    <li><a href="#">Apparel</a></li>
+    <li class="active">Men's T-Shirts</li>
+  </ol></nav>
+
+  <!-- Annotated view: page-wide fixes strip -->
+  <div class="anno-strip">Page-wide fixes (click a chip):
+    <button class="anno" data-p="P-05">P-05</button>
+    <button class="anno anno--cfg" data-p="P-09">P-09</button>
+    <button class="anno anno--cfg" data-p="P-20">P-20</button>
+    <button class="anno" data-p="P-21">P-21</button>
+    <button class="anno" data-p="P-24">P-24</button>
+    <button class="anno" data-p="P-34">P-34</button>
+    <button class="anno" data-p="P-15">P-15</button>
+    <button class="anno" data-p="P-16">P-16</button>
+  </div>
+
+  <div class="pdp-grid">
+    <!-- ================= LEFT COLUMN ================= -->
+    <div class="col-left">
+
+      <!-- Gallery -->
+      <div class="product-gallery gallery-order">
+        <div class="gallery-main">
+          <button class="gallery-arrow gallery-arrow--prev" id="galPrev" aria-label="Previous product image"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <img id="galMain" src="https://product-images.promotionpros.com/cloud-images-404/FWJ1996/cdn-details-size/bffdb11592787016.webp" alt="Fairweather Johnson Gilmore Lightweight Tee — Vintage White, model view" width="640" height="640">
+          <button class="gallery-arrow gallery-arrow--next" id="galNext" aria-label="Next product image"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="anno" data-p="P-30" style="position:absolute;top:8px;left:8px">P-30</span>
+        </div>
+        <div class="thumbnails-carousel">
+          <div class="thumbnails-scroll" id="thumbRail"><!-- thumbs injected by JS --></div>
+        </div>
+      </div>
+
+      <!-- Key Facts (mobile: ordered before the buy flow — P-14) -->
+      <div class="pdp-key-facts keyfacts-order">
+        <h2 class="pdp-key-facts__title">Key Facts <span class="anno" data-p="P-14">P-14</span><span class="anno" data-p="P-36">P-36</span></h2>
+        <ul class="pdp-key-facts__list">
+          <li><strong>Lightweight 4.3 oz fabric</strong> — soft and breathable for everyday wear <span class="anno" data-p="P-05">P-05</span><span class="anno" data-p="P-10">P-10</span></li>
+          <li><strong>Unisex fit from S to 4XL</strong> — one style fits a varied team with no size upcharge</li>
+          <li><strong>Direct to Garment full-color print</strong> — water-based inkjet ink bonds into the fibers for a soft, flat image with fine detail</li>
+          <li><strong>Seven color options</strong> — Vintage White, Athletic Heather, Black, Navy, Red, Royal Blue, and White</li>
+        </ul>
+      </div>
+
+      <!-- Content sections (single stack — P-21) -->
+      <div class="pdp-content-sections content-order">
+
+        <section class="pdp-section pdp-section--open" id="secDescription">
+          <h2 class="pdp-section__h"><button type="button" class="pdp-section__header" aria-expanded="true" aria-controls="bodyDescription">
+            <span class="pdp-section__title">Description</span>
+            <span class="anno" data-p="P-15">P-15</span>
+            <span class="pdp-section__chevron" aria-hidden="true"></span>
+          </button></h2>
+          <div class="pdp-section__body" id="bodyDescription">
+            <p class="line-height-26">The Gilmore Lightweight Tee is made from a 4.3 oz fabric that balances lightness with durability, offering a soft, breathable feel suitable for all-day wear. The unisex fit accommodates a wide range of body types, and the size run from Small to 4XL ensures consistent sizing across your team without extra charges.</p>
+            <p class="line-height-26" style="margin-top:16px">Each shirt is decorated using Direct to Garment printing, which applies water-based inkjet ink directly into the garment fibers. This produces a soft, flat image with no added surface layer, ideal for photographic, gradient, or many-color artwork where fine detail and a soft hand are priorities.</p>
+            <!-- P-32/P-37: the useCase line moved to the hero subtitle; the italic + accent-bar idiom is retired -->
+            <p style="margin-top:8px"><span class="anno" data-p="P-32">P-32</span><span class="anno" data-p="P-37">P-37</span></p>
+          </div>
+        </section>
+
+        <section class="pdp-section pdp-section--open" id="secSpecs">
+          <h2 class="pdp-section__h"><button type="button" class="pdp-section__header" aria-expanded="true" aria-controls="bodySpecs">
+            <span class="pdp-section__title">Specifications</span>
+            <span class="pdp-section__chevron" aria-hidden="true"></span>
+          </button></h2>
+          <div class="pdp-section__body" id="bodySpecs">
+            <table class="pdp-spec-table">
+              <tbody>
+                <tr><th scope="row">Fabric <span class="anno" data-p="P-31">P-31</span></th><td>4.3 oz lightweight (146 GSM)</td></tr>
+                <tr><th scope="row">Fit</th><td>Unisex</td></tr>
+                <tr><th scope="row">Sizes</th><td>S, M, L, XL, XXL, 3XL, 4XL</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="pdp-section pdp-section--open" id="secDecoration">
+          <h2 class="pdp-section__h"><button type="button" class="pdp-section__header" aria-expanded="true" aria-controls="bodyDecoration">
+            <span class="pdp-section__title">Decoration &amp; Imprint</span>
+            <span class="pdp-section__badge">1 method</span>
+            <span class="pdp-section__chevron" aria-hidden="true"></span>
+          </button></h2>
+          <div class="pdp-section__body" id="bodyDecoration">
+            <p class="line-height-26">Your artwork is printed directly into the fabric of the t-shirt using Direct to Garment, producing a soft, full-color imprint with no added surface layer.</p>
+            <div class="pdp-method-block pdp-method-block--open" id="methodBlock" style="margin-top:12px">
+              <button type="button" class="pdp-method-block__header" aria-expanded="true" aria-controls="methodBody">
+                <span class="pdp-method-block__name">Full Color</span>
+                <!-- P-27/P-40: middot summary suppressed on this single-method product -->
+                <span class="anno" data-p="P-27">P-27</span><span class="anno" data-p="P-40">P-40</span>
+                <span class="pdp-method-block__chevron" aria-hidden="true"></span>
+              </button>
+              <div class="pdp-method-block__body" id="methodBody">
+                <!-- P-11/P-12/P-26/P-33: facts re-rendered as the literal spec-table component -->
+                <table class="pdp-spec-table">
+                  <tbody>
+                    <tr><th scope="row">Locations <span class="anno" data-p="P-11">P-11</span><span class="anno" data-p="P-33">P-33</span></th>
+                        <td>Right Chest, Full Front, Full Back, Left Sleeve, Right Sleeve, Tag Back, Left Chest <span class="anno" data-p="P-26">P-26</span></td></tr>
+                    <tr><th scope="row">Max Colors</th><td>Full color</td></tr>
+                    <tr><th scope="row">Included</th>
+                        <td><span class="included-tick text-success" aria-hidden="true">✓ </span>Full-color imprint in one location — no setup fee <span class="anno" data-p="P-10">P-10</span></td></tr>
+                    <tr><th scope="row">Setup fee <span class="anno" data-p="P-12">P-12</span></th>
+                        <td>$30.00 per add'l location — <span class="text-success">first location free</span></td></tr>
+                    <tr><th scope="row">Add'l location</th><td>$5.95/item</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="pdp-section pdp-section--open" id="secProduction">
+          <h2 class="pdp-section__h"><button type="button" class="pdp-section__header" aria-expanded="true" aria-controls="bodyProduction">
+            <span class="pdp-section__title">Production &amp; Shipping</span>
+            <!-- P-38: delivery estimate survives collapse (method-block summary pattern) -->
+            <span class="pdp-section__hsummary">Est. delivery Aug 13 – Aug 20 · 5–10 business days production</span>
+            <span class="anno" data-p="P-38">P-38</span>
+            <span class="pdp-section__chevron" aria-hidden="true"></span>
+          </button></h2>
+          <div class="pdp-section__body" id="bodyProduction">
+            <ul class="static-list">
+              <li>Production: typically 5–10 business days after artwork approval.<button type="button" class="rush-info-icon" aria-describedby="rushTip"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="Lato, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="rushTip" role="tooltip">Production time is for the default single-location, one-color imprint. It may increase for multiple imprint locations, additional colors, and large product quantities.</span></button> <span class="anno" data-p="P-08">P-08</span></li>
+              <li>Estimated delivery with FedEx Ground: Aug 13 – Aug 20.</li>
+            </ul>
+          </div>
+        </section>
+
+        <div class="pdp-content-sections__footer">
+          <p class="line-height-26">SKU: KLG0000001 <span class="text-success" style="margin-left:12px;font-family:'latosemibold',sans-serif">IN STOCK</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= RIGHT COLUMN (sticky — P-16/P-29) ================= -->
+    <div class="col-right">
+      <div class="hero-order">
+        <div class="product-summary-section">
+          <div class="product-sku-row">
+            <span class="sku-text">SKU: KLG0000001</span>
+            <a class="wishlist-link" href="#" aria-label="Add to wishlist"><svg width="18" height="16" viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 20.5C8 17 2 12.5 2 7.5 2 4.4 4.4 2 7.5 2 9.2 2 10.9 2.8 12 4.1 13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 5-6 9.5-10 13z" stroke="#909090" stroke-width="1.6"/></svg>Wishlist</a>
+          </div>
+          <!-- P-04: H1 = v5.2 pdpTitle (product name only, no pipes, no feed claims) -->
+          <h1 class="product-name">Fairweather Johnson Gilmore Lightweight Tee <span class="anno" data-p="P-04">P-04</span><span class="anno" data-p="P-01">P-01</span></h1>
+          <p class="ask-line">Have a product question? <a href="#qaSection">Ask us</a></p>
+          <!-- P-37: audience-fit line closes the subtitle (plain body text — P-32); requires v5.2 spec §2.5 amendment -->
+          <p class="product-subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint. A practical choice for teams, staff, uniforms, and company events. <span class="anno" data-p="P-37">P-37</span></p>
+        </div>
+      </div>
+
+      <div class="pane-order">
+        <!-- ============ BUY STATE ============ -->
+        <div id="buyState">
+          <!-- P-22: static h2 step headers — no do-nothing buttons, no phantom checkboxes, no false ✓ -->
+          <h2 class="step-header"><span class="step-number">1</span><span class="step-label">Colors</span><span class="anno" data-p="P-22" style="margin-left:auto">P-22</span></h2>
+          <div class="color-circles-container">
+            <div class="color-circles-row" id="swatchRow" role="group" aria-label="Product color"><!-- swatches injected --></div>
+            <div class="color-info-text"><span class="color-name" id="colorNameLabel">Vintage White</span> <span class="anno" data-p="P-03">P-03</span><span class="anno" data-p="P-23">P-23</span></div>
+          </div>
+
+          <h2 class="step-header"><span class="step-number">2</span><span class="step-label">Quantity</span></h2>
+          <div class="size-table">
+            <div class="tier-scroll"><!-- P-02: overflow-x:auto — all tiers reachable -->
+              <table class="table" aria-label="Quantity price tiers">
+                <tbody>
+                  <tr id="tierQtyRow"><td>Minimum Quantity <span class="anno" data-p="P-02">P-02</span><span class="anno" data-p="P-06">P-06</span></td></tr>
+                  <tr id="tierPriceRow"><td>Price per unit</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h3 class="size-grid-heading" id="sizeGridHeading" tabindex="-1">How Many Would You Like of Each Size? <span class="anno" data-p="P-07">P-07</span></h3>
+          <div class="size-grid" id="sizeGrid"><!-- size inputs injected --></div>
+          <!-- P-07: neutral MOQ hint replaces the silent L=12 prefill; P-17: message carries the below-MOQ explanation -->
+          <p class="moq-hint" id="moqHint" aria-live="polite">This item has a 12-piece minimum. <span class="anno" data-p="P-17">P-17</span></p>
+
+          <div class="subtotal-band">
+            <div>
+              <span class="subtotal-label" id="subtotalLabel">Subtotal: <span class="anno" data-p="P-18">P-18</span></span><br>
+              <button type="button" class="view-price-breakdown-link" id="openBreakdown">View Price Breakdown</button> <span class="anno" data-p="P-08">P-08</span><span class="anno" data-p="P-19">P-19</span>
+            </div>
+            <div>
+              <span class="subtotal-value dim" id="subtotalValue">—</span>
+              <div class="price-each" id="priceEach">From $11.95/unit at 1008+ <span class="anno" data-p="P-13">P-13</span></div>
+            </div>
+          </div>
+
+          <!-- P-25 (annotated-only): platform-template slot — rating, Request Free Sample, shipping cost, returns (Boris / v5.2 template half) -->
+          <p style="margin:8px 0 0"><span class="anno anno--cfg" data-p="P-25">P-25</span></p>
+
+          <button type="button" class="btn-secondary add-to-cart-lg" id="ctaCustomize" disabled>Customize Your Product</button>
+        </div>
+
+        <!-- ============ CONFIGURATOR STATE (corrected static render) ============ -->
+        <div id="configState" hidden>
+          <button type="button" class="btn-outline-edit" id="backToBuy">Edit Color &amp; Quantity</button>
+          <div class="config-summary-line">
+            <span>Color: <span id="cfgColor">Vintage White</span></span>
+            <span>Quantity: <span id="cfgQty">12</span></span>
+          </div>
+
+          <h2 class="step-header" style="margin-top:20px"><span class="step-number">3</span><span class="step-label">Decoration Method</span></h2>
+          <h3 class="config-h">Imprint Method: Full Color <span class="anno" data-p="P-36">P-36</span></h3>
+          <div class="imprint-method-badges"><span class="imprint-method-badge">Full Color</span></div>
+          <!-- P-35: method summary promoted to the pane's 16px/24 body style (was 13px gray — smallest text on the page) -->
+          <p class="imprint-method-subtitle">Water-based inkjet ink printed directly into the garment fibers, laying down full-color artwork as a soft, flat image with no added surface layer. <span class="anno" data-p="P-35">P-35</span></p>
+
+          <div class="imprint-method-decision" id="decisionBox">
+            <button type="button" class="imprint-method-decision__toggle" aria-expanded="false" aria-controls="decisionContent">
+              <span class="imprint-method-decision__title">When To Choose This? <span class="anno" data-p="P-36">P-36</span></span>
+              <span class="imprint-method-decision__chevron" aria-hidden="true"></span>
+            </button>
+            <div class="imprint-method-decision__content" id="decisionContent">
+              <!-- P-35: decision body demoted from an all-semibold slab to body text; semibold reserved for the lead-in -->
+              <p class="imprint-method-decision__body">Direct-to-garment printing jets CMYK ink (with a white underbase on dark fabric) straight onto a pre-treated garment, then heat-cures it into the fibers. It reproduces photographs, gradients, and dense multi-color artwork with fine detail and a soft hand, since the ink soaks into the cloth rather than sitting on top. Color is a full-color process blend that lands close to brand references rather than as exact spot inks, and prints most vividly on cotton and light fabrics.</p>
+              <p class="imprint-method-decision__body" style="margin-bottom:0"><strong>Best for:</strong> Photographic, gradient, or many-color artwork on cotton and light apparel, where a soft hand and fine detail matter more than exact solid color.</p>
+            </div>
+          </div>
+
+          <!-- Verified-correct component, unchanged (P-10 reference implementation). P-39: the third statement of this fact (the note under the table) is gone -->
+          <div class="imprint-method-anchor">
+            <span class="imprint-method-anchor__tick" aria-hidden="true">✓</span>
+            <p class="imprint-method-anchor__text"><strong>First imprint included</strong> — full color, one location, no setup fee.
+              <span class="imprint-method-anchor__detail">Add locations below — extras are priced separately.</span></p>
+            <span class="anno" data-p="P-39" style="margin-left:auto">P-39</span>
+          </div>
+
+          <table class="imprint-charges-table">
+            <thead><tr><th>Decoration Charges</th><th>Setup</th><th>Run Charge</th></tr></thead>
+            <tbody>
+              <tr class="imprint-charges-table__first-row"><td>First Location</td><td class="imprint-charges-table__free">Included</td><td class="imprint-charges-table__free">Free</td></tr>
+              <tr><td>Extra Location</td><td>$30.00</td><td>$5.95 / item</td></tr>
+            </tbody>
+          </table>
+
+          <h2 class="step-header" style="margin-top:20px"><span class="step-number">4</span><span class="step-label">Imprint Details</span></h2>
+          <div class="artwork-status-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#f05323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#f05323" stroke-width="2" stroke-linecap="round"/></svg><span>Upload artwork and instruction (optional)</span></div>
+
+          <div class="imprint-block">
+            <h3 class="config-h" style="margin-top:0" id="locLabel">Imprint Location <span class="anno" data-p="P-36">P-36</span></h3>
+            <!-- P-39: listbox is an absolute overlay — opening it no longer pushes Subtotal / Add to Cart down 288px -->
+            <div class="location-select" id="locSelect">
+              <button type="button" class="location-select__btn" id="locBtn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="locLabel locBtn">Right Chest
+                <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="#1f1f1f" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <ul class="location-select__list" id="locList" role="listbox" aria-labelledby="locLabel" tabindex="-1">
+                <li role="option" aria-selected="true">Right Chest</li>
+                <li role="option" aria-selected="false">Full Front</li>
+                <li role="option" aria-selected="false">Full Back</li>
+                <li role="option" aria-selected="false">Left Sleeve</li>
+                <li role="option" aria-selected="false">Right Sleeve</li>
+                <li role="option" aria-selected="false">Tag Back</li>
+                <li role="option" aria-selected="false">Left Chest</li>
+              </ul>
+              <span class="anno" data-p="P-39" style="position:absolute;right:-6px;top:-10px">P-39</span>
+            </div>
+            <h3 class="config-h">Imprint Colors</h3>
+            <div class="imprint-cost-row">
+              <span style="color:#1f1f1f">Full Color</span>
+              <span class="imprint-cost-box">Imprint #1 cost: <span class="imprint-charges-table__free">Free</span>
+                <button type="button" class="rush-info-icon" aria-describedby="imprintTip" style="margin-left:0"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="Lato, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="imprintTip" role="tooltip" style="left:auto;right:0;top:calc(100% + 8px);transform:none">Your first imprint location is included in the item price — full color, no setup fee.</span></button>
+              </span>
+            </div>
+          </div>
+          <button type="button" class="add-imprint-link"><span aria-hidden="true">+</span> Add Additional Imprint Location</button>
+
+          <div class="subtotal-band">
+            <div>
+              <span class="subtotal-label">Subtotal:</span><br>
+              <button type="button" class="view-price-breakdown-link" id="openBreakdown2">View Price Breakdown</button>
+            </div>
+            <div>
+              <span class="subtotal-value" id="cfgSubtotal">$183.00</span>
+              <div class="price-each" id="cfgPriceEach">Price each: $15.25</div>
+            </div>
+          </div>
+          <button type="button" class="btn-secondary add-to-cart-lg">Add to Cart
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.5" fill="#fff"/><circle cx="18" cy="20.5" r="1.5" fill="#fff"/></svg>
+          </button>
+          <p class="secure-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#0d6efd" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#0d6efd" stroke-width="2"/></svg>Secure Transaction</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= Q&A (full-width) ================= -->
+  <section class="qa-fullwidth" id="qaSection">
+    <!-- P-28: Q&A headings join the section-title system (were ~body-size h5s) -->
+    <h2 class="qa-title">Questions &amp; Answers <span class="anno" data-p="P-28">P-28</span></h2>
+    <div class="qa-ask">
+      <span class="qa-avatar" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#909090" stroke-width="2"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" stroke="#909090" stroke-width="2"/></svg></span>
+      <input type="text" aria-label="Ask a question" placeholder="Ask a question here...">
+    </div>
+    <h3 class="qa-sub">Popular Questions</h3>
+    <p class="qa-empty">No questions have been asked yet, ask your question above.</p>
+  </section>
+</main>
+
+<!-- Floating contact — one affordance, desktop only (P-09) -->
+<button type="button" class="contact-bubble"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>Contact Us</button>
+
+<!-- ================= Price Breakdown modal ================= -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="price-details-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Price Breakdown</h3>
+    <!-- P-19: no asserted imprint config — the caption states what's included and when imprint is configured -->
+    <p class="price-breakdown-caption">Includes: full-color imprint, one location (configured next step). <span class="anno" data-p="P-19">P-19</span></p>
+    <div id="modalRows"></div>
+    <div class="price-breakdown-total-row"><span>Total</span><span id="modalTotal">$0.00</span></div>
+    <div class="price-breakdown-unit-row"><span id="modalUnit"></span></div>
+    <button type="button" class="price-breakdown-close-btn" id="modalClose">Close</button>
+  </div>
+</div>
+
+<!-- ================= Annotation detail panel + register drawer ================= -->
+<aside class="anno-panel" id="annoPanel" aria-live="polite">
+  <button type="button" class="anno-close" id="annoClose" aria-label="Close annotation">×</button>
+  <h3 id="apTitle"></h3>
+  <div class="ap-meta" id="apMeta"></div>
+  <div class="ap-fix" id="apFix"></div>
+</aside>
+<button type="button" class="drawer-toggle" id="drawerToggle">Register: 36 implemented · 4 annotated-only</button>
+<div class="drawer" id="drawer">
+  <h3>Problem register — disposition</h3>
+  <div class="drawer-counts">40 problems: 36 implemented in the Fixed view · 4 annotated-only (config / platform-template / pipeline levers) · 0 excluded. Full table: DISPOSITION.md in the repo.</div>
+  <table id="drawerTable"><tbody></tbody></table>
+</div>
+
+<script>
+/* ================= Data ================= */
+var COLORS = [
+  {name:"Vintage White", hex:"#EAE7E2", img:"bffdb11592787016", light:true},
+  {name:"Athletic Heather", hex:"#32414d", img:"f8b1f6dd7eeb9e94", light:false},
+  {name:"Black", hex:"#000000", img:"6e7a031387ab8d9c", light:false},
+  {name:"Navy", hex:"#000080", img:"156d7eca5320a62b", light:false},
+  {name:"Red", hex:"#ff0000", img:"b41d25158517c49c", light:false},
+  {name:"Royal Blue", hex:"#4169e1", img:"d04a3b21378a0b60", light:false},
+  {name:"White", hex:"#ffffff", img:"e0d4d4186b6f85d1", light:true}
+];
+var CDN = "https://product-images.promotionpros.com/cloud-images-404/FWJ1996/";
+var TIERS = [{q:12,p:15.25},{q:48,p:14.50},{q:72,p:13.95},{q:144,p:13.50},{q:288,p:12.90},{q:576,p:12.25},{q:1008,p:11.95}];
+var SIZES = ["S","M","L","XL","XXL","3XL","4XL"];
+var MOQ = 12;
+
+/* Register: id → severity, disposition, title, fix (condensed from the review) */
+var REG = {
+"P-01":["Critical","Implemented","Mobile: the product had no name anywhere on the page","One DOM stack: at mobile widths the existing .product-summary-section (SKU, H1, subtitle) orders between the gallery and the Colors step — the product is named on the first screen."],
+"P-02":["Critical","Implemented","Mobile: tier table clipped — best volume prices unreachable","overflow-x:auto on the existing tier-table wrapper; all 7 tiers and prices reachable by swipe at 390px."],
+"P-03":["Critical","Implemented","Color selection was completely keyboard-inaccessible","Each swatch is a real <button aria-label='…' title='…'> reusing the existing .color-circle styling — tabbable, Enter/Space selects (the size inputs' own aria-label pattern)."],
+"P-04":["Critical","Implemented","H1 rendered the raw SEO/feed compound string","H1 binds to the v5.2 pdpTitle ('Fairweather Johnson Gilmore Lightweight Tee'); the compound string routes to metaTitle/gmTitle only. h1.product-name styling unchanged."],
+"P-05":["High","Implemented","Faux-bold synthesis, missing font fallbacks, scrambled weights","strong → font-family:latobold + font-weight:normal (the H1's own pattern — real Bold glyphs, no synthesis); every family chain incl. price and CTA ends ', sans-serif'; subtitle = latoregular, sans-serif."],
+"P-06":["High","Implemented","Tier cells silently wrote bulk quantity into size S","Tier cells are highlight-only (existing attr-active style) and move focus to the size-grid heading — they never mutate quantities."],
+"P-07":["High","Implemented","Page loaded pre-filled with L=12 / $183.00","All sizes default to 0; the existing MOQ helper line is the neutral initial hint; the price element shows 'From $11.95/unit at 1008+' until a quantity is entered."],
+"P-08":["High","Implemented","Price Breakdown trigger and tooltip were mouse-only","'View Price Breakdown' is a real <button> in the existing link class; the '?' tooltip is a 24px-hit-area button shown on hover AND focus (aria-describedby)."],
+"P-09":["High","Annotated-only (config)","Mobile: fixed widgets occluded content and inputs","Prototype keeps a single Contact affordance, desktop-only — nothing occludes inputs at 390px. Real-site lever: Klaviyo display settings (suppress teaser at mobile widths)."],
+"P-10":["High","Implemented","Orphaned block-level ✓ in the INCLUDED row; ✓ exposed to screen readers","Inline aria-hidden ✓ (text-success green) + hanging indent per the Key Facts marker / right-pane anchor reference implementation; sentence demoted to the standard 16px value style."],
+"P-11":["High","Implemented","11px bold-caps labels in a ~38% dead-space column","Labels adopt the existing table.pdp-spec-table th style and geometry — latosemibold 16px/24 #525252, 38% column; uppercase transform dropped."],
+"P-12":["High","Implemented","Second label system nested in the value column; 3-size charge line","Charges flattened to standard rows: 'Setup fee — $30.00 per add'l location — first location free' / 'Add'l location — $5.95/item'. One size; green only on 'first location free' (text-success)."],
+"P-13":["High","Implemented","Price carried zero visual emphasis; per-unit price smallest in band","$183.00 gets the existing span.pdp-section__title metrics (20px/30 latosemibold); the label stays 16px; 'Price each' promoted to standard 16px body."],
+"P-14":["Medium","Implemented","Mobile: entire ordering flow preceded ALL product information","The existing Key Facts card orders between the hero and the Colors step at mobile widths."],
+"P-15":["Medium","Implemented","Section titles invisible to heading navigation; hierarchy inverted","Section titles wrapped in <h2> (visual stays on .pdp-section__title); Key Facts title is an <h2>; $183.00 demoted to a styled span. Outline: H1 → H2s."],
+"P-16":["Medium","Implemented","Buy box not sticky — price/CTA lost while reading content","position:sticky; top:16px on the existing right-column container."],
+"P-17":["Medium","Implemented","Below-MOQ state zeroed all price feedback","Below MOQ the tier-1 unit price stays visible in 'Price each'; the subtotal grays instead of zeroing; the existing MOQ message carries the explanation."],
+"P-18":["Medium","Implemented","'Subtotal with Setup Fee:' while the setup fee is $0","Conditional label: 'Subtotal:' when computed setup = $0 (string-level change)."],
+"P-19":["Medium","Implemented","Price Breakdown asserted an imprint configuration never chosen","Breakdown captioned 'Includes: full-color imprint, one location (configured next step)' — the decoration block's own phrasing; the '1Right Chest' run-on is gone."],
+"P-20":["Medium","Annotated-only (config)","First-load interstitial + cookie banner stack; persistent teaser","Klaviyo popup delay/suppression on PDP landings and consent-banner sequencing are third-party config, not page code. The prototype shows the clean first paint."],
+"P-21":["Medium","Implemented","Accordion state desync from duplicate desktop/mobile DOM stacks","ONE content stack, reordered across breakpoints via display:contents + CSS order — no duplicate trees, so no state to desync."],
+"P-22":["Medium","Implemented","Step headers were do-nothing buttons with AT noise + false mobile ✓","Static <h2> headers reusing the .step-number/.step-label visuals; vestigial checkboxes removed; nothing focusable, no false 'completed' checkmarks."],
+"P-23":["Medium","Implemented","Swatch names undiscoverable; targets below project minimum","aria-label + title per swatch (the data already feeding .color-name); 48px targets with the project-standard 8px gap."],
+"P-24":["Medium","Implemented (scope note)","Mobile: page scrolled horizontally (423px on 390px viewport)","Prototype has no horizontal scroll at 390 — the tier strip scrolls inside its own wrapper. The footer .px-5 contributor is site chrome outside this prototype; flagged for Boris."],
+"P-25":["Medium","Annotated-only (platform)","v5-intent buy-box decision aids absent (rating, sample, shipping, returns)","Platform-template blocks (marked 'platform' in the v5 prototype), not copy-pipeline items — the template half of the v5.2 rollout, flagged to Boris. Not faked here."],
+"P-26":["Medium","Implemented","Location chips styled as interactive buttons for static metadata","Locations render as comma-separated 16px latoregular text in the value cell — the Specifications 'Sizes' row precedent."],
+"P-27":["Medium","Implemented","Triple-box nesting + summary line duplicating every fact","Method summary suppressed (single-method product renders expanded); inner facts border dropped — the borderless section-body treatment of Description/Specifications."],
+"P-28":["Medium","Implemented","Three competing section-header idioms; Q&A heading weaker than body sections","Q&A headings adopt span.pdp-section__title (20px latosemibold). Step bars + Key Facts card stay as sanctioned exceptions."],
+"P-29":["Medium","Implemented","Desktop: ~1,500px empty right column below the buy box","Closed by the sticky right column (P-16) — the pane tracks the reading position instead of leaving a dead half-page."],
+"P-30":["Low","Implemented","Gallery: unlabeled controls, truncated thumb rail, AT clone noise","aria-labels on both arrows; no clone slides exist in this render; the rail is padded so no thumbnail clips."],
+"P-31":["Low","Implemented","Spec table stated the same fact under two labels","Deduped to one row: 'Fabric — 4.3 oz lightweight (146 GSM)' — the GSM promise delivered, nothing invented. Permanent rule lands in contentV5."],
+"P-32":["Low","Implemented","useCase line elevated to a one-off italic + accent-bar callout","The italic/bar idiom is retired; the line renders as plain body text — now living in the hero subtitle per P-37."],
+"P-33":["Low","Implemented","Spec-table vs method-facts column misalignment","Method facts reuse the literal pdp-spec-table component — the two tables share one column geometry by construction."],
+"P-34":["Low","Implemented (removal)","Stray 'GO!' fragment; detached ribbon close button","Neither artifact exists in the corrected render. Real-site fix: suppress the animation resting state; re-attach the ribbon close inside its bounds."],
+"P-35":["High","Implemented","Configurator inverted text hierarchy: 13px summary vs 16px semibold slab","Method description promoted to the pane's 16px/24 latoregular body style; decision body demoted to the same, with semibold reserved for the 'Best for:' lead-in; box title joins the single kicker system."],
+"P-36":["Medium","Implemented","Three competing uppercase-kicker systems + casing disagreement","ONE kicker style page-wide — the Key Facts treatment (13px latobold dark uppercase). Labels unified to Title Case ('Imprint Location'); charges th adopts the spec-table semibold pattern."],
+"P-37":["Medium","Implemented (spec note)","The page's only audience-fit line was buried at the bottom of Description","'A practical choice for teams, staff, uniforms, and company events.' closes the hero subtitle (plain 16px, no italic/bar) and leaves the Description body. Requires v5.2 spec §2.5 amendment."],
+"P-38":["Medium","Implemented","Collapsed Production & Shipping hid the delivery estimate entirely","The collapsed header keeps 'Est. delivery Aug 13 – Aug 20 · 5–10 business days production' via the method-block __summary pattern. Collapse the section to see it."],
+"P-39":["Medium","Implemented","Location dropdown pushed CTA 288px; included-fact stated 3×","The listbox is a position:absolute overlay — Subtotal/Add to Cart never move; the included-fact triplet deduped to the anchor sentence + the charges table (the note is gone)."],
+"P-40":["Low","Implemented (via P-27)","Method summary led with a duplicate, ended with a count-only stat","Suppressed on this single-method product (P-27). For multi-method pages the recomposed string is documented: '1 full-color location included · extra location $30.00 setup + $5.95/item'."]
+};
+
+/* ================= State ================= */
+var state = {color:0, qty:{}, view:"fixed"};
+SIZES.forEach(function(s){state.qty[s]=0});
+
+function money(n){return "$"+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,",")}
+function totalQty(){return SIZES.reduce(function(a,s){return a+state.qty[s]},0)}
+function tierFor(q){var t=TIERS[0];TIERS.forEach(function(x){if(q>=x.q)t=x});return t}
+
+/* ================= Swatches + gallery (P-03/P-23/P-30 + §6 keeps) ================= */
+var swatchRow=document.getElementById("swatchRow"), thumbRail=document.getElementById("thumbRail");
+COLORS.forEach(function(c,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="color-circle-btn"+(c.light?" light-color":"")+(i===0?" selected":"");
+  b.setAttribute("aria-label",c.name);b.title=c.name;b.setAttribute("aria-pressed",i===0?"true":"false");
+  b.innerHTML='<span class="color-circle" style="background-color:'+c.hex+'"></span>';
+  b.addEventListener("click",function(){selectColor(i)});
+  swatchRow.appendChild(b);
+  var t=document.createElement("button");
+  t.type="button";t.className="thumbnail-item"+(i===0?" active":"");
+  t.setAttribute("aria-label","Show "+c.name);
+  t.innerHTML='<img src="'+CDN+'cdn-thumb-size/'+c.img+'.webp" alt="" width="72" height="72" loading="lazy">';
+  t.addEventListener("click",function(){selectColor(i)});
+  thumbRail.appendChild(t);
+});
+function selectColor(i){
+  state.color=i;var c=COLORS[i];
+  document.getElementById("galMain").src=CDN+"cdn-details-size/"+c.img+".webp";
+  document.getElementById("galMain").alt="Fairweather Johnson Gilmore Lightweight Tee — "+c.name+", model view";
+  document.getElementById("colorNameLabel").textContent=c.name;
+  document.getElementById("cfgColor").textContent=c.name;
+  var sw=swatchRow.children, th=thumbRail.children;
+  for(var k=0;k<COLORS.length;k++){
+    sw[k].classList.toggle("selected",k===i);sw[k].setAttribute("aria-pressed",k===i?"true":"false");
+    th[k].classList.toggle("active",k===i);
+  }
+  th[i].scrollIntoView({block:"nearest",inline:"nearest"});
+}
+document.getElementById("galPrev").addEventListener("click",function(){selectColor((state.color+COLORS.length-1)%COLORS.length)});
+document.getElementById("galNext").addEventListener("click",function(){selectColor((state.color+1)%COLORS.length)});
+
+/* ================= Tier table (P-02/P-06) ================= */
+var tq=document.getElementById("tierQtyRow"), tp=document.getElementById("tierPriceRow");
+TIERS.forEach(function(t,i){
+  var a=document.createElement("td"),b=document.createElement("td");
+  a.textContent=t.q;b.textContent=money(t.p);
+  [a,b].forEach(function(cell){cell.addEventListener("click",function(){highlightTier(i);document.getElementById("sizeGridHeading").focus()})});
+  tq.appendChild(a);tp.appendChild(b);
+});
+function highlightTier(i){
+  for(var k=0;k<TIERS.length;k++){
+    tq.children[k+1].classList.toggle("attr-active",k===i);
+    tp.children[k+1].classList.toggle("attr-active",k===i);
+  }
+}
+
+/* ================= Size grid + subtotal state machine (P-07/P-17/P-18) ================= */
+var sizeGrid=document.getElementById("sizeGrid");
+SIZES.forEach(function(s){
+  var d=document.createElement("div");d.className="size-cell";
+  d.innerHTML='<label for="size-'+s+'">'+s+'</label><input id="size-'+s+'" type="number" min="0" step="1" inputmode="numeric" value="0" aria-label="Quantity for size '+s+'">';
+  d.querySelector("input").addEventListener("input",function(e){
+    var v=parseInt(e.target.value,10);state.qty[s]=isNaN(v)||v<0?0:v;
+    d.classList.toggle("filled",state.qty[s]>0);update();
+  });
+  sizeGrid.appendChild(d);
+});
+var cta=document.getElementById("ctaCustomize");
+function update(){
+  var q=totalQty(), sv=document.getElementById("subtotalValue"), pe=document.getElementById("priceEach"), hint=document.getElementById("moqHint");
+  if(q===0){
+    sv.textContent="—";sv.classList.add("dim");
+    pe.innerHTML='From $11.95/unit at 1008+ <span class="anno" data-p="P-13">P-13</span>';
+    hint.textContent="This item has a 12-piece minimum.";hint.classList.remove("warn");
+    cta.disabled=true;highlightTier(-1);
+  }else if(q<MOQ){
+    var t0=TIERS[0];
+    sv.textContent=money(q*t0.p);sv.classList.add("dim");                 /* P-17: gray, not $0.00 */
+    pe.textContent="Price each: "+money(t0.p);                            /* P-17: tier-1 price stays */
+    hint.textContent="This item has a 12-piece minimum — add "+(MOQ-q)+" more to continue.";
+    hint.classList.add("warn");cta.disabled=true;highlightTier(0);
+  }else{
+    var t=tierFor(q);
+    sv.textContent=money(q*t.p);sv.classList.remove("dim");
+    pe.textContent="Price each: "+money(t.p);
+    hint.textContent="";hint.classList.remove("warn");
+    cta.disabled=false;highlightTier(TIERS.indexOf(t));
+  }
+  bindAnnoChips();
+}
+update();
+
+/* ================= Pane swap: buy ⇄ configurator ================= */
+cta.addEventListener("click",function(){
+  var q=totalQty(),t=tierFor(q);
+  document.getElementById("cfgQty").textContent=q;
+  document.getElementById("cfgSubtotal").textContent=money(q*t.p);
+  document.getElementById("cfgPriceEach").textContent="Price each: "+money(t.p);
+  document.getElementById("buyState").hidden=true;
+  document.getElementById("configState").hidden=false;
+  document.getElementById("backToBuy").focus();
+});
+document.getElementById("backToBuy").addEventListener("click",function(){
+  document.getElementById("configState").hidden=true;
+  document.getElementById("buyState").hidden=false;
+  cta.focus();
+});
+
+/* ================= Accordions (sections, method block, decision box) ================= */
+document.querySelectorAll(".pdp-section__header").forEach(function(h){
+  h.addEventListener("click",function(){
+    var sec=h.closest(".pdp-section"),open=sec.classList.toggle("pdp-section--open");
+    h.setAttribute("aria-expanded",open?"true":"false");
+  });
+});
+document.querySelector(".pdp-method-block__header").addEventListener("click",function(){
+  var b=this.closest(".pdp-method-block"),open=b.classList.toggle("pdp-method-block--open");
+  this.setAttribute("aria-expanded",open?"true":"false");
+});
+document.querySelector(".imprint-method-decision__toggle").addEventListener("click",function(){
+  var b=this.closest(".imprint-method-decision"),open=b.classList.toggle("imprint-method-decision--open");
+  this.setAttribute("aria-expanded",open?"true":"false");
+});
+
+/* ================= Location listbox overlay (P-39) ================= */
+var locSel=document.getElementById("locSelect"),locBtn=document.getElementById("locBtn"),locList=document.getElementById("locList");
+locBtn.addEventListener("click",function(){
+  var open=locSel.classList.toggle("open");
+  locBtn.setAttribute("aria-expanded",open?"true":"false");
+  if(open)locList.focus();
+});
+locList.querySelectorAll("li").forEach(function(li){
+  li.addEventListener("click",function(){
+    locList.querySelectorAll("li").forEach(function(x){x.setAttribute("aria-selected","false")});
+    li.setAttribute("aria-selected","true");
+    locBtn.childNodes[0].textContent=li.textContent+" ";
+    locSel.classList.remove("open");locBtn.setAttribute("aria-expanded","false");locBtn.focus();
+  });
+});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){
+    if(locSel.classList.contains("open")){locSel.classList.remove("open");locBtn.setAttribute("aria-expanded","false");locBtn.focus()}
+    closeModal();closePanel();document.getElementById("drawer").classList.remove("open");
+  }
+});
+document.addEventListener("click",function(e){
+  if(!locSel.contains(e.target)&&locSel.classList.contains("open")){locSel.classList.remove("open");locBtn.setAttribute("aria-expanded","false")}
+});
+
+/* ================= Price Breakdown modal (P-08/P-19) ================= */
+var backdrop=document.getElementById("modalBackdrop");
+function openModal(){
+  var rows=document.getElementById("modalRows");rows.innerHTML="";
+  var q=totalQty();if(q===0)q=0;
+  var t=q>0?tierFor(Math.max(q,1)):TIERS[0];
+  SIZES.forEach(function(s){
+    if(state.qty[s]>0){
+      var r=document.createElement("div");r.className="price-breakdown-row";
+      r.innerHTML="<span>Gilmore Lightweight Tee — "+s+"</span><span>"+state.qty[s]+" × "+money(t.p)+" = "+money(state.qty[s]*t.p)+"</span>";
+      rows.appendChild(r);
+    }
+  });
+  if(!rows.children.length){
+    var r0=document.createElement("div");r0.className="price-breakdown-row";
+    r0.innerHTML="<span>No quantities entered yet</span><span>—</span>";rows.appendChild(r0);
+  }
+  var r1=document.createElement("div");r1.className="price-breakdown-row";
+  r1.innerHTML='<span>Imprint Method Setup</span><span class="bd-free">Free</span>';rows.appendChild(r1);
+  var r2=document.createElement("div");r2.className="price-breakdown-row";
+  r2.innerHTML='<span>Run Charge</span><span class="bd-free">Free</span>';rows.appendChild(r2);
+  document.getElementById("modalTotal").textContent=q>0?money(q*t.p):"—";
+  document.getElementById("modalUnit").textContent=q>0?("Price each: "+money(t.p)):"";
+  backdrop.classList.add("open");
+  document.getElementById("modalClose").focus();
+  bindAnnoChips();
+}
+function closeModal(){backdrop.classList.remove("open")}
+document.getElementById("openBreakdown").addEventListener("click",openModal);
+document.getElementById("openBreakdown2").addEventListener("click",openModal);
+document.getElementById("modalClose").addEventListener("click",closeModal);
+backdrop.addEventListener("click",function(e){if(e.target===backdrop)closeModal()});
+
+/* ================= Fixed | Annotated toggle ================= */
+var bF=document.getElementById("viewFixed"),bA=document.getElementById("viewAnno");
+function setView(v){
+  state.view=v;document.body.classList.toggle("annotated",v==="annotated");
+  bF.setAttribute("aria-pressed",v==="fixed"?"true":"false");
+  bA.setAttribute("aria-pressed",v==="annotated"?"true":"false");
+  if(v==="fixed"){closePanel();document.getElementById("drawer").classList.remove("open")}
+}
+bF.addEventListener("click",function(){setView("fixed")});
+bA.addEventListener("click",function(){setView("annotated")});
+
+/* ================= Annotation chips, panel, drawer ================= */
+var panel=document.getElementById("annoPanel");
+function showP(id){
+  var r=REG[id];if(!r)return;
+  document.getElementById("apTitle").textContent=id+" — "+r[2];
+  document.getElementById("apMeta").textContent=r[0]+" · "+r[1];
+  document.getElementById("apFix").innerHTML="<strong>Fix:</strong> "+r[3];
+  panel.classList.add("open");
+}
+function closePanel(){panel.classList.remove("open")}
+document.getElementById("annoClose").addEventListener("click",closePanel);
+function bindAnnoChips(){
+  document.querySelectorAll(".anno").forEach(function(ch){
+    if(ch.dataset.bound)return;ch.dataset.bound="1";
+    ch.setAttribute("aria-label","Fix annotation "+ch.dataset.p);
+    ch.addEventListener("click",function(e){e.stopPropagation();showP(ch.dataset.p)});
+  });
+}
+bindAnnoChips();
+var drawer=document.getElementById("drawer");
+document.getElementById("drawerToggle").addEventListener("click",function(){drawer.classList.toggle("open")});
+var tb=document.querySelector("#drawerTable tbody");
+Object.keys(REG).forEach(function(id){
+  var r=REG[id],tr=document.createElement("tr");
+  tr.innerHTML="<td>"+id+"</td><td class='d-sev'>"+r[0]+"</td><td class='d-sev'>"+r[1]+"</td><td>"+r[2]+"</td>";
+  tr.querySelector("td").addEventListener("click",function(){showP(id)});
+  tb.appendChild(tr);
+});
+</script>
+</body>
+</html>
