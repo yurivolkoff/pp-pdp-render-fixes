@@ -17,7 +17,7 @@ Annotated view explains the real-site lever.
 | P-06 | High | Implemented | Tier cells highlight-only (`attr-active`), never write quantities; click moves focus to the size-grid heading |
 | P-07 | High | Implemented | All sizes load at 0; MOQ helper line is the neutral initial hint; price element shows "From $11.95/unit at 1008+" until quantity entered |
 | P-08 | High | Implemented | "View Price Breakdown" is a real `<button>` (link class); production "?" is a 24px-hit-area `<button>` with focus-visible tooltip (`aria-describedby`) |
-| P-09 | High | Implemented (config note) | No Klaviyo ribbon in prototype; single Contact affordance desktop-only, hidden ≤768px so no input occlusion. Real-site lever: Klaviyo display settings |
+| P-09 | High | **Annotated-only** (config note) | No Klaviyo ribbon in prototype; single Contact affordance desktop-only, hidden ≤768px so no input occlusion. Real-site lever: Klaviyo display settings |
 | P-10 | High | Implemented | INCLUDED row: inline `aria-hidden` ✓ (text-success green) + hanging indent per the Key Facts / right-pane anchor reference; sentence demoted to standard 16px value |
 | P-11 | High | Implemented | Method-facts labels re-rendered with `table.pdp-spec-table th` style + geometry (latosemibold 16px/24 #525252, 38% col); uppercase transform dropped |
 | P-12 | High | Implemented | Charges flattened to standard rows: "Setup fee — $30.00 per add'l location — first location free" / "Add'l location — $5.95/item"; one size, green only on "first location free" |
@@ -42,7 +42,7 @@ Annotated view explains the real-site lever.
 | P-31 | Low | Implemented | Spec table deduped: single "Fabric — 4.3 oz lightweight (146 GSM)" row (contentV5 pipeline owns the permanent rule) |
 | P-32 | Low | Implemented | Italic + accent-bar idiom removed; useCase line is plain body text (now living in the hero subtitle per P-37) |
 | P-33 | Low | Implemented | Method facts reuse the literal `pdp-spec-table` component — label columns align by construction |
-| P-34 | Low | Implemented (removal) | No "GO!" scrap, no detached ribbon close in the corrected render; real-site fix is suppression/re-attachment |
+| P-34 | Low | **Annotated-only** (removal) | No "GO!" scrap, no detached ribbon close in the corrected render; real-site fix is suppression/re-attachment |
 | P-35 | High | Implemented | Configurator: method description promoted to 16px/24 latoregular #525252; decision body demoted to same, semibold reserved for "Best for:" lead-in; title joins the single kicker system |
 | P-36 | Medium | Implemented | ONE kicker style page-wide (Key Facts treatment, 13px latobold dark uppercase); h4/labels unified Title Case ("Imprint Location"); charges th → spec-table semibold pattern |
 | P-37 | Medium | Implemented (spec note) | Audience-fit line closes the hero subtitle; removed from Description. Requires v5.2 spec §2.5 amendment (content-template change) — flagged |

@@ -29,7 +29,7 @@
    ============================================================ */
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;background:#fff}
+body{margin:0;font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;background:#fff;font-synthesis-weight:none}
 img{max-width:100%;display:block}
 h1,h2,h3,h4,p,ul,figure{margin:0}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
@@ -94,7 +94,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .product-sku-row{display:flex;align-items:center;justify-content:space-between}
 .sku-text{font-family:"latolight",sans-serif;font-size:16px;color:#909090}
 .wishlist-link{display:inline-flex;align-items:center;gap:6px;color:#909090;font-size:16px;text-decoration:none}
-.product-name{font-family:"latobold",sans-serif;font-size:24px;line-height:1.2;color:#1f1f1f;margin-bottom:0} /* P-04: rendering unchanged; content = pdpTitle */
+.product-name{font-family:"latobold",sans-serif;font-size:24px;line-height:1.2;color:#1f1f1f;margin-bottom:0;font-weight:normal} /* P-04: rendering unchanged; content = pdpTitle */
 .ask-line{font-size:16px;color:#525252}
 .ask-line a{color:#001542}
 .product-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252} /* P-05: latoregular, sans-serif — no weight-ladder chain */
@@ -157,14 +157,14 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .pdp-section__h{margin:0}   /* P-15: h2 wrapper; visual stays on the classes */
 .pdp-section__header{display:flex;align-items:center;gap:12px;width:100%;padding:14px 0;background:none;border:0;text-align:left;cursor:pointer}
 .pdp-section__header:hover .pdp-section__title{color:#fe5000}
-.pdp-section__title{font-size:20px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal}
-.pdp-section__badge{font-size:12px;font-family:"latosemibold",sans-serif;color:#fe5000;border:1px solid rgba(254,80,0,.35);border-radius:999px;padding:2px 10px;white-space:nowrap}
+.pdp-section__title{font-size:20px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;line-height:30px}
+.pdp-section__badge{font-size:13px;font-family:"latosemibold",sans-serif;color:#fe5000;border:1px solid rgba(254,80,0,.35);border-radius:999px;padding:2px 10px;white-space:nowrap;font-weight:normal}
 .pdp-section__chevron{margin-left:auto;margin-bottom:4px;width:9px;height:9px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease-in-out;flex-shrink:0}
 .pdp-section--open>.pdp-section__h>.pdp-section__header .pdp-section__chevron{margin-bottom:0;margin-top:4px;transform:rotate(225deg)}
 .pdp-section__body{padding:0 0 16px}
 .pdp-section:not(.pdp-section--open)>.pdp-section__body{display:none}
 /* P-38: collapsed-header summary — the method-block __summary pattern applied to section headers */
-.pdp-section__hsummary{display:none;font-size:13px;color:#525252;font-family:"latoregular",sans-serif;margin-left:4px}
+.pdp-section__hsummary{display:none;font-size:13px;color:#525252;font-family:"latoregular",sans-serif;margin-left:4px;font-weight:normal}
 .pdp-section:not(.pdp-section--open) .pdp-section__hsummary{display:inline}
 .pdp-section__subheading{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;margin:12px 0 4px;font-weight:normal}
 
@@ -237,7 +237,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .imprint-method-anchor__detail{display:block;font-size:13px;color:#666}
 
 .imprint-charges-table{width:100%;font-size:14px;border-collapse:collapse;margin-bottom:4px}
-.imprint-charges-table th{font-family:"latosemibold",sans-serif;font-weight:normal;color:#525252;padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid #eee}   /* P-36: th adopts the spec-table semibold pattern (was latoregular — lighter than body) */
+.imprint-charges-table th{font-family:"latosemibold",sans-serif;font-weight:normal;font-size:16px;line-height:24px;color:#525252;padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid #eee}   /* P-36: th adopts the spec-table semibold pattern (was latoregular — lighter than body) */
 .imprint-charges-table td{padding:5px 12px 5px 0;color:#1f1f1f;font-family:"latoregular",sans-serif}
 .imprint-charges-table tr td:first-child{font-family:"latosemibold",sans-serif}
 .imprint-charges-table__free{color:#2e7d32;font-family:"latosemibold",sans-serif}
@@ -478,7 +478,7 @@ body.annotated .drawer-toggle{display:block}
           </button></h2>
           <div class="pdp-section__body" id="bodyProduction">
             <ul class="static-list">
-              <li>Production: typically 5–10 business days after artwork approval.<button type="button" class="rush-info-icon" aria-describedby="rushTip"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="Lato, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="rushTip" role="tooltip">Production time is for the default single-location, one-color imprint. It may increase for multiple imprint locations, additional colors, and large product quantities.</span></button> <span class="anno" data-p="P-08">P-08</span></li>
+              <li>Production: typically 5–10 business days after artwork approval.<button type="button" class="rush-info-icon" aria-describedby="rushTip"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="latoregular, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="rushTip" role="tooltip">Production time is for the default single-location, one-color imprint. It may increase for multiple imprint locations, additional colors, and large product quantities.</span></button> <span class="anno" data-p="P-08">P-08</span></li>
               <li>Estimated delivery with FedEx Ground: Aug 13 – Aug 20.</li>
             </ul>
           </div>
@@ -617,7 +617,7 @@ body.annotated .drawer-toggle{display:block}
             <div class="imprint-cost-row">
               <span style="color:#1f1f1f">Full Color</span>
               <span class="imprint-cost-box">Imprint #1 cost: <span class="imprint-charges-table__free">Free</span>
-                <button type="button" class="rush-info-icon" aria-describedby="imprintTip" style="margin-left:0"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="Lato, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="imprintTip" role="tooltip" style="left:auto;right:0;top:calc(100% + 8px);transform:none">Your first imprint location is included in the item price — full color, no setup fee.</span></button>
+                <button type="button" class="rush-info-icon" aria-describedby="imprintTip" style="margin-left:0"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="latoregular, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="imprintTip" role="tooltip" style="left:auto;right:0;top:calc(100% + 8px);transform:none">Your first imprint location is included in the item price — full color, no setup fee.</span></button>
               </span>
             </div>
           </div>
