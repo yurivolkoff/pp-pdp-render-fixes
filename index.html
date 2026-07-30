@@ -317,6 +317,8 @@ body.annotated .drawer-toggle{display:block}
 @media (max-width:991.98px){
   .pdp-grid{display:flex;flex-direction:column}
   .col-left,.col-right{display:contents}
+  .gallery-order,.hero-order,.keyfacts-order,.pane-order,.content-order{min-width:0;max-width:100%}   /* P-24: flex min-width:auto floor must not exceed the viewport (620px natural image width) */
+  .gallery-main img{width:100%}
   .gallery-order{order:1}
   .hero-order{order:2;margin-top:20px}
   .keyfacts-order{order:3;margin-top:20px}
