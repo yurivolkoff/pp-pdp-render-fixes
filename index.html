@@ -80,7 +80,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .gallery-arrow--prev{left:12px}
 .gallery-arrow--next{right:12px}
 .thumbnails-carousel{display:flex;align-items:center;gap:16px}
-.thumbnails-scroll{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;flex:1;padding:2px;scrollbar-width:none} /* 2px padding: no thumb clips at the rail edge (P-30) */
+.thumbnails-scroll{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;flex:1;min-width:0;padding:2px;scrollbar-width:none} /* 2px padding: no thumb clips at the rail edge (P-30); min-width:0 so the rail scrolls instead of widening the page (P-24) */
 .thumbnails-scroll::-webkit-scrollbar{display:none}
 .thumbnail-item{width:72px;height:72px;border:2px solid #e0e0e0;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .2s ease;background:#f8f8f8;padding:0}
 .thumbnail-item img{max-width:100%;max-height:100%;object-fit:contain}
