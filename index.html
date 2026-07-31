@@ -169,7 +169,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .pdp-section__subheading{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;margin:12px 0 4px;font-weight:normal}
 
 .pdp-key-facts{background:rgba(254,80,0,.05);border:1px solid rgba(254,80,0,.25);border-radius:8px;padding:14px 18px;margin-bottom:16px}
-.pdp-key-facts__title{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-family:"latobold",sans-serif;color:#1f1f1f;margin-bottom:8px;font-weight:normal}   /* THE one kicker style page-wide (P-36) */
+.pdp-key-facts__title{font-size:13px;font-family:"latobold",sans-serif;color:#1f1f1f;margin-bottom:8px;font-weight:normal}   /* THE one kicker style page-wide (P-36) — R2: uppercase/letter-spacing dropped per client review, Title Case markup */
 .pdp-key-facts__list{list-style:none;margin:0;padding:0}
 .pdp-key-facts__list li{position:relative;padding-left:22px;margin-bottom:6px}
 .pdp-key-facts__list li::before{content:"✓" / "";position:absolute;left:0;color:#fe5000;font-family:"latobold",sans-serif}   /* P-10: marker hidden from AT via alt-text syntax */
@@ -220,9 +220,9 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .imprint-method-badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
 .imprint-method-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin:0 0 12px}   /* P-35: promoted from 13px gray — the pane's body style */
 
-.imprint-method-decision{background:rgba(254,80,0,.05);border:1px solid rgba(254,80,0,.25);border-radius:8px;margin:12px 0}
+.imprint-method-decision{border-top:1px solid #eee;margin:12px 0}   /* R2-2: orange tint/border stripped — reuses the .pdp-section quiet-disclosure separator idiom (was rgba(254,80,0,.05) bg + rgba(254,80,0,.25) border) */
 .imprint-method-decision__toggle{display:flex;align-items:center;width:100%;background:none;border:0;padding:12px 16px;cursor:pointer;text-align:left}
-.imprint-method-decision__title{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-family:"latobold",sans-serif;color:#1f1f1f;flex:1;font-weight:normal}   /* P-36: joins the ONE kicker system (was 12px orange, 3rd competing idiom) */
+.imprint-method-decision__title{font-size:13px;font-family:"latobold",sans-serif;color:#1f1f1f;flex:1;font-weight:normal}   /* P-36: joins the ONE kicker system (was 12px orange, 3rd competing idiom); R2: uppercase/letter-spacing dropped */
 .imprint-method-decision__chevron{flex-shrink:0;width:8px;height:8px;border-right:2px solid #fe5000;border-bottom:2px solid #fe5000;transform:rotate(45deg);transition:transform .15s ease-in-out}
 .imprint-method-decision--open .imprint-method-decision__chevron{transform:rotate(225deg)}
 .imprint-method-decision__content{padding:0 16px 14px}
@@ -230,11 +230,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .imprint-method-decision__body{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin-bottom:8px}   /* P-35: demoted from all-semibold slab; semibold reserved for the strong lead-in */
 .imprint-method-decision__body strong{color:#1f1f1f}
 
-.imprint-method-anchor{display:flex;gap:10px;align-items:flex-start;background:#eef6ef;border:1px solid rgba(46,125,50,.3);border-radius:6px;padding:10px 12px;margin-bottom:12px}   /* verified-correct reference implementation (P-10) — unchanged */
-.imprint-method-anchor__tick{color:#2e7d32;font-family:"latobold",sans-serif;font-size:16px;line-height:1.4}
-.imprint-method-anchor__text{margin:0;font-size:14px;line-height:1.5;color:#1f1f1f}
-.imprint-method-anchor__text strong{color:#2e7d32}
-.imprint-method-anchor__detail{display:block;font-size:13px;color:#666}
+/* R2-5: .imprint-method-anchor rules removed with the markup instance — the charges table below is now the ONE statement of "first location included" */
 
 .imprint-charges-table{width:100%;font-size:14px;border-collapse:collapse;margin-bottom:4px}
 .imprint-charges-table th{font-family:"latosemibold",sans-serif;font-weight:normal;font-size:16px;line-height:24px;color:#525252;padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid #eee}   /* P-36: th adopts the spec-table semibold pattern (was latoregular — lighter than body) */
@@ -438,6 +434,9 @@ body.annotated .drawer-toggle{display:block}
           <h2 class="pdp-section__h"><button type="button" class="pdp-section__header" aria-expanded="true" aria-controls="bodyDecoration">
             <span class="pdp-section__title">Decoration &amp; Imprint</span>
             <span class="pdp-section__badge">1 method</span>
+            <!-- R2-3: header summary restored, recomposed (Production header's __hsummary pattern) -->
+            <span class="pdp-section__hsummary">Full-color imprint · first location included</span>
+            <span class="anno" data-p="P-27">P-27</span><span class="anno" data-p="P-40">P-40</span>
             <span class="pdp-section__chevron" aria-hidden="true"></span>
           </button></h2>
           <div class="pdp-section__body" id="bodyDecoration">
@@ -501,8 +500,9 @@ body.annotated .drawer-toggle{display:block}
           <!-- P-04: H1 = v5.2 pdpTitle (product name only, no pipes, no feed claims) -->
           <h1 class="product-name">Fairweather Johnson Gilmore Lightweight Tee <span class="anno" data-p="P-04">P-04</span><span class="anno" data-p="P-01">P-01</span></h1>
           <p class="ask-line">Have a product question? <a href="#qaSection">Ask us</a></p>
-          <!-- P-37: audience-fit line closes the subtitle (plain body text — P-32); requires v5.2 spec §2.5 amendment -->
-          <p class="product-subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint. A practical choice for teams, staff, uniforms, and company events. <span class="anno" data-p="P-37">P-37</span></p>
+          <p class="product-subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint.</p>
+          <!-- R2-4: audience-fit line split to its own line (plain body text — P-32); requires v5.2 spec §2.5 amendment -->
+          <p class="product-subtitle">A practical choice for teams, staff, uniforms, and company events. <span class="anno" data-p="P-37">P-37</span></p>
         </div>
       </div>
 
@@ -576,19 +576,12 @@ body.annotated .drawer-toggle{display:block}
             </div>
           </div>
 
-          <!-- Verified-correct component, unchanged (P-10 reference implementation). P-39: the third statement of this fact (the note under the table) is gone -->
-          <div class="imprint-method-anchor">
-            <span class="imprint-method-anchor__tick" aria-hidden="true">✓</span>
-            <p class="imprint-method-anchor__text"><strong>First imprint included</strong> — full color, one location, no setup fee.
-              <span class="imprint-method-anchor__detail">Add locations below — extras are priced separately.</span></p>
-            <span class="anno" data-p="P-39" style="margin-left:auto">P-39</span>
-          </div>
-
+          <!-- R2-5: included-fact anchor removed — the recomposed charges table below is now the ONE statement of "first location included" (was the anchor sentence + the table, P-39) -->
           <table class="imprint-charges-table">
-            <thead><tr><th>Decoration Charges</th><th>Setup</th><th>Run Charge</th></tr></thead>
+            <thead><tr><th colspan="2">Decoration Charges <span class="anno" data-p="P-12">P-12</span><span class="anno" data-p="P-39">P-39</span></th></tr></thead>
             <tbody>
-              <tr class="imprint-charges-table__first-row"><td>First Location</td><td class="imprint-charges-table__free">Included</td><td class="imprint-charges-table__free">Free</td></tr>
-              <tr><td>Extra Location</td><td>$30.00</td><td>$5.95 / item</td></tr>
+              <tr class="imprint-charges-table__first-row"><td>First location</td><td class="imprint-charges-table__free">Included</td></tr>
+              <tr><td>Additional location</td><td>$30.00 setup + $5.95/item</td></tr>
             </tbody>
           </table>
 
@@ -616,9 +609,8 @@ body.annotated .drawer-toggle{display:block}
             <h3 class="config-h">Imprint Colors</h3>
             <div class="imprint-cost-row">
               <span style="color:#1f1f1f">Full Color</span>
-              <span class="imprint-cost-box">Imprint #1 cost: <span class="imprint-charges-table__free">Free</span>
-                <button type="button" class="rush-info-icon" aria-describedby="imprintTip" style="margin-left:0"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="latoregular, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="imprintTip" role="tooltip" style="left:auto;right:0;top:calc(100% + 8px);transform:none">Your first imprint location is included in the item price — full color, no setup fee.</span></button>
-              </span>
+              <!-- R2-5: "?" tooltip removed — it restated the same "first location included, no setup fee" fact as the charges table (third instance) -->
+              <span class="imprint-cost-box">Imprint #1 cost: <span class="imprint-charges-table__free">Free</span></span>
             </div>
           </div>
           <button type="button" class="add-imprint-link"><span aria-hidden="true">+</span> Add Additional Imprint Location</button>
@@ -714,7 +706,7 @@ var REG = {
 "P-09":["High","Annotated-only (config)","Mobile: fixed widgets occluded content and inputs","Prototype keeps a single Contact affordance, desktop-only — nothing occludes inputs at 390px. Real-site lever: Klaviyo display settings (suppress teaser at mobile widths)."],
 "P-10":["High","Implemented","Orphaned block-level ✓ in the INCLUDED row; ✓ exposed to screen readers","Inline aria-hidden ✓ (text-success green) + hanging indent per the Key Facts marker / right-pane anchor reference implementation; sentence demoted to the standard 16px value style."],
 "P-11":["High","Implemented","11px bold-caps labels in a ~38% dead-space column","Labels adopt the existing table.pdp-spec-table th style and geometry — latosemibold 16px/24 #525252, 38% column; uppercase transform dropped."],
-"P-12":["High","Implemented","Second label system nested in the value column; 3-size charge line","Charges flattened to standard rows: 'Setup fee — $30.00 per add'l location — first location free' / 'Add'l location — $5.95/item'. One size; green only on 'first location free' (text-success)."],
+"P-12":["High","Implemented","Second label system nested in the value column; 3-size charge line","Charges flattened to standard rows in the informational Decoration & Imprint spec table: 'Setup fee — $30.00 per add'l location — first location free' / 'Add'l location — $5.95/item'. R2: the configurator's imprint-charges-table separately recomposed to user-action rows — 'First location → Included' / 'Additional location → $30.00 setup + $5.95/item' — replacing the old Setup/Run Charge column split."],
 "P-13":["High","Implemented","Price carried zero visual emphasis; per-unit price smallest in band","$183.00 gets the existing span.pdp-section__title metrics (20px/30 latosemibold); the label stays 16px; 'Price each' promoted to standard 16px body."],
 "P-14":["Medium","Implemented","Mobile: entire ordering flow preceded ALL product information","The existing Key Facts card orders between the hero and the Colors step at mobile widths."],
 "P-15":["Medium","Implemented","Section titles invisible to heading navigation; hierarchy inverted","Section titles wrapped in <h2> (visual stays on .pdp-section__title); Key Facts title is an <h2>; $183.00 demoted to a styled span. Outline: H1 → H2s."],
@@ -729,7 +721,7 @@ var REG = {
 "P-24":["Medium","Implemented (scope note)","Mobile: page scrolled horizontally (423px on 390px viewport)","Prototype has no horizontal scroll at 390 — the tier strip scrolls inside its own wrapper. The footer .px-5 contributor is site chrome outside this prototype; flagged for Boris."],
 "P-25":["Medium","Annotated-only (platform)","v5-intent buy-box decision aids absent (rating, sample, shipping, returns)","Platform-template blocks (marked 'platform' in the v5 prototype), not copy-pipeline items — the template half of the v5.2 rollout, flagged to Boris. Not faked here."],
 "P-26":["Medium","Implemented","Location chips styled as interactive buttons for static metadata","Locations render as comma-separated 16px latoregular text in the value cell — the Specifications 'Sizes' row precedent."],
-"P-27":["Medium","Implemented","Triple-box nesting + summary line duplicating every fact","Method summary suppressed (single-method product renders expanded); inner facts border dropped — the borderless section-body treatment of Description/Specifications."],
+"P-27":["Medium","Implemented","Triple-box nesting + summary line duplicating every fact","Method summary suppressed (single-method product renders expanded); inner facts border dropped — the borderless section-body treatment of Description/Specifications. R2: the section header itself now carries a recomposed summary ('Full-color imprint · first location included') via .pdp-section__hsummary — the method-block's own summary stays suppressed."],
 "P-28":["Medium","Implemented","Three competing section-header idioms; Q&A heading weaker than body sections","Q&A headings adopt span.pdp-section__title (20px latosemibold). Step bars + Key Facts card stay as sanctioned exceptions."],
 "P-29":["Medium","Implemented","Desktop: ~1,500px empty right column below the buy box","Closed by the sticky right column (P-16) — the pane tracks the reading position instead of leaving a dead half-page."],
 "P-30":["Low","Implemented","Gallery: unlabeled controls, truncated thumb rail, AT clone noise","aria-labels on both arrows; no clone slides exist in this render; the rail is padded so no thumbnail clips."],
@@ -737,12 +729,12 @@ var REG = {
 "P-32":["Low","Implemented","useCase line elevated to a one-off italic + accent-bar callout","The italic/bar idiom is retired; the line renders as plain body text — now living in the hero subtitle per P-37."],
 "P-33":["Low","Implemented","Spec-table vs method-facts column misalignment","Method facts reuse the literal pdp-spec-table component — the two tables share one column geometry by construction."],
 "P-34":["Low","Implemented (removal)","Stray 'GO!' fragment; detached ribbon close button","Neither artifact exists in the corrected render. Real-site fix: suppress the animation resting state; re-attach the ribbon close inside its bounds."],
-"P-35":["High","Implemented","Configurator inverted text hierarchy: 13px summary vs 16px semibold slab","Method description promoted to the pane's 16px/24 latoregular body style; decision body demoted to the same, with semibold reserved for the 'Best for:' lead-in; box title joins the single kicker system."],
-"P-36":["Medium","Implemented","Three competing uppercase-kicker systems + casing disagreement","ONE kicker style page-wide — the Key Facts treatment (13px latobold dark uppercase). Labels unified to Title Case ('Imprint Location'); charges th adopts the spec-table semibold pattern."],
-"P-37":["Medium","Implemented (spec note)","The page's only audience-fit line was buried at the bottom of Description","'A practical choice for teams, staff, uniforms, and company events.' closes the hero subtitle (plain 16px, no italic/bar) and leaves the Description body. Requires v5.2 spec §2.5 amendment."],
+"P-35":["High","Implemented","Configurator inverted text hierarchy: 13px summary vs 16px semibold slab","Method description promoted to the pane's 16px/24 latoregular body style; decision body demoted to the same, with semibold reserved for the 'Best for:' lead-in; box title joins the single kicker system. R2: the box itself is subordinated to a plain disclosure — orange tint/border stripped, border-top:1px solid #eee (the .pdp-section quiet-separator idiom); chevron stays orange (site accent)."],
+"P-36":["Medium","Implemented","Three competing uppercase-kicker systems + casing disagreement","ONE kicker style page-wide — 13px latobold dark, Title Case ('Key Facts', 'When To Choose This?'). Labels unified to Title Case ('Imprint Location'); charges th adopts the spec-table semibold pattern. R2: uppercase + letter-spacing dropped per client review — Title Case is now the kicker's own casing, not just the labels below it."],
+"P-37":["Medium","Implemented (spec note)","The page's only audience-fit line was buried at the bottom of Description","'A practical choice for teams, staff, uniforms, and company events.' closes the hero subtitle and leaves the Description body. Requires v5.2 spec §2.5 amendment. R2: split into its own .product-subtitle line below the 2-sentence subtitle paragraph (was trailing the same paragraph) — same plain 16px style, no italic/bar; P-37 chip stays on the new line."],
 "P-38":["Medium","Implemented","Collapsed Production & Shipping hid the delivery estimate entirely","The collapsed header keeps 'Est. delivery Aug 13 – Aug 20 · 5–10 business days production' via the method-block __summary pattern. Collapse the section to see it."],
-"P-39":["Medium","Implemented","Location dropdown pushed CTA 288px; included-fact stated 3×","The listbox is a position:absolute overlay — Subtotal/Add to Cart never move; the included-fact triplet deduped to the anchor sentence + the charges table (the note is gone)."],
-"P-40":["Low","Implemented (via P-27)","Method summary led with a duplicate, ended with a count-only stat","Suppressed on this single-method product (P-27). For multi-method pages the recomposed string is documented: '1 full-color location included · extra location $30.00 setup + $5.95/item'."]
+"P-39":["Medium","Implemented","Location dropdown pushed CTA 288px; included-fact stated 3×","The listbox is a position:absolute overlay — Subtotal/Add to Cart never move. R2: the included-fact triplet is now deduped to ONE statement — the recomposed charges table row ('First location — Included'); the anchor sentence and the redundant '?' tooltip on Imprint #1 cost (a third, previously undocumented repetition) are both removed."],
+"P-40":["Low","Implemented (via P-27)","Method summary led with a duplicate, ended with a count-only stat","Suppressed on this single-method product (P-27); the recomposed string was documented but not rendered. R2: now rendered live at the section-header level — 'Full-color imprint · first location included' (single-method wording; the documented multi-method form remains '1 full-color location included · extra location $30.00 setup + $5.95/item')."]
 };
 
 /* ================= State ================= */

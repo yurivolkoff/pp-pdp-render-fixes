@@ -23,7 +23,7 @@ the review-prescribed value changes.
 |---|---|---|
 | Page title (H1) | `h1.product-name`: latobold 24px/1.2 #1f1f1f | unchanged (content re-bound per P-04) |
 | Section title | `span.pdp-section__title`: latosemibold 20px/30 #1f1f1f, Title Case, inside `<h2>` | 3 idioms → 1: also applied to Q&A headings (P-28), semantic h2 (P-15) |
-| Kicker (small uppercase) | Key Facts treatment: latobold 13px, uppercase, ls .08em, #1f1f1f | the ONLY uppercase on the page; also the When-to-choose title (P-36). 11px gray caps labels + 12px orange caps eliminated |
+| Kicker (small, Title Case) | Key Facts treatment: latobold 13px, #1f1f1f, Title Case, no transform | also the When-to-choose title (P-36). 11px gray caps labels + 12px orange caps eliminated; R2 (2026-07-31): uppercase + letter-spacing dropped page-wide per client review — ONE kicker style is now Title Case, not uppercase |
 | Step-bar header | charcoal #525252 bar; `.step-number` latobold 20px white + `.step-label` latomedium 16px white; static `<h2>` | do-nothing buttons + phantom checkboxes removed (P-22) |
 | Pane sub-heading | latosemibold 16px #1f1f1f, **Title Case** ("Imprint Method: Full Color", "Imprint Location", "Imprint Colors", "How Many Would You Like of Each Size?") | casing disagreement resolved (P-36) |
 | Row label (spec + method facts + charges th) | `table.pdp-spec-table th`: latosemibold 16px/24 #525252, col 38%, padding 8px 12px 8px 0 | 11px caps labels (P-11), nested charge-labels (P-12), charges th/td weight inversion (P-36), column misalignment (P-33) |
@@ -110,3 +110,10 @@ benchmarking; no new competitor claims introduced.
   the 620px natural image width was re-creating P-24's horizontal scroll via flex min-content floors.
 - 2026-07-30 Contact affordance reduced to a 48px icon positioned clear of the buy pane
   (P-09 desktop facet: live bubble covered "Price each").
+
+## R2 (2026-07-31, client review)
+- R2-1 Kickers lose uppercase: `.pdp-key-facts__title` + `.imprint-method-decision__title` drop `text-transform:uppercase`/`letter-spacing:.08em` — Title Case is now the kicker's own casing (P-36).
+- R2-2 Decision box subordinated: `.imprint-method-decision` loses the orange tint/border, reused as a plain `border-top:1px solid #eee` disclosure (the `.pdp-section` quiet-separator idiom); chevron stays orange (P-35).
+- R2-3 Decoration & Imprint header summary restored, recomposed: `.pdp-section__hsummary` "Full-color imprint · first location included" added, matching Production's collapsed-only visibility (P-27/P-40).
+- R2-4 Audience-fit line split to its own `.product-subtitle` line below the 2-sentence subtitle paragraph, chip intact (P-37).
+- R2-5 Charges table recomposed action-oriented: "First location → Included" / "Additional location → $30.00 setup + $5.95/item"; the redundant anchor sentence and a third "?"-tooltip repetition removed, leaving one statement of the fact (P-12/P-39).

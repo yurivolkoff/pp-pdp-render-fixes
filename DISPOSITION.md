@@ -20,7 +20,7 @@ Annotated view explains the real-site lever.
 | P-09 | High | **Annotated-only** (config note) | No Klaviyo ribbon in prototype; single Contact affordance desktop-only, hidden ≤768px so no input occlusion. Real-site lever: Klaviyo display settings |
 | P-10 | High | Implemented | INCLUDED row: inline `aria-hidden` ✓ (text-success green) + hanging indent per the Key Facts / right-pane anchor reference; sentence demoted to standard 16px value |
 | P-11 | High | Implemented | Method-facts labels re-rendered with `table.pdp-spec-table th` style + geometry (latosemibold 16px/24 #525252, 38% col); uppercase transform dropped |
-| P-12 | High | Implemented | Charges flattened to standard rows: "Setup fee — $30.00 per add'l location — first location free" / "Add'l location — $5.95/item"; one size, green only on "first location free" |
+| P-12 | High | Implemented | Charges flattened to standard rows in the informational Decoration & Imprint spec table: "Setup fee — $30.00 per add'l location — first location free" / "Add'l location — $5.95/item"; one size, green only on "first location free". **R2 (2026-07-31):** configurator charges table separately recomposed to user-action rows — "First location → Included" / "Additional location → $30.00 setup + $5.95/item" |
 | P-13 | High | Implemented | `$183.00` gets `span.pdp-section__title` metrics (20px/30 latosemibold); label stays 16px; "Price each" promoted to 16px body |
 | P-14 | Medium | Implemented | Key Facts card orders between hero and Colors at mobile widths |
 | P-15 | Medium | Implemented | Section titles wrapped in `<h2>` (class carries the look); Key Facts title = `<h2>`; `$183.00` demoted to styled `<span>`; outline: H1 → H2s |
@@ -35,7 +35,7 @@ Annotated view explains the real-site lever.
 | P-24 | Medium | Implemented (scope note) | Prototype has no horizontal scroll at 390 (tier strip scrolls inside its own wrapper). Footer `.px-5` contributor is site chrome outside prototype scope — flagged for Boris |
 | P-25 | Medium | **Annotated-only** | Rating, Request Free Sample, shipping cost, returns link are platform-template blocks (v5.2 rollout, Boris) — not invented here; chip marks the buy-box slot |
 | P-26 | Medium | Implemented | Locations render as comma-separated 16px latoregular text in the spec-row pattern (Specifications "Sizes" precedent) |
-| P-27 | Medium | Implemented | Method summary suppressed (single-method product); inner `.pdp-method-facts` border dropped — borderless section-body treatment |
+| P-27 | Medium | Implemented | Method summary suppressed (single-method product); inner `.pdp-method-facts` border dropped — borderless section-body treatment. **R2 (2026-07-31):** the section header now carries a recomposed summary ("Full-color imprint · first location included") via `.pdp-section__hsummary` — the method-block's own summary stays suppressed |
 | P-28 | Medium | Implemented | Q&A headings get `pdp-section__title` (20px latosemibold); step bars + Key Facts card kept as sanctioned exceptions |
 | P-29 | Medium | Implemented | Closed by the sticky right column (P-16 option); no dead half-page while reading |
 | P-30 | Low | Implemented | Gallery arrows have `aria-label`s; no clone slides exist; rail padded so no thumb clips |
@@ -43,12 +43,12 @@ Annotated view explains the real-site lever.
 | P-32 | Low | Implemented | Italic + accent-bar idiom removed; useCase line is plain body text (now living in the hero subtitle per P-37) |
 | P-33 | Low | Implemented | Method facts reuse the literal `pdp-spec-table` component — label columns align by construction |
 | P-34 | Low | **Annotated-only** (removal) | No "GO!" scrap, no detached ribbon close in the corrected render; real-site fix is suppression/re-attachment |
-| P-35 | High | Implemented | Configurator: method description promoted to 16px/24 latoregular #525252; decision body demoted to same, semibold reserved for "Best for:" lead-in; title joins the single kicker system |
-| P-36 | Medium | Implemented | ONE kicker style page-wide (Key Facts treatment, 13px latobold dark uppercase); h4/labels unified Title Case ("Imprint Location"); charges th → spec-table semibold pattern |
-| P-37 | Medium | Implemented (spec note) | Audience-fit line closes the hero subtitle; removed from Description. Requires v5.2 spec §2.5 amendment (content-template change) — flagged |
+| P-35 | High | Implemented | Configurator: method description promoted to 16px/24 latoregular #525252; decision body demoted to same, semibold reserved for "Best for:" lead-in; title joins the single kicker system. **R2 (2026-07-31):** decision box itself subordinated — orange tint/border stripped, `border-top:1px solid #eee` (the `.pdp-section` quiet-separator idiom); chevron stays orange (site accent) |
+| P-36 | Medium | Implemented | ONE kicker style, 13px latobold Title Case — uppercase dropped per client review R2; h4/labels unified Title Case ("Imprint Location"); charges th → spec-table semibold pattern |
+| P-37 | Medium | Implemented (spec note) | Audience-fit line closes the hero subtitle; removed from Description. Requires v5.2 spec §2.5 amendment (content-template change) — flagged. **R2 (2026-07-31):** split into its own `.product-subtitle` line below the 2-sentence subtitle paragraph (was trailing the same paragraph); same plain 16px style, chip stays on the new line |
 | P-38 | Medium | Implemented | Collapsed Production & Shipping header shows "Est. delivery Aug 13 – Aug 20 · 5–10 business days production" via the method-block summary pattern (collapse the section to see it) |
-| P-39 | Medium | Implemented | Location listbox = `position:absolute` overlay (Subtotal/CTA no longer pushed); included-fact triplet deduped to anchor sentence + charges table (note dropped) |
-| P-40 | Low | Implemented (via P-27) | Summary suppressed on this single-method product; recomposed multi-method string documented: "1 full-color location included · extra location $30.00 setup + $5.95/item" |
+| P-39 | Medium | Implemented | Location listbox = `position:absolute` overlay (Subtotal/CTA no longer pushed); included-fact triplet deduped to anchor sentence + charges table (note dropped). **R2 (2026-07-31):** deduped further to ONE statement — the recomposed charges table row ("First location — Included"); the anchor sentence and a third, previously-undocumented "?" tooltip repetition on Imprint #1 cost are both removed |
+| P-40 | Low | Implemented (via P-27) | Summary suppressed on this single-method product; recomposed multi-method string documented: "1 full-color location included · extra location $30.00 setup + $5.95/item". **R2 (2026-07-31):** now rendered live at the section-header level ("Full-color imprint · first location included", single-method wording) |
 
 ## Annotated-only rationale (2 + 2 borderline)
 - **P-20** — Klaviyo targeting + consent-banner sequencing: third-party config, no site code.
