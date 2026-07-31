@@ -235,9 +235,8 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .imprint-charges-table{width:100%;font-size:14px;border-collapse:collapse;margin-bottom:4px}
 .imprint-charges-table th{font-family:"latosemibold",sans-serif;font-weight:normal;font-size:16px;line-height:24px;color:#525252;padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid #eee}   /* P-36: th adopts the spec-table semibold pattern (was latoregular — lighter than body) */
 .imprint-charges-table td{padding:5px 12px 5px 0;color:#1f1f1f;font-family:"latoregular",sans-serif}
-.imprint-charges-table tr td:first-child{font-family:"latosemibold",sans-serif}
 .imprint-charges-table__free{color:#2e7d32;font-family:"latosemibold",sans-serif}
-.imprint-charges-table__first-row td{background:#eef6ef}
+.imprint-charges-table__first-row th,.imprint-charges-table__first-row td{background:#eef6ef}   /* fix: row-highlight bg now covers the th (was td:first-child before the R2-5 label cells became th) */
 
 .artwork-status-bar{background:rgba(248,184,109,.12);display:flex;align-items:center;gap:10px;padding:12px 10px;cursor:pointer;margin:12px 0}
 .artwork-status-bar span{font-family:"latomedium",sans-serif;font-size:16px;color:#f05323}
@@ -250,7 +249,7 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .location-select__list li:hover{background:#f5f5f5}
 .location-select__list li[aria-selected="true"]{background:#fff6f2}
 .imprint-cost-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.imprint-cost-box{background:#fafafa;padding:10px 14px;font-size:14px;color:#1f1f1f;display:flex;align-items:center;gap:8px}
+/* R2-fix: .imprint-cost-box removed with its markup instance ("Imprint #1 cost: Free" — 4th "first location free" repetition) */
 .add-imprint-link{display:inline-flex;align-items:center;gap:6px;color:#fe5000;font-size:16px;margin:4px 0 8px;background:none;border:0;cursor:pointer;padding:4px 0}
 .add-imprint-link:hover{text-decoration:underline}
 .secure-line{display:flex;align-items:center;gap:8px;color:#0d6efd;font-size:16px;margin-top:14px}
@@ -580,8 +579,8 @@ body.annotated .drawer-toggle{display:block}
           <table class="imprint-charges-table">
             <thead><tr><th colspan="2">Decoration Charges <span class="anno" data-p="P-12">P-12</span><span class="anno" data-p="P-39">P-39</span></th></tr></thead>
             <tbody>
-              <tr class="imprint-charges-table__first-row"><td>First location</td><td class="imprint-charges-table__free">Included</td></tr>
-              <tr><td>Additional location</td><td>$30.00 setup + $5.95/item</td></tr>
+              <tr class="imprint-charges-table__first-row"><th scope="row">First location</th><td class="imprint-charges-table__free">Included</td></tr>
+              <tr><th scope="row">Additional location</th><td>$30.00 setup + $5.95/item</td></tr>
             </tbody>
           </table>
 
@@ -607,10 +606,9 @@ body.annotated .drawer-toggle{display:block}
               <span class="anno" data-p="P-39" style="position:absolute;right:-6px;top:-10px">P-39</span>
             </div>
             <h3 class="config-h">Imprint Colors</h3>
+            <!-- R2-fix: "Imprint #1 cost: Free" line removed (4th instance of "first location free") — the charges table's "First location → Included" row is the single canonical statement; the "?" tooltip that lived alongside this line was already removed in R2-5 -->
             <div class="imprint-cost-row">
               <span style="color:#1f1f1f">Full Color</span>
-              <!-- R2-5: "?" tooltip removed — it restated the same "first location included, no setup fee" fact as the charges table (third instance) -->
-              <span class="imprint-cost-box">Imprint #1 cost: <span class="imprint-charges-table__free">Free</span></span>
             </div>
           </div>
           <button type="button" class="add-imprint-link"><span aria-hidden="true">+</span> Add Additional Imprint Location</button>
@@ -733,7 +731,7 @@ var REG = {
 "P-36":["Medium","Implemented","Three competing uppercase-kicker systems + casing disagreement","ONE kicker style page-wide — 13px latobold dark, Title Case ('Key Facts', 'When To Choose This?'). Labels unified to Title Case ('Imprint Location'); charges th adopts the spec-table semibold pattern. R2: uppercase + letter-spacing dropped per client review — Title Case is now the kicker's own casing, not just the labels below it."],
 "P-37":["Medium","Implemented (spec note)","The page's only audience-fit line was buried at the bottom of Description","'A practical choice for teams, staff, uniforms, and company events.' closes the hero subtitle and leaves the Description body. Requires v5.2 spec §2.5 amendment. R2: split into its own .product-subtitle line below the 2-sentence subtitle paragraph (was trailing the same paragraph) — same plain 16px style, no italic/bar; P-37 chip stays on the new line."],
 "P-38":["Medium","Implemented","Collapsed Production & Shipping hid the delivery estimate entirely","The collapsed header keeps 'Est. delivery Aug 13 – Aug 20 · 5–10 business days production' via the method-block __summary pattern. Collapse the section to see it."],
-"P-39":["Medium","Implemented","Location dropdown pushed CTA 288px; included-fact stated 3×","The listbox is a position:absolute overlay — Subtotal/Add to Cart never move. R2: the included-fact triplet is now deduped to ONE statement — the recomposed charges table row ('First location — Included'); the anchor sentence and the redundant '?' tooltip on Imprint #1 cost (a third, previously undocumented repetition) are both removed."],
+"P-39":["Medium","Implemented","Location dropdown pushed CTA 288px; included-fact stated 3×","The listbox is a position:absolute overlay — Subtotal/Add to Cart never move. R2: the included-fact statement is now deduped to ONE — the recomposed charges table row ('First location — Included'). Three redundant repetitions removed: the anchor sentence, the '?' tooltip on Imprint #1 cost, and the 'Imprint #1 cost: Free' line itself (a fourth, previously undocumented repetition caught in live re-verification)."],
 "P-40":["Low","Implemented (via P-27)","Method summary led with a duplicate, ended with a count-only stat","Suppressed on this single-method product (P-27); the recomposed string was documented but not rendered. R2: now rendered live at the section-header level — 'Full-color imprint · first location included' (single-method wording; the documented multi-method form remains '1 full-color location included · extra location $30.00 setup + $5.95/item')."]
 };
 
