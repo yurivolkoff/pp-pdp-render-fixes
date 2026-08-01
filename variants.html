@@ -1,0 +1,624 @@
+<!-- Design variants for the PDP right pane — companion to index.html (untouched).
+     Diagnosis: research/reports/2026-08-01-pdp-proto-ui-design-review.md
+     Three directions; each resolves the four client items:
+       1 audience-fit line w/ accent-bar idiom · 2 spacing scale · 3 defined When-To-Choose · 4 calm right side.
+     Shared floors: theme alias fonts only (bold by family switch), no uppercase, nothing <13px,
+     price = strongest buy-box text, palette = #fe5000 + grays + #eee (+tints), green #2e7d32 semantics only. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDP Prototype — Design Variants A · B · C</title>
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<style>
+/* ================= fonts — theme aliases, single-weight families ================= */
+@font-face{font-family:"latoregular";src:url("fonts/lato-regular.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latobold";src:url("fonts/lato-bold.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latosemibold";src:url("fonts/lato-bold.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latomedium";src:url("fonts/lato-medium-webfont.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+@font-face{font-family:"latolight";src:url("fonts/lato-light.woff2") format("woff2");font-weight:normal;font-style:normal;font-display:swap}
+
+/* ================= base ================= */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;background:#fff;font-synthesis-weight:none}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p,ul,table{margin:0}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input{font:inherit}
+strong,b{font-family:"latobold",sans-serif;font-weight:normal}
+:focus-visible{outline:2px solid #fe5000;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* ================= meta-UI: switcher + captions (not part of the design system) ================= */
+.switch-bar{position:sticky;top:0;z-index:100;background:#1f1f1f;padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.switch-bar .sb-title{color:#b3b3b3;font-size:13px;font-family:"latomedium",sans-serif;margin-right:8px}
+.switch-bar button{color:#b3b3b3;font-family:"latomedium",sans-serif;font-size:14px;padding:7px 16px;border-radius:999px}
+.switch-bar button[aria-pressed="true"]{background:#fe5000;color:#fff}
+.caption-strip{max-width:1360px;margin:24px auto 0;padding:14px 18px;background:#f7f7f7;border:1px solid #eee;border-radius:8px;font-size:13px;line-height:20px;color:#525252}
+.caption-strip .cap-name{font-family:"latobold",sans-serif;color:#1f1f1f;font-size:14px;margin-bottom:4px}
+.caption-strip .cap-path{margin-top:6px;color:#1f1f1f;font-family:"latomedium",sans-serif}
+.caption-strip .cap-path::before{content:"Attention path: ";font-family:"latobold",sans-serif}
+
+/* ================= layout ================= */
+.variant{display:none}
+.variant.active{display:block}
+.v-grid{max-width:1360px;margin:24px auto 64px;padding:0 16px;display:grid;grid-template-columns:280px 500px 500px;gap:0 28px;justify-content:center;align-items:start}
+.pane{min-width:0}
+.pane-tag{font-size:13px;font-family:"latomedium",sans-serif;color:#909090;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:20px}
+.ctx{position:sticky;top:64px}
+.ctx img{border:1px solid #eee;border-radius:6px}
+.ctx .ctx-note{margin-top:10px;font-size:13px;line-height:19px;color:#909090}
+.ctx .ctx-skel{margin-top:16px}
+.ctx .ctx-skel div{height:10px;border-radius:5px;background:#f0f0f0;margin-bottom:10px}
+@media (max-width:1379.98px){.v-grid{grid-template-columns:minmax(0,500px) minmax(0,500px)}.ctx{display:none}}
+@media (max-width:1079.98px){.v-grid{grid-template-columns:minmax(0,522px)}.pane+.pane{margin-top:48px}}
+
+/* ================= shared primitives (identical across variants) ================= */
+.swatch-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.swatch{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:6px;border:2px solid transparent}
+.swatch:hover:not(.selected){border-color:#e2e2e2}
+.swatch.selected{border-color:#fe5000;padding:4px}  /* ONE selection orange — #ff6b00 retired */
+.swatch i{display:block;width:36px;height:36px;border-radius:50%}
+.swatch.ring i{border:1px solid #b3b3b3}
+.color-line{margin-top:12px;font-size:16px}
+.color-line .cname{font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.tier-scroll{overflow-x:auto}
+.tier{border-collapse:separate;border-spacing:0;width:100%}
+.tier td{font-size:14px;font-family:"latomedium",sans-serif;border:1px solid transparent;color:#1f1f1f;padding:5px 4px;text-align:center}
+.tier td:first-child{font-family:"latoregular",sans-serif;color:#757575;text-align:left;white-space:nowrap}
+.tier td.active{background:#fff6f2;border-left-color:#fe5000;border-right-color:#fe5000}
+.tier tr:first-child td.active{border-top-color:#fe5000;border-top-left-radius:4px;border-top-right-radius:4px}
+.tier tr:last-child td.active{border-bottom-color:#fe5000;border-bottom-left-radius:4px;border-bottom-right-radius:4px}
+.sizes{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sizes label{display:block;font-size:14px;color:#1f1f1f;margin-bottom:4px}
+.sizes input{width:100%;height:44px;border:1px solid #b3b3b3;border-radius:4px;padding:0 10px;font-size:16px;color:#1f1f1f;font-family:"latoregular",sans-serif}
+.sizes .filled input{border-color:#fe5000;background:#fff6f2}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:54px;background:#fe5000;border:1px solid #fe5000;color:#fff;font-size:20px;font-family:"latobold",sans-serif;text-align:center;transition:.3s;border-radius:4px}
+.cta:hover{background:#fe6a26;border-color:#fe621a}
+.abar{border-left:3px solid #fe5000;padding-left:12px}  /* the accent-bar idiom (client item 1) */
+.green{color:#2e7d32;font-family:"latosemibold",sans-serif}  /* ONE semantic green */
+.meta13{font-size:13px;line-height:19px;color:#757575}
+.loc-btn{width:100%;display:flex;align-items:center;justify-content:space-between;border:1px solid #b3b3b3;background:#fff;border-radius:4px;padding:0 16px;height:48px;font-family:"latomedium",sans-serif;font-size:16px;color:#1f1f1f}
+
+/* ============================================================
+   VARIANT A — Quiet Editorial
+   Whitespace-led hierarchy. No filled bands anywhere; one container
+   idiom (hairline, radius 6). Accent roles: CTA · selection · audience
+   bar · focus. Type scale 24/18/16/14/13. Rhythm 32/24/12, inset 16.
+   ============================================================ */
+.vA .hero-meta{display:flex;justify-content:space-between;align-items:center}
+.vA .sku{font-size:13px;color:#757575}
+.vA .wish{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:#757575;text-decoration:none}
+.vA .h1{margin-top:8px;font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f}
+.vA .subtitle{margin-top:12px}
+.vA .audience{margin-top:12px;color:#1f1f1f}
+.vA .step{margin:32px 0 12px;font-size:18px;line-height:24px;color:#1f1f1f;font-family:"latosemibold",sans-serif}
+.vA .step .n{font-family:"latobold",sans-serif;margin-right:8px}
+.vA .sizes-h{margin:16px 0 12px;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vA .moq{margin-top:12px;font-size:14px;color:#525252}
+.vA .price-zone{margin-top:24px;border-top:1px solid #eee;padding-top:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.vA .price-zone .plabel{font-size:14px;color:#757575}
+.vA .price-zone .pval{font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f;text-align:right}
+.vA .price-zone .peach{margin-top:4px;font-size:14px;color:#757575;text-align:right}
+.vA .plink{font-size:14px;color:#525252;text-decoration:underline;margin-top:4px;display:inline-block}
+.vA .plink:hover{color:#1f1f1f}
+.vA .cta{margin-top:16px;border-radius:4px}
+.vA .after-cta{margin-top:12px;display:flex;justify-content:space-between;gap:16px}
+.vA .after-cta a{color:#001542}
+.vA .box{border:1px solid #eee;border-radius:6px}
+.vA .edit-btn{border:1px solid #b3b3b3;border-radius:4px;color:#1f1f1f;padding:10px 16px;font-family:"latomedium",sans-serif;font-size:14px}
+.vA .edit-btn:hover{border-color:#1f1f1f}
+.vA .sumline{margin-top:12px;display:flex;gap:24px;flex-wrap:wrap;font-size:14px;color:#525252}
+.vA .sumline b{font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vA .m-h{margin:12px 0 4px;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vA .badge{display:inline-block;border:1px solid #eee;border-radius:999px;padding:2px 10px;font-size:13px;color:#757575;margin:8px 0 12px}
+.vA .wtc{margin:12px 0}
+.vA .wtc-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:12px 16px;text-align:left;border-radius:6px}
+.vA .wtc-toggle:hover{background:#fafafa}
+.vA .wtc-title{font-size:14px;font-family:"latosemibold",sans-serif;color:#1f1f1f;flex:1}
+.vA .chev{width:8px;height:8px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease;flex-shrink:0}
+.vA .open .chev{transform:rotate(225deg)}
+.vA .wtc-body{display:none;padding:0 16px 14px}
+.vA .wtc.open .wtc-body{display:block}
+.vA .wtc-body p{font-size:14px;line-height:21px;margin-bottom:8px}
+.vA .wtc-body p:last-child{margin-bottom:0}
+.vA .charges{width:100%;border-collapse:collapse;margin-top:12px}
+.vA .charges caption{text-align:left;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;padding-bottom:8px}
+.vA .charges th{width:38%;font-family:"latoregular",sans-serif;font-weight:normal;color:#757575;text-align:left;font-size:14px;padding:8px 12px 8px 0;border-top:1px solid #eee}
+.vA .charges td{font-size:14px;color:#1f1f1f;padding:8px 0;border-top:1px solid #eee}
+.vA .upload-row{display:flex;align-items:center;gap:10px;padding:12px 16px;margin:12px 0;font-size:14px;font-family:"latomedium",sans-serif;color:#1f1f1f}
+.vA .imprint{padding:16px;margin-bottom:12px}
+.vA .addloc{font-size:14px;color:#525252;text-decoration:underline;margin:4px 0 8px;display:inline-block}
+.vA .addloc:hover{color:#1f1f1f}
+.vA .secure{margin-top:12px;display:flex;align-items:center;gap:8px}
+
+/* ============================================================
+   VARIANT B — Structured Panels
+   One container idiom: hairline card, radius 8, uniform 16px inset.
+   Charcoal survives only as a 24px number chip. Groups: each step =
+   one card; price + CTA fuse into an Order summary card.
+   ============================================================ */
+.vB .hero-meta{display:flex;justify-content:space-between;align-items:center}
+.vB .sku{font-size:13px;color:#757575}
+.vB .wish{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:#757575;text-decoration:none}
+.vB .h1{margin-top:8px;font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f}
+.vB .subtitle{margin-top:12px}
+.vB .audience{margin-top:12px;color:#1f1f1f}
+.vB .card{background:#fff;border:1px solid #eee;border-radius:8px;padding:16px;margin-top:16px}
+.vB .card-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.vB .chip{width:24px;height:24px;border-radius:4px;background:#525252;color:#fff;font-family:"latobold",sans-serif;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.vB .card-h .t{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vB .hero-card-gap{margin-top:24px}
+.vB .tier-scroll{margin:0 -16px;padding:0 16px}  /* full-bleed scroller inside the card inset so all 7 tiers fit */
+.vB .tier td{padding:5px 3px}
+.vB .sizes-h{margin:16px 0 12px;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vB .moq{margin-top:12px;font-size:14px;color:#525252}
+.vB .sumrow{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.vB .sumrow .l{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vB .sumrow .v{font-family:"latobold",sans-serif;font-size:22px;line-height:28px;color:#1f1f1f}
+.vB .peach-row{display:flex;justify-content:flex-end;font-size:13px;color:#757575;margin-top:4px}
+.vB .plink{font-size:14px;color:#cb4000;margin-top:8px;display:inline-block;text-decoration:none}
+.vB .plink:hover{color:#fe5000;text-decoration:underline}
+.vB .cta{margin-top:16px}
+.vB .after-cta{margin-top:12px;display:flex;justify-content:space-between;gap:16px}
+.vB .after-cta a{color:#001542}
+.vB .edit-btn{border:1px solid #b3b3b3;border-radius:4px;color:#1f1f1f;padding:10px 16px;font-family:"latomedium",sans-serif;font-size:14px}
+.vB .edit-btn:hover{border-color:#1f1f1f}
+.vB .sumline{margin-top:12px;display:flex;gap:24px;flex-wrap:wrap;font-size:14px;color:#525252}
+.vB .sumline b{font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vB .m-h{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vB .badge{display:inline-block;background:#f5f5f5;border-radius:4px;padding:3px 10px;font-size:13px;color:#525252;margin:8px 0 12px}
+.vB .wtc{margin:12px 0;background:#fafafa;border-radius:6px}
+.vB .wtc-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:12px 16px;text-align:left;border-radius:6px}
+.vB .wtc-toggle:hover{background:#f5f5f5}
+.vB .wtc-title{font-size:14px;font-family:"latosemibold",sans-serif;color:#1f1f1f;flex:1}
+.vB .chev{width:8px;height:8px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease;flex-shrink:0}
+.vB .open .chev{transform:rotate(225deg)}
+.vB .wtc-body{display:none;padding:0 16px 14px}
+.vB .wtc.open .wtc-body{display:block}
+.vB .wtc-body p{font-size:14px;line-height:21px;margin-bottom:8px}
+.vB .wtc-body p:last-child{margin-bottom:0}
+.vB .kv{width:100%;border-collapse:collapse;margin-top:12px}
+.vB .kv caption{text-align:left;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;padding-bottom:8px}
+.vB .kv th{width:38%;font-family:"latoregular",sans-serif;font-weight:normal;color:#757575;text-align:left;font-size:14px;padding:8px 12px 8px 0;border-top:1px solid #eee}
+.vB .kv td{font-size:14px;color:#1f1f1f;padding:8px 0;border-top:1px solid #eee}
+.vB .upload-row{display:flex;align-items:center;gap:10px;background:#f5f5f5;border-radius:6px;padding:12px 16px;margin-bottom:12px;font-size:14px;font-family:"latomedium",sans-serif;color:#1f1f1f}
+.vB .cfg-h{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;margin:16px 0 8px}
+.vB .addloc{font-size:14px;color:#cb4000;margin-top:12px;display:inline-block;text-decoration:none}
+.vB .addloc:hover{color:#fe5000;text-decoration:underline}
+.vB .secure{margin-top:12px;display:flex;align-items:center;gap:8px}
+
+/* ============================================================
+   VARIANT C — Accent Spine
+   The accent-bar idiom promoted to a system: audience line, every step
+   header and the subtotal carry the same 3px orange bar — the buy path
+   is the only color story. Everything off-path is monochrome; the
+   When-To-Choose aside is a deliberately quiet gray panel.
+   ============================================================ */
+.vC .hero-meta{display:flex;justify-content:space-between;align-items:center}
+.vC .sku{font-size:13px;color:#757575}
+.vC .wish{display:inline-flex;gap:6px;align-items:center;font-size:13px;color:#757575;text-decoration:none}
+.vC .h1{margin-top:8px;font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f}
+.vC .subtitle{margin-top:12px}
+.vC .audience{margin-top:12px;color:#1f1f1f}
+.vC .step{margin:32px 0 12px;border-left:3px solid #fe5000;padding-left:12px;font-size:18px;line-height:24px;color:#1f1f1f;font-family:"latosemibold",sans-serif}
+.vC .step .n{font-family:"latobold",sans-serif;color:#fe5000;margin-right:8px}
+.vC .sizes-h{margin:16px 0 12px;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vC .moq{margin-top:12px;font-size:14px;color:#525252}
+.vC .price-zone{margin-top:24px;border-left:3px solid #fe5000;padding-left:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.vC .price-zone .plabel{font-size:14px;color:#757575}
+.vC .price-zone .pval{font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f;text-align:right}
+.vC .price-zone .peach{margin-top:4px;font-size:14px;color:#757575;text-align:right}
+.vC .plink{font-size:14px;color:#525252;text-decoration:underline;margin-top:4px;display:inline-block}
+.vC .plink:hover{color:#1f1f1f}
+.vC .cta{margin-top:16px}
+.vC .after-cta{margin-top:12px;display:flex;justify-content:space-between;gap:16px}
+.vC .after-cta a{color:#001542}
+.vC .edit-btn{border:1px solid #b3b3b3;border-radius:4px;color:#1f1f1f;padding:10px 16px;font-family:"latomedium",sans-serif;font-size:14px}
+.vC .edit-btn:hover{border-color:#1f1f1f}
+.vC .sumline{margin-top:12px;display:flex;gap:24px;flex-wrap:wrap;font-size:14px;color:#525252}
+.vC .sumline b{font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vC .m-h{margin:12px 0 4px;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f}
+.vC .badge{display:inline-block;border:1px solid #eee;border-radius:999px;padding:2px 10px;font-size:13px;color:#757575;margin:8px 0 12px}
+.vC .wtc{margin:12px 0;background:#fafafa;border-radius:6px}
+.vC .wtc-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:12px 16px;text-align:left}
+.vC .wtc-toggle:hover{background:#f5f5f5;border-radius:6px}
+.vC .wtc-title{font-size:14px;font-family:"latosemibold",sans-serif;color:#1f1f1f;flex:1}
+.vC .chev{width:8px;height:8px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease;flex-shrink:0}
+.vC .open .chev{transform:rotate(225deg)}
+.vC .wtc-body{display:none;padding:0 16px 14px}
+.vC .wtc.open .wtc-body{display:block}
+.vC .wtc-body p{font-size:14px;line-height:21px;margin-bottom:8px}
+.vC .wtc-body p:last-child{margin-bottom:0}
+.vC .charges{width:100%;border-collapse:collapse;margin-top:12px}
+.vC .charges caption{text-align:left;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;padding-bottom:8px}
+.vC .charges th{width:38%;font-family:"latoregular",sans-serif;font-weight:normal;color:#757575;text-align:left;font-size:14px;padding:8px 12px 8px 0;border-top:1px solid #eee}
+.vC .charges td{font-size:14px;color:#1f1f1f;padding:8px 0;border-top:1px solid #eee}
+.vC .upload-row{display:flex;align-items:center;gap:10px;padding:12px 0;margin:12px 0;font-size:14px;font-family:"latomedium",sans-serif;color:#1f1f1f;border-top:1px solid #eee;border-bottom:1px solid #eee}
+.vC .imprint{border:1px solid #eee;border-radius:6px;padding:16px;margin-bottom:12px}
+.vC .addloc{font-size:14px;color:#525252;text-decoration:underline;margin:4px 0 8px;display:inline-block}
+.vC .addloc:hover{color:#1f1f1f}
+.vC .secure{margin-top:12px;display:flex;align-items:center;gap:8px}
+</style>
+</head>
+<body>
+
+<div class="switch-bar" role="group" aria-label="Variant switcher">
+  <span class="sb-title">PDP right-pane variants</span>
+  <button type="button" data-v="vA" aria-pressed="true">A — Quiet Editorial</button>
+  <button type="button" data-v="vB" aria-pressed="false">B — Structured Panels</button>
+  <button type="button" data-v="vC" aria-pressed="false">C — Accent Spine</button>
+</div>
+
+<!-- ================================================================
+     VARIANT A — Quiet Editorial
+     ================================================================ -->
+<section class="variant vA active" id="vA">
+  <div class="caption-strip">
+    <div class="cap-name">Variant A — Quiet Editorial</div>
+    <div>Hierarchy by whitespace and type scale alone: no filled bands, one hairline container idiom, accent cut to three roles (buy button, selection, the audience-fit bar). Steps become numbered text headings on a 32/24/12 rhythm; the price zone detaches with the pane's only top rule and its largest dark type. When-To-Choose is a hairline disclosure card with the uniform 16px inset and hover/focus states.</div>
+    <div class="cap-path">product name → orange audience bar → $183.00 → orange CTA.</div>
+  </div>
+  <div class="v-grid">
+    <div class="ctx">
+      <img src="https://product-images.promotionpros.com/cloud-images-404/FWJ1996/cdn-details-size/bffdb11592787016.webp" alt="Fairweather Johnson Gilmore Lightweight Tee — Vintage White" width="280" height="280">
+      <p class="ctx-note">Left column (gallery, Key Facts, content sections) unchanged — shown for context.</p>
+      <div class="ctx-skel" aria-hidden="true"><div style="width:60%"></div><div></div><div style="width:85%"></div><div style="width:40%"></div></div>
+    </div>
+
+    <div class="pane">
+      <div class="pane-tag">Buy state</div>
+      <!-- hero: meta 8 / title 12 / subtitle 12 / audience — two-value rhythm restores grouping (S-1) -->
+      <div class="hero-meta"><span class="sku">SKU: KLG0000001</span><a class="wish" href="#"><svg width="15" height="13" viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 20.5C8 17 2 12.5 2 7.5 2 4.4 4.4 2 7.5 2 9.2 2 10.9 2.8 12 4.1 13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 5-6 9.5-10 13z" stroke="#757575" stroke-width="1.6"/></svg>Wishlist</a></div>
+      <h1 class="h1">Fairweather Johnson Gilmore Lightweight Tee</h1>
+      <p class="subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint.</p>
+      <p class="audience abar">A practical choice for teams, staff, uniforms, and company events.</p>
+
+      <h2 class="step"><span class="n">1</span>Colors</h2>
+      <div class="swatch-row">
+        <button class="swatch selected ring" aria-label="Vintage White" aria-pressed="true"><i style="background:#eae7e2"></i></button>
+        <button class="swatch" aria-label="Athletic Heather"><i style="background:#32414d"></i></button>
+        <button class="swatch" aria-label="Black"><i style="background:#000"></i></button>
+        <button class="swatch" aria-label="Navy"><i style="background:#000080"></i></button>
+        <button class="swatch" aria-label="Red"><i style="background:#f00"></i></button>
+        <button class="swatch" aria-label="Royal Blue"><i style="background:#4169e1"></i></button>
+        <button class="swatch ring" aria-label="White"><i style="background:#fff"></i></button>
+      </div>
+      <p class="color-line"><span class="cname">Vintage White</span></p>
+
+      <h2 class="step"><span class="n">2</span>Quantity</h2>
+      <div class="tier-scroll"><table class="tier" aria-label="Quantity price tiers"><tbody>
+        <tr><td>Minimum Quantity</td><td class="active">12</td><td>48</td><td>72</td><td>144</td><td>288</td><td>576</td><td>1008</td></tr>
+        <tr><td>Price per unit</td><td class="active">$15.25</td><td>$14.50</td><td>$13.95</td><td>$13.50</td><td>$12.90</td><td>$12.25</td><td>$11.95</td></tr>
+      </tbody></table></div>
+      <h3 class="sizes-h">How Many Would You Like of Each Size?</h3>
+      <div class="sizes">
+        <div><label for="a-s">S</label><input id="a-s" inputmode="numeric" value="0"></div>
+        <div class="filled"><label for="a-m">M</label><input id="a-m" inputmode="numeric" value="12"></div>
+        <div><label for="a-l">L</label><input id="a-l" inputmode="numeric" value="0"></div>
+        <div><label for="a-xl">XL</label><input id="a-xl" inputmode="numeric" value="0"></div>
+        <div><label for="a-xxl">XXL</label><input id="a-xxl" inputmode="numeric" value="0"></div>
+        <div><label for="a-3xl">3XL</label><input id="a-3xl" inputmode="numeric" value="0"></div>
+        <div><label for="a-4xl">4XL</label><input id="a-4xl" inputmode="numeric" value="0"></div>
+      </div>
+      <p class="moq">This item has a 12-piece minimum.</p>
+
+      <!-- price zone detaches at 24 + rule; price is the pane's largest dark type -->
+      <div class="price-zone">
+        <div><span class="plabel">Subtotal</span><br><a class="plink" href="#">View Price Breakdown</a></div>
+        <div><div class="pval">$183.00</div><div class="peach">$15.25 each</div></div>
+      </div>
+      <button type="button" class="cta">Customize Your Product</button>
+      <p class="after-cta meta13"><span>Have a product question? <a href="#">Ask us</a></span><span>Secure transaction</span></p>
+    </div>
+
+    <div class="pane">
+      <div class="pane-tag">Configurator state — replaces the buy pane after Customize</div>
+      <button type="button" class="edit-btn">Edit Color &amp; Quantity</button>
+      <p class="sumline"><span>Color: <b>Vintage White</b></span><span>Quantity: <b>12</b></span></p>
+
+      <h2 class="step"><span class="n">3</span>Decoration Method</h2>
+      <h3 class="m-h">Imprint Method: Full Color</h3>
+      <span class="badge">Full Color</span>
+      <p>Water-based inkjet ink printed directly into the garment fibers, laying down full-color artwork as a soft, flat image with no added surface layer.</p>
+
+      <div class="wtc box">
+        <button type="button" class="wtc-toggle" aria-expanded="false">
+          <span class="wtc-title">When To Choose This?</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="wtc-body">
+          <p>Direct-to-garment printing jets CMYK ink (with a white underbase on dark fabric) straight onto a pre-treated garment, then heat-cures it into the fibers. It reproduces photographs, gradients, and dense multi-color artwork with fine detail and a soft hand.</p>
+          <p><strong>Best for:</strong> photographic, gradient, or many-color artwork on cotton and light apparel, where a soft hand and fine detail matter more than exact solid color.</p>
+        </div>
+      </div>
+
+      <table class="charges">
+        <caption>Decoration Charges</caption>
+        <tbody>
+          <tr><th scope="row">First location</th><td class="green">Included</td></tr>
+          <tr><th scope="row">Additional location</th><td>$30.00 setup + $5.95/item</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="step"><span class="n">4</span>Imprint Details</h2>
+      <button type="button" class="upload-row box" style="width:100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#525252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#525252" stroke-width="2" stroke-linecap="round"/></svg>Upload artwork and instruction (optional)</button>
+
+      <div class="imprint box">
+        <h3 class="m-h" style="margin-top:0">Imprint Location</h3>
+        <button type="button" class="loc-btn" aria-haspopup="listbox" aria-expanded="false">Right Chest
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="#1f1f1f" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <h3 class="m-h">Imprint Colors</h3>
+        <p style="color:#1f1f1f">Full Color</p>
+      </div>
+      <a class="addloc" href="#">+ Add Additional Imprint Location</a>
+
+      <div class="price-zone">
+        <div><span class="plabel">Subtotal</span><br><a class="plink" href="#">View Price Breakdown</a></div>
+        <div><div class="pval">$183.00</div><div class="peach">$15.25 each</div></div>
+      </div>
+      <button type="button" class="cta">Add to Cart
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.5" fill="#fff"/><circle cx="18" cy="20.5" r="1.5" fill="#fff"/></svg>
+      </button>
+      <p class="secure meta13"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#757575" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#757575" stroke-width="2"/></svg>Secure transaction</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     VARIANT B — Structured Panels
+     ================================================================ -->
+<section class="variant vB" id="vB">
+  <div class="caption-strip">
+    <div class="cap-name">Variant B — Structured Panels</div>
+    <div>One container idiom — hairline cards, 8px radius, uniform 16px insets — each step and the order summary is exactly one card, one voice. The charcoal step bar shrinks to a 24px number chip: step way-finding survives on ~5% of the dark ink. When-To-Choose becomes a filled sub-panel inside the method card; charges and price rows share one aligned label:value pattern.</div>
+    <div class="cap-path">product name → step chips 1–2 → order-summary card → $183.00 → orange CTA.</div>
+  </div>
+  <div class="v-grid">
+    <div class="ctx">
+      <img src="https://product-images.promotionpros.com/cloud-images-404/FWJ1996/cdn-details-size/bffdb11592787016.webp" alt="Fairweather Johnson Gilmore Lightweight Tee — Vintage White" width="280" height="280">
+      <p class="ctx-note">Left column (gallery, Key Facts, content sections) unchanged — shown for context.</p>
+      <div class="ctx-skel" aria-hidden="true"><div style="width:60%"></div><div></div><div style="width:85%"></div><div style="width:40%"></div></div>
+    </div>
+
+    <div class="pane">
+      <div class="pane-tag">Buy state</div>
+      <div class="hero-meta"><span class="sku">SKU: KLG0000001</span><a class="wish" href="#"><svg width="15" height="13" viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 20.5C8 17 2 12.5 2 7.5 2 4.4 4.4 2 7.5 2 9.2 2 10.9 2.8 12 4.1 13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 5-6 9.5-10 13z" stroke="#757575" stroke-width="1.6"/></svg>Wishlist</a></div>
+      <h1 class="h1">Fairweather Johnson Gilmore Lightweight Tee</h1>
+      <p class="subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint.</p>
+      <p class="audience abar">A practical choice for teams, staff, uniforms, and company events.</p>
+
+      <div class="card hero-card-gap">
+        <div class="card-h"><span class="chip" aria-hidden="true">1</span><h2 class="t">Colors</h2></div>
+        <div class="swatch-row">
+          <button class="swatch selected ring" aria-label="Vintage White" aria-pressed="true"><i style="background:#eae7e2"></i></button>
+          <button class="swatch" aria-label="Athletic Heather"><i style="background:#32414d"></i></button>
+          <button class="swatch" aria-label="Black"><i style="background:#000"></i></button>
+          <button class="swatch" aria-label="Navy"><i style="background:#000080"></i></button>
+          <button class="swatch" aria-label="Red"><i style="background:#f00"></i></button>
+          <button class="swatch" aria-label="Royal Blue"><i style="background:#4169e1"></i></button>
+          <button class="swatch ring" aria-label="White"><i style="background:#fff"></i></button>
+        </div>
+        <p class="color-line"><span class="cname">Vintage White</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><span class="chip" aria-hidden="true">2</span><h2 class="t">Quantity</h2></div>
+        <div class="tier-scroll"><table class="tier" aria-label="Quantity price tiers"><tbody>
+          <tr><td>Minimum Quantity</td><td class="active">12</td><td>48</td><td>72</td><td>144</td><td>288</td><td>576</td><td>1008</td></tr>
+          <tr><td>Price per unit</td><td class="active">$15.25</td><td>$14.50</td><td>$13.95</td><td>$13.50</td><td>$12.90</td><td>$12.25</td><td>$11.95</td></tr>
+        </tbody></table></div>
+        <h3 class="sizes-h">How Many Would You Like of Each Size?</h3>
+        <div class="sizes">
+          <div><label for="b-s">S</label><input id="b-s" inputmode="numeric" value="0"></div>
+          <div class="filled"><label for="b-m">M</label><input id="b-m" inputmode="numeric" value="12"></div>
+          <div><label for="b-l">L</label><input id="b-l" inputmode="numeric" value="0"></div>
+          <div><label for="b-xl">XL</label><input id="b-xl" inputmode="numeric" value="0"></div>
+          <div><label for="b-xxl">XXL</label><input id="b-xxl" inputmode="numeric" value="0"></div>
+          <div><label for="b-3xl">3XL</label><input id="b-3xl" inputmode="numeric" value="0"></div>
+          <div><label for="b-4xl">4XL</label><input id="b-4xl" inputmode="numeric" value="0"></div>
+        </div>
+        <p class="moq">This item has a 12-piece minimum.</p>
+      </div>
+
+      <!-- price + CTA fuse into one decision card (S-2 fix) -->
+      <div class="card">
+        <div class="sumrow"><span class="l">Subtotal</span><span class="v">$183.00</span></div>
+        <div class="peach-row">$15.25 each</div>
+        <a class="plink" href="#">View Price Breakdown</a>
+        <button type="button" class="cta">Customize Your Product</button>
+        <p class="after-cta meta13"><span>Have a product question? <a href="#">Ask us</a></span><span>Secure transaction</span></p>
+      </div>
+    </div>
+
+    <div class="pane">
+      <div class="pane-tag">Configurator state — replaces the buy pane after Customize</div>
+      <button type="button" class="edit-btn">Edit Color &amp; Quantity</button>
+      <p class="sumline"><span>Color: <b>Vintage White</b></span><span>Quantity: <b>12</b></span></p>
+
+      <div class="card hero-card-gap">
+        <div class="card-h"><span class="chip" aria-hidden="true">3</span><h2 class="t">Decoration Method</h2></div>
+        <h3 class="m-h">Imprint Method: Full Color</h3>
+        <span class="badge">Full Color</span>
+        <p>Water-based inkjet ink printed directly into the garment fibers, laying down full-color artwork as a soft, flat image with no added surface layer.</p>
+        <div class="wtc">
+          <button type="button" class="wtc-toggle" aria-expanded="false">
+            <span class="wtc-title">When To Choose This?</span>
+            <span class="chev" aria-hidden="true"></span>
+          </button>
+          <div class="wtc-body">
+            <p>Direct-to-garment printing jets CMYK ink (with a white underbase on dark fabric) straight onto a pre-treated garment, then heat-cures it into the fibers. It reproduces photographs, gradients, and dense multi-color artwork with fine detail and a soft hand.</p>
+            <p><strong>Best for:</strong> photographic, gradient, or many-color artwork on cotton and light apparel, where a soft hand and fine detail matter more than exact solid color.</p>
+          </div>
+        </div>
+        <table class="kv">
+          <caption>Decoration Charges</caption>
+          <tbody>
+            <tr><th scope="row">First location</th><td class="green">Included</td></tr>
+            <tr><th scope="row">Additional location</th><td>$30.00 setup + $5.95/item</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><span class="chip" aria-hidden="true">4</span><h2 class="t">Imprint Details</h2></div>
+        <button type="button" class="upload-row" style="width:100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#525252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#525252" stroke-width="2" stroke-linecap="round"/></svg>Upload artwork and instruction (optional)</button>
+        <h3 class="cfg-h" style="margin-top:0">Imprint Location</h3>
+        <button type="button" class="loc-btn" aria-haspopup="listbox" aria-expanded="false">Right Chest
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="#1f1f1f" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <h3 class="cfg-h">Imprint Colors</h3>
+        <p style="color:#1f1f1f">Full Color</p>
+        <a class="addloc" href="#">+ Add Additional Imprint Location</a>
+      </div>
+
+      <div class="card">
+        <div class="sumrow"><span class="l">Subtotal</span><span class="v">$183.00</span></div>
+        <div class="peach-row">$15.25 each</div>
+        <a class="plink" href="#">View Price Breakdown</a>
+        <button type="button" class="cta">Add to Cart
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.5" fill="#fff"/><circle cx="18" cy="20.5" r="1.5" fill="#fff"/></svg>
+        </button>
+        <p class="secure meta13"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#757575" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#757575" stroke-width="2"/></svg>Secure transaction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     VARIANT C — Accent Spine
+     ================================================================ -->
+<section class="variant vC" id="vC">
+  <div class="caption-strip">
+    <div class="cap-name">Variant C — Accent Spine</div>
+    <div>The accent-bar idiom the client liked, promoted to the system: the audience line, every step header, and the subtotal carry the same 3px orange bar — one accent role ("waypoint on your buy path") repeated with meaning. Everything off the path is strictly monochrome: gray chevrons, gray links, neutral badges. When-To-Choose sits deliberately off-spine as a quiet gray panel — an aside, not a waypoint.</div>
+    <div class="cap-path">orange audience bar → 1 → 2 → price bar → orange CTA — the spine is the path.</div>
+  </div>
+  <div class="v-grid">
+    <div class="ctx">
+      <img src="https://product-images.promotionpros.com/cloud-images-404/FWJ1996/cdn-details-size/bffdb11592787016.webp" alt="Fairweather Johnson Gilmore Lightweight Tee — Vintage White" width="280" height="280">
+      <p class="ctx-note">Left column (gallery, Key Facts, content sections) unchanged — shown for context.</p>
+      <div class="ctx-skel" aria-hidden="true"><div style="width:60%"></div><div></div><div style="width:85%"></div><div style="width:40%"></div></div>
+    </div>
+
+    <div class="pane">
+      <div class="pane-tag">Buy state</div>
+      <div class="hero-meta"><span class="sku">SKU: KLG0000001</span><a class="wish" href="#"><svg width="15" height="13" viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 20.5C8 17 2 12.5 2 7.5 2 4.4 4.4 2 7.5 2 9.2 2 10.9 2.8 12 4.1 13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 5-6 9.5-10 13z" stroke="#757575" stroke-width="1.6"/></svg>Wishlist</a></div>
+      <h1 class="h1">Fairweather Johnson Gilmore Lightweight Tee</h1>
+      <p class="subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint.</p>
+      <p class="audience abar">A practical choice for teams, staff, uniforms, and company events.</p>
+
+      <h2 class="step"><span class="n">1</span>Colors</h2>
+      <div class="swatch-row">
+        <button class="swatch selected ring" aria-label="Vintage White" aria-pressed="true"><i style="background:#eae7e2"></i></button>
+        <button class="swatch" aria-label="Athletic Heather"><i style="background:#32414d"></i></button>
+        <button class="swatch" aria-label="Black"><i style="background:#000"></i></button>
+        <button class="swatch" aria-label="Navy"><i style="background:#000080"></i></button>
+        <button class="swatch" aria-label="Red"><i style="background:#f00"></i></button>
+        <button class="swatch" aria-label="Royal Blue"><i style="background:#4169e1"></i></button>
+        <button class="swatch ring" aria-label="White"><i style="background:#fff"></i></button>
+      </div>
+      <p class="color-line"><span class="cname">Vintage White</span></p>
+
+      <h2 class="step"><span class="n">2</span>Quantity</h2>
+      <div class="tier-scroll"><table class="tier" aria-label="Quantity price tiers"><tbody>
+        <tr><td>Minimum Quantity</td><td class="active">12</td><td>48</td><td>72</td><td>144</td><td>288</td><td>576</td><td>1008</td></tr>
+        <tr><td>Price per unit</td><td class="active">$15.25</td><td>$14.50</td><td>$13.95</td><td>$13.50</td><td>$12.90</td><td>$12.25</td><td>$11.95</td></tr>
+      </tbody></table></div>
+      <h3 class="sizes-h">How Many Would You Like of Each Size?</h3>
+      <div class="sizes">
+        <div><label for="c-s">S</label><input id="c-s" inputmode="numeric" value="0"></div>
+        <div class="filled"><label for="c-m">M</label><input id="c-m" inputmode="numeric" value="12"></div>
+        <div><label for="c-l">L</label><input id="c-l" inputmode="numeric" value="0"></div>
+        <div><label for="c-xl">XL</label><input id="c-xl" inputmode="numeric" value="0"></div>
+        <div><label for="c-xxl">XXL</label><input id="c-xxl" inputmode="numeric" value="0"></div>
+        <div><label for="c-3xl">3XL</label><input id="c-3xl" inputmode="numeric" value="0"></div>
+        <div><label for="c-4xl">4XL</label><input id="c-4xl" inputmode="numeric" value="0"></div>
+      </div>
+      <p class="moq">This item has a 12-piece minimum.</p>
+
+      <!-- subtotal joins the spine: same bar, price = largest dark type -->
+      <div class="price-zone">
+        <div><span class="plabel">Subtotal</span><br><a class="plink" href="#">View Price Breakdown</a></div>
+        <div><div class="pval">$183.00</div><div class="peach">$15.25 each</div></div>
+      </div>
+      <button type="button" class="cta">Customize Your Product</button>
+      <p class="after-cta meta13"><span>Have a product question? <a href="#">Ask us</a></span><span>Secure transaction</span></p>
+    </div>
+
+    <div class="pane">
+      <div class="pane-tag">Configurator state — replaces the buy pane after Customize</div>
+      <button type="button" class="edit-btn">Edit Color &amp; Quantity</button>
+      <p class="sumline"><span>Color: <b>Vintage White</b></span><span>Quantity: <b>12</b></span></p>
+
+      <h2 class="step"><span class="n">3</span>Decoration Method</h2>
+      <h3 class="m-h">Imprint Method: Full Color</h3>
+      <span class="badge">Full Color</span>
+      <p>Water-based inkjet ink printed directly into the garment fibers, laying down full-color artwork as a soft, flat image with no added surface layer.</p>
+
+      <div class="wtc">
+        <button type="button" class="wtc-toggle" aria-expanded="false">
+          <span class="wtc-title">When To Choose This?</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="wtc-body">
+          <p>Direct-to-garment printing jets CMYK ink (with a white underbase on dark fabric) straight onto a pre-treated garment, then heat-cures it into the fibers. It reproduces photographs, gradients, and dense multi-color artwork with fine detail and a soft hand.</p>
+          <p><strong>Best for:</strong> photographic, gradient, or many-color artwork on cotton and light apparel, where a soft hand and fine detail matter more than exact solid color.</p>
+        </div>
+      </div>
+
+      <table class="charges">
+        <caption>Decoration Charges</caption>
+        <tbody>
+          <tr><th scope="row">First location</th><td class="green">Included</td></tr>
+          <tr><th scope="row">Additional location</th><td>$30.00 setup + $5.95/item</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="step"><span class="n">4</span>Imprint Details</h2>
+      <button type="button" class="upload-row" style="width:100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#525252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#525252" stroke-width="2" stroke-linecap="round"/></svg>Upload artwork and instruction (optional)</button>
+
+      <div class="imprint">
+        <h3 class="m-h" style="margin-top:0">Imprint Location</h3>
+        <button type="button" class="loc-btn" aria-haspopup="listbox" aria-expanded="false">Right Chest
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="#1f1f1f" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <h3 class="m-h">Imprint Colors</h3>
+        <p style="color:#1f1f1f">Full Color</p>
+      </div>
+      <a class="addloc" href="#">+ Add Additional Imprint Location</a>
+
+      <div class="price-zone">
+        <div><span class="plabel">Subtotal</span><br><a class="plink" href="#">View Price Breakdown</a></div>
+        <div><div class="pval">$183.00</div><div class="peach">$15.25 each</div></div>
+      </div>
+      <button type="button" class="cta">Add to Cart
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.5" fill="#fff"/><circle cx="18" cy="20.5" r="1.5" fill="#fff"/></svg>
+      </button>
+      <p class="secure meta13"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#757575" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#757575" stroke-width="2"/></svg>Secure transaction</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Variant switcher
+document.querySelectorAll('.switch-bar button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.switch-bar button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    document.querySelectorAll('.variant').forEach(v => v.classList.toggle('active', v.id === btn.dataset.v));
+    window.scrollTo({top: 0});
+  });
+});
+// When-To-Choose disclosures
+document.querySelectorAll('.wtc-toggle').forEach(t => {
+  t.addEventListener('click', () => {
+    const box = t.closest('.wtc');
+    const open = box.classList.toggle('open');
+    t.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+</script>
+</body>
+</html>
