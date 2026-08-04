@@ -19,45 +19,67 @@ the review-prescribed value changes.
 
 ## A. Consistency matrix — same role → same style (ONE style per role)
 
-| Role | The one style (source) | Replaces on live |
-|---|---|---|
-| Page title (H1) | `h1.product-name`: latobold 24px/1.2 #1f1f1f | unchanged (content re-bound per P-04) |
-| Section title | `span.pdp-section__title`: latosemibold 20px/30 #1f1f1f, Title Case, inside `<h2>` | 3 idioms → 1: also applied to Q&A headings (P-28), semantic h2 (P-15) |
-| Kicker (small, Title Case) | Key Facts treatment: latobold 13px, #1f1f1f, Title Case, no transform | also the When-to-choose title (P-36). 11px gray caps labels + 12px orange caps eliminated; R2 (2026-07-31): uppercase + letter-spacing dropped page-wide per client review — ONE kicker style is now Title Case, not uppercase |
-| Step-bar header | charcoal #525252 bar; `.step-number` latobold 20px white + `.step-label` latomedium 16px white; static `<h2>` | do-nothing buttons + phantom checkboxes removed (P-22) |
-| Pane sub-heading | latosemibold 16px #1f1f1f, **Title Case** ("Imprint Method: Full Color", "Imprint Location", "Imprint Colors", "How Many Would You Like of Each Size?") | casing disagreement resolved (P-36) |
-| Row label (spec + method facts + charges th) | `table.pdp-spec-table th`: latosemibold 16px/24 #525252, col 38%, padding 8px 12px 8px 0 | 11px caps labels (P-11), nested charge-labels (P-12), charges th/td weight inversion (P-36), column misalignment (P-33) |
-| Body text | latoregular 16px/24 #525252 (16px/26 in Description) | 13px method description promoted (P-35); decision slab demoted from all-semibold (P-35) |
-| Secondary/meta (13px floor) | latoregular 13px #525252 — collapsed-header summaries only | nothing renders below 13px anywhere (was 11px) |
-| Price (subtotal value) | `span.pdp-section__title` metrics: latosemibold 20px/30 #1f1f1f | price = label 16px parity (P-13) |
-| Inline emphasis | `font-family: latobold; font-weight: normal` (the H1's own pattern) | faux-bold `latoregular`+700 synthesis (P-05) |
-| Positive/success | `.text-success` green (the IN STOCK green); ✓ inline + aria-hidden | orphaned block-level ::before tick (P-10) |
-| Text action/link | `.view-price-breakdown-link`: latoregular 14px #fe5000, real `<button>` | span-with-cursor mouse-only triggers (P-08) |
-| CTA | `.btn-secondary.add-to-cart-lg`: orange #fe5000, latobold 20px + `, sans-serif` fallback | missing font fallback on money elements (P-05) |
+State: **Variant C "Accent Spine" applied (2026-08-04)** — the client-chosen direction from
+`variants.html` §vC, extended to the left column per client amendment B.
 
-Casing rule (from review §3c): uppercase exists at exactly ONE level — the 13px latobold dark
-kicker. Everything else Title Case (titles/labels) or sentence case (body). Every font-family
-declaration terminates in `, sans-serif` (P-05).
+| Role | The one style (source) | Notes |
+|---|---|---|
+| Page title (H1) | `h1.product-name`: latobold 24px/30 #1f1f1f | content = v5.2 pdpTitle (P-04) |
+| **Spine waypoint** | 3px `#fe5000` left bar + 12px inset | EXCLUSIVE set: audience line, step headers 1–4, both subtotal blocks — see §C |
+| Step header (buy path) | `.step-header`: 18px/24 latosemibold #1f1f1f + latobold #fe5000 numeral, 32/12 rhythm, static `<h2>` | charcoal 522×40 bands retired (noise cause N-1); P-22 semantics unchanged |
+| Section title (left col + Q&A) | `span.pdp-section__title` / `.qa-title`: 18px/24 latosemibold #1f1f1f, barless, inside `<h2>` | ONE h2 voice page-wide — steps add the bar, off-path never does |
+| Kicker | Key Facts title ONLY: latobold 13px #1f1f1f, Title Case | When-To-Choose left the kicker system for the disclosure-title voice |
+| Disclosure panel | quiet gray panel: `#fafafa`, radius 6, 12×16 toggle inset, hover `#f5f5f5`, gray chevron | ONE disclosure idiom: When-To-Choose + method block (filled-band header retired) |
+| Disclosure title | 14px latosemibold #1f1f1f (WTC); method name 16px latosemibold #1f1f1f | navy method name retired — navy is for text links only |
+| Pane sub-heading | latosemibold 16px #1f1f1f, Title Case | unchanged (P-36) |
+| Table voice (spec + method facts + charges) | label: latoregular #757575 col 38% / value: #1f1f1f, hairline #eee rows | 16px in the left column, 14px in the buy pane; label never outweighs its value |
+| Body text | latoregular 16px/24 #525252 (16px/26 in Description); WTC body 14px/21 | |
+| Meta (13px floor) | latoregular 13px #757575 — SKU, wishlist, after-CTA line, secure line, badges, collapsed summaries | nothing renders below 13px |
+| Price (subtotal value) | latobold 24px/30 #1f1f1f in the spine price zone | strongest buy-box text; label + per-unit = 14px #757575 quiet meta (P-13) |
+| Inline emphasis + positive semantics | `font-family: latobold; font-weight: normal` dark ink | the bright `.text-success` green is retired — "Included", "first location free", "In Stock" are latobold dark (C monochrome off-path) |
+| Text action/link | underlined gray #525252, hover #1f1f1f (breakdown, add-location); navy #001542 for nav/support links | AA everywhere (orange smalls were 3.0–3.3:1) |
+| Secondary action | hairline outline: 1px #b3b3b3, radius 4, latomedium 14px #1f1f1f, hover border #1f1f1f | Edit button leaves the accent system |
+| Selection / active state | `#fe5000` border + `#fff6f2` tint | ONE selection orange — #ff6b00 retired |
+| CTA | `.btn-secondary.add-to-cart-lg`: #fe5000 fill, latobold 20px, radius 4 | disabled = solid #909090 (3.19:1 — was 1.41) |
+
+Casing rule: NO uppercase anywhere (0 rendered instances). Title Case for titles, labels, and
+the kicker; sentence case for body. Every font-family declaration terminates in `, sans-serif`
+(P-05). Structural guards: `html{font-synthesis-weight:none}` + `h1,h2,h3,h4{font-weight:normal}`
+— bold exists only by family switch.
 
 ## B. Hierarchy map — element → user importance → visual weight/position
 
+Attention path (the C thesis): **orange audience bar → 1 → 2 → price bar → orange CTA** — the
+spine literally draws the buy path down the pane; everything off it is monochrome and quiet.
+
 | Element | Importance | Weight / position |
 |---|---|---|
-| Product name (pdpTitle) | orient first | 24px latobold, 1 line, first screen right col; on mobile above buy flow (P-01) |
-| Subtotal price | decision | 20px latosemibold dark — only price-level text at 20px in the band; sticky right col (P-16) |
-| CTA | action | 54px orange full-width bar, directly under price, sticky |
-| Tier table + size grid | decision input | 14–16px latomedium, active tier highlighted (`attr-active`), non-mutating (P-06) |
-| Subtitle + audience-fit line | qualify | 16px/24 gray, directly under H1 (P-37) |
-| Key Facts | scan | bordered peach card, latobold lead-ins; top of content col; mobile: before buy flow (P-14) |
-| Section titles | navigate | 20px latosemibold h2 — one step under H1 |
-| Body copy / method description | read | 16px latoregular gray — nothing readable is smaller than 13px |
-| Row labels | support values | 16px latosemibold gray — label never outweighs its value |
-| Meta (SKU, collapsed summaries) | ambient | 13–16px gray/latolight |
-| Decision aid (When to choose) | on-demand | collapsed by default; 16px regular body when opened — no longer outweighs the always-visible summary (P-35) |
+| Product name (pdpTitle) | orient first | 24px latobold dark, first screen right col; mobile above buy flow (P-01) |
+| Audience-fit line | qualify | spine waypoint 1: 3px orange bar, dark 16px text, directly under the H1 and ABOVE the description (client amendment A) |
+| Step headers 1–4 | way-find | spine waypoints: 18px latosemibold dark + orange latobold numeral — chroma, not area-mass, does the guiding (N-1 resolved) |
+| Subtotal price | decision | spine waypoint: 24px latobold dark — the largest dark type in the pane, on the same bar as the steps |
+| CTA | action | 54px orange fill — the page's only filled color block, directly under the price |
+| Tier table + size grid | decision input | 14–16px, selection = orange border + #fff6f2 tint (`attr-active`), non-mutating (P-06) |
+| Subtitle | read | 16px/24 gray under the audience line |
+| Key Facts | scan | monochrome hairline card, dark latobold lead-ins + ✓; top of content col; mobile before buy flow (P-14) |
+| Section titles | navigate | 18px latosemibold dark h2, barless — same voice as steps, minus the spine |
+| Body copy / method description | read | 16px latoregular gray; WTC body 14px/21 |
+| Row labels | support values | latoregular #757575 — value (#1f1f1f) always outweighs its label |
+| Meta (SKU, wishlist, secure, badges) | ambient | 13px #757575 |
+| Decision aid (When To Choose) | on-demand aside | quiet #fafafa panel, deliberately OFF the spine — an aside, not a waypoint |
 
-Weight follows decision value: price > CTA label > titles > values > labels > meta. The only
-persuasion-colored element is the CTA + link orange; green appears only as "included/free/stock"
-semantics.
+Weight follows decision value: price > CTA label > step/section titles > values > labels > meta.
+Accent = meaning: spine bars + numerals (buy path), CTA (action), selection states, focus.
+Positive semantics are latobold dark ink — no green on the page.
+
+## C. The spine rule (exclusivity — keep or C degrades)
+
+**The 3px #fe5000 left bar marks buy-path waypoints ONLY (audience qualifier, step headers,
+subtotal). Nothing else on the page may carry it. Off-path accent is limited to: CTA,
+active/selection states, focus outlines.** The left content column carries NO spine bars — the
+spine is exclusively the buy path. If future elements adopt the bar decoratively, C degrades
+back toward the noise the redesign removed (review §5, Variant C trade-off). Current spine
+census: 7 sites (audience line, steps 1–4, buy + configurator subtotals).
 
 ---
 
@@ -66,8 +88,10 @@ semantics.
   stack and reorder via CSS" option). No duplicate desktop/mobile trees.
 - Method-facts grid re-rendered as a literal `table.pdp-spec-table` — same component as
   Specifications, which closes P-11/P-12/P-26/P-33 with zero new CSS.
-- Sticky right column = plain `position:sticky; top:16px` (P-16); corrected pane is short
-  enough to fit a 900px viewport, so no internal scroll region.
+- Sticky right column = plain `position:sticky; top:16px` (P-16). Buy state fits a 900px
+  viewport (859px measured post-C); the configurator state measures ~1203px — it exceeded one
+  viewport before C as well (~+40px of that is the C spacing scale), tail reachable at page
+  end. Candidate for a follow-up if the client wants the config CTA always in view.
 - Configurator is a static corrected state swapped into the right pane by the Customize CTA
   (per brief: faithful corrected rendering, not a working configurator). Location listbox is a
   real absolute overlay (P-39) with basic keyboard support.
@@ -110,10 +134,41 @@ benchmarking; no new competitor claims introduced.
   the 620px natural image width was re-creating P-24's horizontal scroll via flex min-content floors.
 - 2026-07-30 Contact affordance reduced to a 48px icon positioned clear of the buy pane
   (P-09 desktop facet: live bubble covered "Price each").
+- 2026-08-04 Variant C "Accent Spine" applied page-wide with two client amendments — see R3
+  below; all 40 dispositions re-verified intact, floors re-swept (0 uppercase, 0 computed 700,
+  min 13px, price 24px latobold).
 
 ## R2 (2026-07-31, client review)
 - R2-1 Kickers lose uppercase: `.pdp-key-facts__title` + `.imprint-method-decision__title` drop `text-transform:uppercase`/`letter-spacing:.08em` — Title Case is now the kicker's own casing (P-36).
-- R2-2 Decision box subordinated: `.imprint-method-decision` loses the orange tint/border, reused as a plain `border-top:1px solid #eee` disclosure (the `.pdp-section` quiet-separator idiom); chevron stays orange (P-35).
+- R2-2 Decision box subordinated: `.imprint-method-decision` loses the orange tint/border, reused as a plain `border-top:1px solid #eee` disclosure (the `.pdp-section` quiet-separator idiom); chevron stays orange (P-35). [Superseded by R3 — quiet gray panel.]
 - R2-3 Decoration & Imprint header summary restored, recomposed: `.pdp-section__hsummary` "Full-color imprint · first location included" added, matching Production's collapsed-only visibility (P-27/P-40).
-- R2-4 Audience-fit line split to its own `.product-subtitle` line below the 2-sentence subtitle paragraph, chip intact (P-37).
+- R2-4 Audience-fit line split to its own `.product-subtitle` line below the 2-sentence subtitle paragraph, chip intact (P-37). [Superseded by R3 — moved above the description, carries the spine bar.]
 - R2-5 Charges table recomposed action-oriented: "First location → Included" / "Additional location → $30.00 setup + $5.95/item"; the redundant anchor sentence and a third "?"-tooltip repetition removed, leaving one statement of the fact (P-12/P-39).
+
+## R3 (2026-08-04) — Variant C "Accent Spine" applied
+
+Client chose Variant C from `variants.html` (review §5 recommendation). Applied to the
+canonical `index.html` with two client amendments; `variants.html` untouched (exploration
+archive). Sections A–C above describe the applied state.
+
+- **Amendment A — audience line placement.** The line moves ABOVE the description, directly
+  under the H1 (hero order: SKU meta → H1 → barred audience line → subtitle → steps).
+  Rationale: directly adjacent to the step spine it reads as a false first step; under the H1
+  it reads as the product qualifier. (The C variant board had it below the subtitle.)
+- **Amendment B — left-column extension.** The left column adopts the same system: §1e spacing
+  steps at its boundaries, hairline separators + quiet gray panel as the only container idioms
+  (peach Key Facts tint, filled method-block band, dashed imprint border all retired), the
+  consolidated type voices (one 18px h2, gray-label/dark-value tables), monochrome off-path.
+  NO spine bars in the left column — see §C.
+- Right pane per the C spec: spine system (7 sites), barred 18px step headers with orange
+  numerals, 24px latobold price in the spine price zone (gray band retired), quiet-panel
+  When-To-Choose with hover/focus, monochrome links/chevrons/badges, 4/8/12/16/24/32 scale
+  (inline 20px margins killed), support link relocated below the CTA.
+- Contrast resolutions (review §2a): breadcrumb #757575; links underlined-gray AA; disabled
+  CTA solid #909090 (3.19:1, was 1.41); dim subtotal #909090 on white (3.19:1 large, was 2.93
+  on gray); bright green (1.70:1) retired — positive semantics latobold dark ink; #ff6b00,
+  #f05323, #0d6efd, #2e7d32, #e54800 all leave the page. Structural font guards added at html
+  level + grouped heading reset; the SVG "?" glyph swapped from font-weight="bold" to latobold.
+- Deviations from the vC board, both integration-driven: (1) the configurator Edit button gets
+  the 32px hero-gap the buy state inherits from its step header; (2) the modal keeps its
+  orange Close (primary action in its own surface) with the standard CTA hover pair.
