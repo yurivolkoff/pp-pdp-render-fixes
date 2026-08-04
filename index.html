@@ -28,16 +28,17 @@
    no bare latosemibold/latobold anywhere, incl. price + CTA).
    ============================================================ */
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;font-synthesis-weight:none}   /* C: root guard — no synthesized bold, ever */
 body{margin:0;font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;background:#fff;font-synthesis-weight:none}
 img{max-width:100%;display:block}
 h1,h2,h3,h4,p,ul,figure{margin:0}
+h1,h2,h3,h4{font-weight:normal}   /* C: bold by family switch ONLY — alias faces are single-weight; UA 700 would synthesize */
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 input{font:inherit}
 a{color:#001542}
 /* P-05: inline emphasis = the H1's own family-switch pattern — real Bold glyphs, no synthesis */
 strong,b{font-family:"latobold",sans-serif;font-weight:normal}
-.text-success{color:rgb(95,224,100)}   /* theme --bs-success-rgb */
+/* C: the bright rgb(95,224,100) .text-success green is retired — positive semantics render as latobold dark ink (monochrome off-path) */
 .line-height-26{line-height:26px}
 :focus-visible{outline:2px solid #fe5000;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
@@ -54,9 +55,9 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .page-wrap{max-width:1320px;margin:0 auto;padding:0 24px}
 .breadcrumb{display:flex;flex-wrap:wrap;list-style:none;margin:16px 0;padding:0;font-size:14px}
 .breadcrumb li+li::before{content:"›";padding:0 8px;color:#6c757d}
-.breadcrumb a{color:#919191;text-decoration:none}
+.breadcrumb a{color:#757575;text-decoration:none}   /* C contrast fix: #919191 (3.15:1) → #757575 (4.6:1 AA) */
 .breadcrumb a:hover{color:#001542}
-.breadcrumb .active{color:#919191}
+.breadcrumb .active{color:#525252}
 
 /* ============================================================
    4. Layout — ONE DOM stack (P-21). Desktop: grid, left content +
@@ -75,8 +76,8 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .gallery-main{position:relative;background:#fff}
 .gallery-main img{width:100%;height:auto}
 .gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid #525252;background:#fff;z-index:10;display:flex;align-items:center;justify-content:center;transition:border-color .2s ease}
-.gallery-arrow:hover{border-color:#ff6b00}
-.gallery-arrow:hover svg path{stroke:#ff6b00}
+.gallery-arrow:hover{border-color:#1f1f1f}   /* C: monochrome off-path — the #ff6b00 second orange is retired page-wide */
+.gallery-arrow:hover svg path{stroke:#1f1f1f}
 .gallery-arrow--prev{left:12px}
 .gallery-arrow--next{right:12px}
 .thumbnails-carousel{display:flex;align-items:center;gap:16px}
@@ -84,42 +85,46 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .thumbnails-scroll::-webkit-scrollbar{display:none}
 .thumbnail-item{width:72px;height:72px;border:2px solid #e0e0e0;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .2s ease;background:#f8f8f8;padding:0}
 .thumbnail-item img{max-width:100%;max-height:100%;object-fit:contain}
-.thumbnail-item:hover:not(.active){border-color:#111}
+.thumbnail-item:hover:not(.active){border-color:#1f1f1f}
 .thumbnail-item.active{border-color:#fe5000}
 
 /* ============================================================
-   6. Hero / product summary (theme .product-summary-section)
+   6. Hero / product summary — Variant C: 8/12/12 rhythm (flat flex
+   gap retired), SKU/wishlist demoted to 13px meta, audience-fit line
+   carries the accent bar ABOVE the subtitle (client amendment A)
    ============================================================ */
-.product-summary-section{display:flex;flex-direction:column;gap:12px}
+.product-summary-section{display:block}
 .product-sku-row{display:flex;align-items:center;justify-content:space-between}
-.sku-text{font-family:"latolight",sans-serif;font-size:16px;color:#909090}
-.wishlist-link{display:inline-flex;align-items:center;gap:6px;color:#909090;font-size:16px;text-decoration:none}
-.product-name{font-family:"latobold",sans-serif;font-size:24px;line-height:1.2;color:#1f1f1f;margin-bottom:0;font-weight:normal} /* P-04: rendering unchanged; content = pdpTitle */
-.ask-line{font-size:16px;color:#525252}
-.ask-line a{color:#001542}
-.product-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252} /* P-05: latoregular, sans-serif — no weight-ladder chain */
+.sku-text{font-family:"latoregular",sans-serif;font-size:13px;color:#757575}
+.wishlist-link{display:inline-flex;align-items:center;gap:6px;color:#757575;font-size:13px;text-decoration:none}
+.product-name{font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f;margin:8px 0 0;font-weight:normal} /* P-04: content = pdpTitle */
+.audience-line{margin:12px 0 0;color:#1f1f1f;border-left:3px solid #fe5000;padding-left:12px} /* C spine site 1: the buy path starts at the qualifier (P-37) */
+.product-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin:12px 0 0} /* P-05: latoregular, sans-serif — no weight-ladder chain */
 
 /* ============================================================
-   7. Buy box — step bars (P-22 static h2), swatches (P-03/P-23),
-   tier table (P-02/P-06), size grid (P-07), subtotal (P-13/P-18)
+   7. Buy box — Variant C "Accent Spine". Step headers are barred
+   text headings (charcoal 522×40 bands retired — noise cause N-1):
+   3px #fe5000 spine bar + orange latobold numeral. Spine sites are
+   EXCLUSIVE: audience line, step headers, subtotal blocks — nothing
+   else on the page carries the bar. (P-22 static h2 preserved.)
    ============================================================ */
-.step-header{display:flex;align-items:center;background:#525252;color:#fff;height:40px;padding:0 14px;margin:24px 0 12px}
-.step-header .step-number{font-family:"latobold",sans-serif;font-size:20px;margin-right:10px;font-weight:normal}
-.step-header .step-label{font-family:"latomedium",sans-serif;font-size:16px;font-weight:normal}
+.step-header{display:flex;align-items:center;border-left:3px solid #fe5000;padding-left:12px;margin:32px 0 12px;font-size:18px;line-height:24px;color:#1f1f1f;font-family:"latosemibold",sans-serif}
+.step-header .step-number{font-family:"latobold",sans-serif;font-size:inherit;color:#fe5000;margin-right:8px;font-weight:normal}
+.step-header .step-label{font-family:inherit;font-size:inherit;font-weight:normal}
 
 .color-circles-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center} /* P-23: 8px gap (project standard), was 2px */
 .color-circle-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:6px;transition:background .1s ease-in-out;border:2px solid transparent}
-.color-circle-btn.selected{background:#fff;border:2px solid #ff6b00;padding:4px}
+.color-circle-btn.selected{background:#fff;border:2px solid #fe5000;padding:4px}   /* C: ONE selection orange — #ff6b00 retired */
 .color-circle-btn:hover:not(.selected){border-color:#e2e2e2}
 .color-circle{width:36px;height:36px;border-radius:50%;overflow:hidden}   /* theme .color-circle metrics, now inside a real button (P-03) */
-.color-circle-btn.light-color .color-circle{border:1px solid #525252}
+.color-circle-btn.light-color .color-circle{border:1px solid #b3b3b3}   /* C: ring gray joins the single input-border gray */
 .color-info-text{margin-top:12px;font-size:16px}
 .color-info-text .color-name{font-family:"latosemibold",sans-serif;color:#1f1f1f}
 
 .tier-scroll{overflow-x:auto}   /* P-02: the verified minimal fix — tiers reachable at every width */
 .size-table .table{border-collapse:separate;border-spacing:0;width:100%}
 .size-table .table tr td{font-size:14px;font-family:"latomedium",sans-serif;border:1px solid transparent;color:#1f1f1f;padding:5px 4px;text-align:center;transition:background-color .15s ease,border-color .15s ease}
-.size-table .table tr td:first-child{font-family:"latoregular",sans-serif;text-align:left;white-space:nowrap;cursor:default}
+.size-table .table tr td:first-child{font-family:"latoregular",sans-serif;color:#757575;text-align:left;white-space:nowrap;cursor:default}   /* C: row label lighter than its values */
 .size-table .table tr td:not(:first-child){cursor:pointer}
 .size-table .table tr td:not(:first-child):hover{background-color:#f5f5f5}
 .size-table .table tr td.attr-active{background:#fff6f2;border-left-color:#fe5000;border-right-color:#fe5000}   /* theme attr-active — highlight only, never mutates quantities (P-06) */
@@ -128,37 +133,42 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 
 .size-grid-heading{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f;margin:16px 0 12px;font-weight:normal}
 .size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.size-cell label{display:block;font-size:16px;color:#1f1f1f;margin-bottom:4px}
-.size-cell input{width:100%;height:44px;border:1px solid #b3b3b3;border-radius:0;padding:0 10px;font-size:16px;color:#1f1f1f;font-family:"latoregular",sans-serif}
+.size-cell label{display:block;font-size:14px;color:#1f1f1f;margin-bottom:4px}
+.size-cell input{width:100%;height:44px;border:1px solid #b3b3b3;border-radius:4px;padding:0 10px;font-size:16px;color:#1f1f1f;font-family:"latoregular",sans-serif}
 .size-cell.filled input{border-color:#fe5000;background:#fff6f2}
 .moq-hint{margin-top:12px;font-size:14px;color:#525252}
 .moq-hint.warn{color:#f80a0a}   /* theme text-danger */
 
-.subtotal-band{background:#f5f5f5;padding:14px 16px;margin-top:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.subtotal-label{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f}   /* label stays 16px (P-13); "Subtotal:" when setup = $0 (P-18) */
-.subtotal-value{font-family:"latosemibold",sans-serif;font-size:20px;line-height:30px;color:#1f1f1f;display:block;text-align:right}   /* P-13: span.pdp-section__title metrics on the money; a styled span, not a heading (P-15) */
-.subtotal-value.dim{color:#909090}
-.price-each{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;text-align:right}   /* P-13: promoted from smallest-in-band to standard body */
-.view-price-breakdown-link{font-size:14px;font-family:"latoregular",sans-serif;color:#fe5000;cursor:pointer;padding:4px 0}   /* theme link class on a real <button> (P-08) */
-.view-price-breakdown-link:hover{color:#cb4000;text-decoration:underline}
+/* C spine site 3: the subtotal joins the buy path — same 3px bar, gray band retired; price = the pane's largest dark type */
+.subtotal-band{border-left:3px solid #fe5000;padding-left:12px;margin-top:24px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.subtotal-label{font-family:"latoregular",sans-serif;font-size:14px;color:#757575}   /* "Subtotal:" when setup = $0 (P-18) */
+.subtotal-value{font-family:"latobold",sans-serif;font-size:24px;line-height:30px;color:#1f1f1f;display:block;text-align:right}   /* P-13 under C: 24px latobold — strongest buy-box text; a styled span, not a heading (P-15) */
+.subtotal-value.dim{color:#909090}   /* on white: 3.19:1 — passes 3:1 large-text (was 2.93 on the gray band) */
+.price-each{font-family:"latoregular",sans-serif;font-size:14px;line-height:19px;color:#757575;text-align:right;margin-top:4px}
+.view-price-breakdown-link{font-size:14px;font-family:"latoregular",sans-serif;color:#525252;text-decoration:underline;cursor:pointer;padding:4px 0}   /* C link idiom: underlined gray, AA 7.8:1 (was #fe5000 at 3.03:1) — real <button> (P-08) */
+.view-price-breakdown-link:hover{color:#1f1f1f}
 
-.btn-secondary{display:block;width:100%;background:#fe5000;border:1px solid #fe5000;color:#f5f5f5;text-align:center;transition:.3s}
+.btn-secondary{display:block;width:100%;background:#fe5000;border:1px solid #fe5000;color:#fff;text-align:center;transition:.3s;border-radius:4px}
 .btn-secondary:hover{background:#fe6a26;border-color:#fe621a}
-.btn-secondary:disabled{background:rgba(179,179,179,.5);border-color:rgba(179,179,179,.5);color:#fff;cursor:not-allowed}
+.btn-secondary:disabled{background:#909090;border-color:#909090;color:#fff;cursor:not-allowed}   /* C contrast fix: 3.19:1 (was 1.41) — the action slot stays legible while disabled */
 .add-to-cart-lg{height:54px;font-size:20px;font-family:"latobold",sans-serif;font-weight:normal;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:10px}   /* P-05: latobold + the sans-serif terminator via inheritance chain below */
 .add-to-cart-lg{font-family:"latobold",sans-serif}
+.after-cta{margin-top:12px;display:flex;justify-content:space-between;gap:16px;font-size:13px;line-height:19px;color:#757575}   /* C: support link relocated below the CTA (S-1 title-block interruption) */
+.after-cta a{color:#001542}
 
 /* ============================================================
-   8. Content sections — theme .pdp-content-sections verbatim, with
-   the review-prescribed deltas marked
+   8. Content sections — LEFT COLUMN under Variant C (client
+   amendment B): NO spine bars here (the spine is exclusively the
+   buy path); barless heading treatment, hairline separators as the
+   one container idiom, monochrome off-path, §1e spacing scale
    ============================================================ */
 .pdp-content-sections{font-family:"latoregular",sans-serif;margin-top:24px}
 .pdp-section{border-top:1px solid #eee}
 .pdp-section__h{margin:0}   /* P-15: h2 wrapper; visual stays on the classes */
-.pdp-section__header{display:flex;align-items:center;gap:12px;width:100%;padding:14px 0;background:none;border:0;text-align:left;cursor:pointer}
-.pdp-section__header:hover .pdp-section__title{color:#fe5000}
-.pdp-section__title{font-size:20px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;line-height:30px}
-.pdp-section__badge{font-size:13px;font-family:"latosemibold",sans-serif;color:#fe5000;border:1px solid rgba(254,80,0,.35);border-radius:999px;padding:2px 10px;white-space:nowrap;font-weight:normal}
+.pdp-section__header{display:flex;align-items:center;gap:12px;width:100%;padding:16px 0;background:none;border:0;text-align:left;cursor:pointer}
+.pdp-section__header:hover{background:#fafafa}   /* C: monochrome hover (the quiet-panel idiom) — orange title hover retired */
+.pdp-section__title{font-size:18px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;line-height:24px}   /* C: one h2 voice page-wide — same 18px latosemibold as the step headers */
+.pdp-section__badge{font-size:13px;font-family:"latoregular",sans-serif;color:#757575;border:1px solid #eee;border-radius:999px;padding:2px 10px;white-space:nowrap;font-weight:normal}   /* C: metadata leaves the accent system (§3-7) */
 .pdp-section__chevron{margin-left:auto;margin-bottom:4px;width:9px;height:9px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease-in-out;flex-shrink:0}
 .pdp-section--open>.pdp-section__h>.pdp-section__header .pdp-section__chevron{margin-bottom:0;margin-top:4px;transform:rotate(225deg)}
 .pdp-section__body{padding:0 0 16px}
@@ -168,41 +178,42 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .pdp-section:not(.pdp-section--open) .pdp-section__hsummary{display:inline}
 .pdp-section__subheading{font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;margin:12px 0 4px;font-weight:normal}
 
-.pdp-key-facts{background:rgba(254,80,0,.05);border:1px solid rgba(254,80,0,.25);border-radius:8px;padding:14px 18px;margin-bottom:16px}
+.pdp-key-facts{background:#fff;border:1px solid #eee;border-radius:6px;padding:16px;margin:24px 0}   /* C: the accent container goes monochrome — hairline card, ONE 16px inset, 24px group gaps */
 .pdp-key-facts__title{font-size:13px;font-family:"latobold",sans-serif;color:#1f1f1f;margin-bottom:8px;font-weight:normal}   /* THE one kicker style page-wide (P-36) — R2: uppercase/letter-spacing dropped per client review, Title Case markup */
 .pdp-key-facts__list{list-style:none;margin:0;padding:0}
 .pdp-key-facts__list li{position:relative;padding-left:22px;margin-bottom:6px}
-.pdp-key-facts__list li::before{content:"✓" / "";position:absolute;left:0;color:#fe5000;font-family:"latobold",sans-serif}   /* P-10: marker hidden from AT via alt-text syntax */
+.pdp-key-facts__list li::before{content:"✓" / "";position:absolute;left:0;color:#1f1f1f;font-family:"latobold",sans-serif}   /* P-10: marker hidden from AT via alt-text syntax; C: dark ink, off-path monochrome */
 .pdp-key-facts__list li:last-child{margin-bottom:0}
 
 .pdp-spec-table{width:100%;border-collapse:collapse}
-.pdp-spec-table th,.pdp-spec-table td{padding:8px 12px 8px 0;vertical-align:top;border-bottom:1px solid #eee;font-weight:normal;text-align:left;font-size:16px;line-height:24px;color:#525252}
-.pdp-spec-table th[scope=row]{width:38%;font-family:"latosemibold",sans-serif}
+.pdp-spec-table th,.pdp-spec-table td{padding:8px 12px 8px 0;vertical-align:top;border-bottom:1px solid #eee;font-weight:normal;text-align:left;font-size:16px;line-height:24px;color:#1f1f1f}
+.pdp-spec-table th[scope=row]{width:38%;font-family:"latoregular",sans-serif;color:#757575}   /* C table voice: gray regular label, dark value — label never outweighs its value */
 
-/* Decoration method block — P-27: summary suppressed, inner facts box
-   borderless; facts re-rendered AS a pdp-spec-table (P-11/P-12/P-26/P-33) */
-.pdp-method-block{border:1px solid #eee;border-radius:6px;margin-bottom:12px;overflow:hidden}
-.pdp-method-block__header{display:flex;align-items:center;gap:12px;width:100%;padding:12px 16px;background:rgba(238,238,238,.45);border:0;text-align:left;cursor:pointer}
-.pdp-method-block__name{display:block;font-size:16px;font-family:"latosemibold",sans-serif;color:#001542;font-weight:normal}
-.pdp-method-block__chevron{margin-left:auto;width:8px;height:8px;border-right:2px solid #fe5000;border-bottom:2px solid #fe5000;transform:rotate(45deg);transition:transform .15s ease-in-out;flex-shrink:0}
+/* Decoration method block — P-27: summary suppressed; C: the filled-band
+   header idiom is retired — the block adopts the quiet gray panel (the
+   page's ONE disclosure idiom, shared with When-To-Choose) */
+.pdp-method-block{background:#fafafa;border-radius:6px;margin-bottom:12px;overflow:hidden}
+.pdp-method-block__header{display:flex;align-items:center;gap:12px;width:100%;padding:12px 16px;background:none;border:0;text-align:left;cursor:pointer;border-radius:6px}
+.pdp-method-block__header:hover{background:#f5f5f5}
+.pdp-method-block__name{display:block;font-size:16px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal}   /* C: navy reserved for text links */
+.pdp-method-block__chevron{margin-left:auto;width:8px;height:8px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease-in-out;flex-shrink:0}   /* C: one gray chevron voice */
 .pdp-method-block--open>.pdp-method-block__header .pdp-method-block__chevron{transform:rotate(225deg)}
-.pdp-method-block__body{padding:2px 16px 8px}
+.pdp-method-block__body{padding:0 16px 14px}
 .pdp-method-block:not(.pdp-method-block--open)>.pdp-method-block__body{display:none}
-.included-tick{font-family:"latobold",sans-serif}
+.included-tick{font-family:"latobold",sans-serif;color:#1f1f1f}   /* C: positive semantics = dark latobold ink, green retired */
 
 .static-list{padding-left:1rem;margin:0}
 .static-list li{list-style:disc;margin-bottom:8px}
 /* P-08: tooltip trigger is a real button, ≥24px hit area, shows on hover AND focus */
 .rush-info-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;margin-left:6px;cursor:pointer;z-index:100;width:24px;height:24px;padding:0;border:0;background:none}
-.rush-tooltip{display:none;position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);width:276px;background:#fff;border:1px solid #fe5000;border-radius:4px;padding:8px;font-family:"latoregular",sans-serif;font-size:14px;line-height:16px;color:#525252;z-index:200;white-space:normal}
+.rush-tooltip{display:none;position:absolute;left:calc(100% + 10px);top:50%;transform:translateY(-50%);width:276px;background:#fff;border:1px solid #b3b3b3;border-radius:4px;padding:8px;font-family:"latoregular",sans-serif;font-size:14px;line-height:16px;color:#525252;z-index:200;white-space:normal}   /* C: hairline container, accent border retired */
 .rush-info-icon:hover .rush-tooltip,.rush-info-icon:focus-visible .rush-tooltip{display:block}
-.rush-info-icon:hover svg path,.rush-info-icon:focus-visible svg path{fill:#fe5000}
-.pdp-content-sections__footer{border-top:1px solid #eee;padding-top:14px}
+.pdp-content-sections__footer{border-top:1px solid #eee;padding-top:16px}
 
 /* ============================================================
    9. Q&A module — P-28: headings join the section-title system
    ============================================================ */
-.qa-title{font-size:20px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;margin-bottom:12px}
+.qa-title{font-size:18px;font-family:"latosemibold",sans-serif;color:#1f1f1f;font-weight:normal;line-height:24px;margin-bottom:12px}   /* C: joins the one 18px h2 voice (P-28) */
 .qa-ask{display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .qa-avatar{width:36px;height:36px;border-radius:50%;background:#eee;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#909090}
 .qa-ask input{flex:1;height:44px;border:1px solid #b3b3b3;border-radius:4px;padding:0 14px;font-size:16px;color:#525252}
@@ -210,39 +221,45 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .qa-empty{font-size:16px;color:#525252}
 
 /* ============================================================
-   10. Configurator pane — corrected static state (P-35…P-39)
+   10. Configurator pane — Variant C applied (P-35…P-39): steps 3–4
+   join the spine, everything off-path monochrome, When-To-Choose =
+   the quiet gray panel with defined bounds + hover/focus (N-5)
    ============================================================ */
-.btn-outline-edit{border:1px solid #fe5000;color:#fe5000;background:#fff;padding:10px 16px;font-family:"latomedium",sans-serif;font-size:16px}
-.btn-outline-edit:hover{background:rgba(254,80,0,.05)}
-.config-summary-line{display:flex;gap:24px;align-items:center;font-size:16px;color:#1f1f1f;margin:12px 0 0;flex-wrap:wrap}
-.config-h{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f;font-weight:normal;margin:16px 0 8px}   /* P-36: Title Case unified on the shared 16px latosemibold style */
-.imprint-method-badge{display:inline-block;border:0;border-radius:4px;padding:4px 10px;font-size:14px;color:#333;background:#fafafa;white-space:nowrap}
-.imprint-method-badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.btn-outline-edit{border:1px solid #b3b3b3;border-radius:4px;color:#1f1f1f;background:#fff;padding:10px 16px;font-family:"latomedium",sans-serif;font-size:14px}   /* C: secondary action leaves the accent system */
+.btn-outline-edit:hover{border-color:#1f1f1f}
+.config-summary-line{display:flex;gap:24px;align-items:center;font-size:14px;color:#525252;margin:12px 0 0;flex-wrap:wrap}
+.config-summary-line span span{font-family:"latosemibold",sans-serif;color:#1f1f1f}   /* C sumline: gray label, dark semibold value */
+.config-h{font-family:"latosemibold",sans-serif;font-size:16px;line-height:19.2px;color:#1f1f1f;font-weight:normal;margin:12px 0 4px}   /* P-36: Title Case unified on the shared 16px latosemibold style; C m-h rhythm 12/4 */
+.imprint-method-badge{display:inline-block;border:1px solid #eee;border-radius:999px;padding:2px 10px;font-size:13px;color:#757575;background:#fff;white-space:nowrap}   /* C: neutral hairline pill — one badge idiom page-wide */
+.imprint-method-badges{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
 .imprint-method-subtitle{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin:0 0 12px}   /* P-35: promoted from 13px gray — the pane's body style */
 
-.imprint-method-decision{border-top:1px solid #eee;margin:12px 0}   /* R2-2: orange tint/border stripped — reuses the .pdp-section quiet-disclosure separator idiom (was rgba(254,80,0,.05) bg + rgba(254,80,0,.25) border) */
-.imprint-method-decision__toggle{display:flex;align-items:center;width:100%;background:none;border:0;padding:12px 16px;cursor:pointer;text-align:left}
-.imprint-method-decision__title{font-size:13px;font-family:"latobold",sans-serif;color:#1f1f1f;flex:1;font-weight:normal}   /* P-36: joins the ONE kicker system (was 12px orange, 3rd competing idiom); R2: uppercase/letter-spacing dropped */
-.imprint-method-decision__chevron{flex-shrink:0;width:8px;height:8px;border-right:2px solid #fe5000;border-bottom:2px solid #fe5000;transform:rotate(45deg);transition:transform .15s ease-in-out}
+/* C: When-To-Choose = deliberately quiet gray panel — an aside, not a waypoint (off-spine by design; N-5 gets real bounds + hover) */
+.imprint-method-decision{background:#fafafa;border-radius:6px;margin:12px 0}
+.imprint-method-decision__toggle{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:12px 16px;cursor:pointer;text-align:left;border-radius:6px}
+.imprint-method-decision__toggle:hover{background:#f5f5f5}
+.imprint-method-decision__title{font-size:14px;font-family:"latosemibold",sans-serif;color:#1f1f1f;flex:1;font-weight:normal}   /* C: disclosure title voice (leaves the kicker system — Key Facts is now the one kicker) */
+.imprint-method-decision__chevron{flex-shrink:0;width:8px;height:8px;border-right:2px solid #525252;border-bottom:2px solid #525252;transform:rotate(45deg);transition:transform .15s ease-in-out}   /* C: gray chevron — one chevron voice */
 .imprint-method-decision--open .imprint-method-decision__chevron{transform:rotate(225deg)}
 .imprint-method-decision__content{padding:0 16px 14px}
 .imprint-method-decision:not(.imprint-method-decision--open) .imprint-method-decision__content{display:none}
-.imprint-method-decision__body{font-family:"latoregular",sans-serif;font-size:16px;line-height:24px;color:#525252;margin-bottom:8px}   /* P-35: demoted from all-semibold slab; semibold reserved for the strong lead-in */
+.imprint-method-decision__body{font-family:"latoregular",sans-serif;font-size:14px;line-height:21px;color:#525252;margin-bottom:8px}   /* C wtc-body voice; semibold reserved for the strong lead-in (P-35) */
 .imprint-method-decision__body strong{color:#1f1f1f}
 
 /* R2-5: .imprint-method-anchor rules removed with the markup instance — the charges table below is now the ONE statement of "first location included" */
 
-.imprint-charges-table{width:100%;font-size:14px;border-collapse:collapse;margin-bottom:4px}
-.imprint-charges-table th{font-family:"latosemibold",sans-serif;font-weight:normal;font-size:16px;line-height:24px;color:#525252;padding:4px 12px 4px 0;text-align:left;border-bottom:1px solid #eee}   /* P-36: th adopts the spec-table semibold pattern (was latoregular — lighter than body) */
-.imprint-charges-table td{padding:5px 12px 5px 0;color:#1f1f1f;font-family:"latoregular",sans-serif}
-.imprint-charges-table__free{color:#2e7d32;font-family:"latosemibold",sans-serif}
-.imprint-charges-table__first-row th,.imprint-charges-table__first-row td{background:#eef6ef}   /* fix: row-highlight bg now covers the th (was td:first-child before the R2-5 label cells became th) */
+/* C charges table: heading row as a caption voice; gray regular labels, dark values, hairline rows; green retired — Included = <strong> dark ink */
+.imprint-charges-table{width:100%;font-size:14px;border-collapse:collapse;margin:12px 0 0}
+.imprint-charges-table thead th{font-family:"latosemibold",sans-serif;font-weight:normal;font-size:16px;line-height:24px;color:#1f1f1f;padding:0 0 8px;text-align:left;border:0}
+.imprint-charges-table tbody th{width:38%;font-family:"latoregular",sans-serif;font-weight:normal;font-size:14px;color:#757575;text-align:left;padding:8px 12px 8px 0;border-top:1px solid #eee}
+.imprint-charges-table td{padding:8px 0;color:#1f1f1f;font-family:"latoregular",sans-serif;border-top:1px solid #eee}
 
-.artwork-status-bar{background:rgba(248,184,109,.12);display:flex;align-items:center;gap:10px;padding:12px 10px;cursor:pointer;margin:12px 0}
-.artwork-status-bar span{font-family:"latomedium",sans-serif;font-size:16px;color:#f05323}
-.imprint-block{border:1px dashed #fe5000;padding:16px;margin-bottom:12px}
+/* C upload row: hairline rails replace the peach band + #f05323 third orange (§3-15) */
+.artwork-status-bar{background:none;display:flex;align-items:center;gap:10px;width:100%;padding:12px 0;cursor:pointer;margin:12px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;text-align:left}
+.artwork-status-bar span{font-family:"latomedium",sans-serif;font-size:14px;color:#1f1f1f}
+.imprint-block{border:1px solid #eee;border-radius:6px;padding:16px;margin-bottom:12px}   /* C: hairline container — the dashed accent border is retired (§3-14) */
 .location-select{position:relative;margin-bottom:16px}   /* P-39: overlay anchor */
-.location-select__btn{width:100%;display:flex;align-items:center;justify-content:space-between;border:1px solid #525252;background:#fff;padding:15px 16px;font-family:"latomedium",sans-serif;font-size:16px;color:#1f1f1f;text-transform:capitalize}
+.location-select__btn{width:100%;display:flex;align-items:center;justify-content:space-between;border:1px solid #b3b3b3;border-radius:4px;background:#fff;height:48px;padding:0 16px;font-family:"latomedium",sans-serif;font-size:16px;color:#1f1f1f;text-transform:capitalize}   /* C: single input-border gray; 48px control */
 .location-select__list{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid #e2e2e2;border-radius:4px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:300;margin:0;padding:0;list-style:none;display:none}   /* P-39: position:absolute overlay — no longer pushes Subtotal/CTA */
 .location-select.open .location-select__list{display:block}
 .location-select__list li{height:40px;display:flex;align-items:center;padding:0 16px;cursor:pointer;font-size:16px;color:#1f1f1f;text-transform:capitalize}
@@ -250,9 +267,9 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .location-select__list li[aria-selected="true"]{background:#fff6f2}
 .imprint-cost-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 /* R2-fix: .imprint-cost-box removed with its markup instance ("Imprint #1 cost: Free" — 4th "first location free" repetition) */
-.add-imprint-link{display:inline-flex;align-items:center;gap:6px;color:#fe5000;font-size:16px;margin:4px 0 8px;background:none;border:0;cursor:pointer;padding:4px 0}
-.add-imprint-link:hover{text-decoration:underline}
-.secure-line{display:flex;align-items:center;gap:8px;color:#0d6efd;font-size:16px;margin-top:14px}
+.add-imprint-link{display:inline-flex;align-items:center;gap:6px;color:#525252;text-decoration:underline;font-size:14px;margin:4px 0 8px;background:none;border:0;cursor:pointer;padding:4px 0}   /* C link idiom: underlined gray, AA (was #fe5000 at 3.30:1) */
+.add-imprint-link:hover{color:#1f1f1f}
+.secure-line{display:flex;align-items:center;gap:8px;color:#757575;font-size:13px;line-height:19px;margin-top:12px}   /* C: quiet meta — the off-palette #0d6efd blue is retired */
 
 /* ============================================================
    11. Price Breakdown modal (P-08 real button trigger, P-19 caption)
@@ -263,16 +280,16 @@ strong,b{font-family:"latobold",sans-serif;font-weight:normal}
 .price-details-modal h3{font-family:"latosemibold",sans-serif;font-size:20px;line-height:30px;color:#1f1f1f;font-weight:normal;margin-bottom:4px}
 .price-breakdown-caption{font-size:14px;color:#525252;margin-bottom:14px}   /* P-19: states the included config + when imprint is configured */
 .price-breakdown-row{display:flex;justify-content:space-between;gap:8px;padding:4px 0;font-size:14px;color:#1f1f1f}
-.price-breakdown-row .bd-free{color:#2e7d32;font-family:"latomedium",sans-serif}
+.price-breakdown-row .bd-free{color:#1f1f1f;font-family:"latobold",sans-serif}   /* C: positive semantics = dark latobold ink */
 .price-breakdown-total-row{display:flex;justify-content:space-between;font-size:16px;padding-top:8px;margin-top:8px;border-top:1px solid #e2e2e2;color:#1f1f1f;font-family:"latosemibold",sans-serif}
-.price-breakdown-unit-row{display:flex;justify-content:flex-end;font-size:12px;color:#666;padding-bottom:12px}
-.price-breakdown-close-btn{background:#fe5000;border:1px solid #fe5000;color:#fff;padding:10px 48px;font-size:14px;font-family:"latomedium",sans-serif;display:block;margin:8px auto 0}
-.price-breakdown-close-btn:hover{background:#e54800}
+.price-breakdown-unit-row{display:flex;justify-content:flex-end;font-size:13px;color:#757575;padding-bottom:12px}   /* C: 13px floor + palette gray */
+.price-breakdown-close-btn{background:#fe5000;border:1px solid #fe5000;border-radius:4px;color:#fff;padding:10px 48px;font-size:14px;font-family:"latomedium",sans-serif;display:block;margin:8px auto 0}
+.price-breakdown-close-btn:hover{background:#fe6a26;border-color:#fe621a}   /* C: one CTA hover pair — #e54800 drift retired */
 
 /* ============================================================
    12. Floating contact (P-09: one affordance, desktop only)
    ============================================================ */
-.contact-bubble{position:fixed;right:6px;bottom:16px;width:48px;height:48px;background:#0d6efd;color:#fff;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:500;border:0;cursor:pointer}   /* P-09: reduced-size single affordance, clear of the 522px pane at 1440 */
+.contact-bubble{position:fixed;right:6px;bottom:16px;width:48px;height:48px;background:#1f1f1f;color:#fff;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:500;border:0;cursor:pointer}   /* P-09: reduced-size single affordance; C: off-palette blue retired — monochrome */
 
 /* ============================================================
    13. Fixed | Annotated toggle + annotation chips + register drawer
@@ -315,8 +332,8 @@ body.annotated .drawer-toggle{display:block}
   .gallery-order,.hero-order,.keyfacts-order,.pane-order,.content-order{min-width:0;max-width:100%}   /* P-24: flex min-width:auto floor must not exceed the viewport (620px natural image width) */
   .gallery-main img{width:100%}
   .gallery-order{order:1}
-  .hero-order{order:2;margin-top:20px}
-  .keyfacts-order{order:3;margin-top:20px}
+  .hero-order{order:2;margin-top:24px}   /* C spacing scale: 20px off-grid values → 24 */
+  .keyfacts-order{order:3;margin-top:24px}
   .pane-order{order:4}
   .content-order{order:5}
   .col-right{position:static}
@@ -455,9 +472,9 @@ body.annotated .drawer-toggle{display:block}
                         <td>Right Chest, Full Front, Full Back, Left Sleeve, Right Sleeve, Tag Back, Left Chest <span class="anno" data-p="P-26">P-26</span></td></tr>
                     <tr><th scope="row">Max Colors</th><td>Full color</td></tr>
                     <tr><th scope="row">Included</th>
-                        <td><span class="included-tick text-success" aria-hidden="true">✓ </span>Full-color imprint in one location — no setup fee <span class="anno" data-p="P-10">P-10</span></td></tr>
+                        <td><span class="included-tick" aria-hidden="true">✓ </span>Full-color imprint in one location — no setup fee <span class="anno" data-p="P-10">P-10</span></td></tr>
                     <tr><th scope="row">Setup fee <span class="anno" data-p="P-12">P-12</span></th>
-                        <td>$30.00 per add'l location — <span class="text-success">first location free</span></td></tr>
+                        <td>$30.00 per add'l location — <strong>first location free</strong></td></tr>
                     <tr><th scope="row">Add'l location</th><td>$5.95/item</td></tr>
                   </tbody>
                 </table>
@@ -476,14 +493,14 @@ body.annotated .drawer-toggle{display:block}
           </button></h2>
           <div class="pdp-section__body" id="bodyProduction">
             <ul class="static-list">
-              <li>Production: typically 5–10 business days after artwork approval.<button type="button" class="rush-info-icon" aria-describedby="rushTip"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="latoregular, sans-serif" font-weight="bold">?</text></svg><span class="rush-tooltip" id="rushTip" role="tooltip">Production time is for the default single-location, one-color imprint. It may increase for multiple imprint locations, additional colors, and large product quantities.</span></button> <span class="anno" data-p="P-08">P-08</span></li>
+              <li>Production: typically 5–10 business days after artwork approval.<button type="button" class="rush-info-icon" aria-describedby="rushTip"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18.75C14.8325 18.75 18.75 14.8325 18.75 10C18.75 5.16751 14.8325 1.25 10 1.25C5.16751 1.25 1.25 5.16751 1.25 10C1.25 14.8325 5.16751 18.75 10 18.75ZM10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="#1F1F1F"/><text x="10" y="14.5" text-anchor="middle" fill="#1F1F1F" font-size="13" font-family="latobold, sans-serif">?</text></svg><span class="rush-tooltip" id="rushTip" role="tooltip">Production time is for the default single-location, one-color imprint. It may increase for multiple imprint locations, additional colors, and large product quantities.</span></button> <span class="anno" data-p="P-08">P-08</span></li>
               <li>Estimated delivery with FedEx Ground: Aug 13 – Aug 20.</li>
             </ul>
           </div>
         </section>
 
         <div class="pdp-content-sections__footer">
-          <p class="line-height-26">SKU: KLG0000001 <span class="text-success" style="margin-left:12px;font-family:'latosemibold',sans-serif">IN STOCK</span></p>
+          <p class="line-height-26">SKU: KLG0000001 <strong style="margin-left:12px;color:#1f1f1f">In Stock</strong></p><!-- C: availability = dark latobold ink (the 1.70:1 bright green + shouted caps retired) -->
         </div>
       </div>
     </div>
@@ -494,14 +511,15 @@ body.annotated .drawer-toggle{display:block}
         <div class="product-summary-section">
           <div class="product-sku-row">
             <span class="sku-text">SKU: KLG0000001</span>
-            <a class="wishlist-link" href="#" aria-label="Add to wishlist"><svg width="18" height="16" viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 20.5C8 17 2 12.5 2 7.5 2 4.4 4.4 2 7.5 2 9.2 2 10.9 2.8 12 4.1 13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 5-6 9.5-10 13z" stroke="#909090" stroke-width="1.6"/></svg>Wishlist</a>
+            <a class="wishlist-link" href="#" aria-label="Add to wishlist"><svg width="15" height="13" viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 20.5C8 17 2 12.5 2 7.5 2 4.4 4.4 2 7.5 2 9.2 2 10.9 2.8 12 4.1 13.1 2.8 14.8 2 16.5 2 19.6 2 22 4.4 22 7.5c0 5-6 9.5-10 13z" stroke="#757575" stroke-width="1.6"/></svg>Wishlist</a>
           </div>
           <!-- P-04: H1 = v5.2 pdpTitle (product name only, no pipes, no feed claims) -->
           <h1 class="product-name">Fairweather Johnson Gilmore Lightweight Tee <span class="anno" data-p="P-04">P-04</span><span class="anno" data-p="P-01">P-01</span></h1>
-          <p class="ask-line">Have a product question? <a href="#qaSection">Ask us</a></p>
+          <!-- C + client amendment A: audience-fit line moves ABOVE the description, directly under the H1 — as the product qualifier
+               (adjacent to the step spine it would read as a false first step). Carries spine site 1 (P-37/P-32). -->
+          <p class="audience-line">A practical choice for teams, staff, uniforms, and company events. <span class="anno" data-p="P-37">P-37</span></p>
           <p class="product-subtitle">A soft, breathable 4.3 oz unisex t-shirt designed for custom branding. Your full-color logo is printed directly into the fabric with Direct to Garment for a soft, detailed imprint.</p>
-          <!-- R2-4: audience-fit line split to its own line (plain body text — P-32); requires v5.2 spec §2.5 amendment -->
-          <p class="product-subtitle">A practical choice for teams, staff, uniforms, and company events. <span class="anno" data-p="P-37">P-37</span></p>
+          <!-- C: the "Ask us" support line left the title block (S-1 interruption) — now .after-cta below the CTA -->
         </div>
       </div>
 
@@ -547,6 +565,7 @@ body.annotated .drawer-toggle{display:block}
           <p style="margin:8px 0 0"><span class="anno anno--cfg" data-p="P-25">P-25</span></p>
 
           <button type="button" class="btn-secondary add-to-cart-lg" id="ctaCustomize" disabled>Customize Your Product</button>
+          <p class="after-cta"><span>Have a product question? <a href="#qaSection">Ask us</a></span><span>Secure transaction</span></p>
         </div>
 
         <!-- ============ CONFIGURATOR STATE (corrected static render) ============ -->
@@ -557,7 +576,7 @@ body.annotated .drawer-toggle{display:block}
             <span>Quantity: <span id="cfgQty">12</span></span>
           </div>
 
-          <h2 class="step-header" style="margin-top:20px"><span class="step-number">3</span><span class="step-label">Decoration Method</span></h2>
+          <h2 class="step-header"><span class="step-number">3</span><span class="step-label">Decoration Method</span></h2><!-- C: off-grid inline 20px margin removed — the 32/12 step rhythm owns it -->
           <h3 class="config-h">Imprint Method: Full Color <span class="anno" data-p="P-36">P-36</span></h3>
           <div class="imprint-method-badges"><span class="imprint-method-badge">Full Color</span></div>
           <!-- P-35: method summary promoted to the pane's 16px/24 body style (was 13px gray — smallest text on the page) -->
@@ -579,13 +598,13 @@ body.annotated .drawer-toggle{display:block}
           <table class="imprint-charges-table">
             <thead><tr><th colspan="2">Decoration Charges <span class="anno" data-p="P-12">P-12</span><span class="anno" data-p="P-39">P-39</span></th></tr></thead>
             <tbody>
-              <tr class="imprint-charges-table__first-row"><th scope="row">First location</th><td class="imprint-charges-table__free">Included</td></tr>
+              <tr><th scope="row">First location</th><td><strong>Included</strong></td></tr><!-- C: green + row tint retired — dark latobold ink -->
               <tr><th scope="row">Additional location</th><td>$30.00 setup + $5.95/item</td></tr>
             </tbody>
           </table>
 
-          <h2 class="step-header" style="margin-top:20px"><span class="step-number">4</span><span class="step-label">Imprint Details</span></h2>
-          <div class="artwork-status-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#f05323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#f05323" stroke-width="2" stroke-linecap="round"/></svg><span>Upload artwork and instruction (optional)</span></div>
+          <h2 class="step-header"><span class="step-number">4</span><span class="step-label">Imprint Details</span></h2>
+          <button type="button" class="artwork-status-bar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="#525252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h16" stroke="#525252" stroke-width="2" stroke-linecap="round"/></svg><span>Upload artwork and instruction (optional)</span></button><!-- C: quiet hairline upload row, real button; the peach band + #f05323 third orange retired -->
 
           <div class="imprint-block">
             <h3 class="config-h" style="margin-top:0" id="locLabel">Imprint Location <span class="anno" data-p="P-36">P-36</span></h3>
@@ -626,7 +645,7 @@ body.annotated .drawer-toggle{display:block}
           <button type="button" class="btn-secondary add-to-cart-lg">Add to Cart
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3h2l2.4 12.2a2 2 0 002 1.6h8.8a2 2 0 002-1.6L22 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.5" fill="#fff"/><circle cx="18" cy="20.5" r="1.5" fill="#fff"/></svg>
           </button>
-          <p class="secure-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#0d6efd" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#0d6efd" stroke-width="2"/></svg>Secure Transaction</p>
+          <p class="secure-line"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" stroke="#757575" stroke-width="2"/><path d="M8 10V7a4 4 0 018 0v3" stroke="#757575" stroke-width="2"/></svg>Secure transaction</p>
         </div>
       </div>
     </div>
@@ -702,10 +721,10 @@ var REG = {
 "P-07":["High","Implemented","Page loaded pre-filled with L=12 / $183.00","All sizes default to 0; the existing MOQ helper line is the neutral initial hint; the price element shows 'From $11.95/unit at 1008+' until a quantity is entered."],
 "P-08":["High","Implemented","Price Breakdown trigger and tooltip were mouse-only","'View Price Breakdown' is a real <button> in the existing link class; the '?' tooltip is a 24px-hit-area button shown on hover AND focus (aria-describedby)."],
 "P-09":["High","Annotated-only (config)","Mobile: fixed widgets occluded content and inputs","Prototype keeps a single Contact affordance, desktop-only — nothing occludes inputs at 390px. Real-site lever: Klaviyo display settings (suppress teaser at mobile widths)."],
-"P-10":["High","Implemented","Orphaned block-level ✓ in the INCLUDED row; ✓ exposed to screen readers","Inline aria-hidden ✓ (text-success green) + hanging indent per the Key Facts marker / right-pane anchor reference implementation; sentence demoted to the standard 16px value style."],
-"P-11":["High","Implemented","11px bold-caps labels in a ~38% dead-space column","Labels adopt the existing table.pdp-spec-table th style and geometry — latosemibold 16px/24 #525252, 38% column; uppercase transform dropped."],
-"P-12":["High","Implemented","Second label system nested in the value column; 3-size charge line","Charges flattened to standard rows in the informational Decoration & Imprint spec table: 'Setup fee — $30.00 per add'l location — first location free' / 'Add'l location — $5.95/item'. R2: the configurator's imprint-charges-table separately recomposed to user-action rows — 'First location → Included' / 'Additional location → $30.00 setup + $5.95/item' — replacing the old Setup/Run Charge column split."],
-"P-13":["High","Implemented","Price carried zero visual emphasis; per-unit price smallest in band","$183.00 gets the existing span.pdp-section__title metrics (20px/30 latosemibold); the label stays 16px; 'Price each' promoted to standard 16px body."],
+"P-10":["High","Implemented","Orphaned block-level ✓ in the INCLUDED row; ✓ exposed to screen readers","Inline aria-hidden ✓ + hanging indent per the Key Facts marker reference implementation; sentence demoted to the standard value style. Variant C: the ✓ and all positive semantics render as dark latobold ink — the 1.70:1 bright green is retired (monochrome off-path)."],
+"P-11":["High","Implemented","11px bold-caps labels in a ~38% dead-space column","Labels adopt the table.pdp-spec-table th style and geometry — 38% column, uppercase dropped. Variant C: the shared table voice is latoregular #757575 label / dark #1f1f1f value, so the label never outweighs its value."],
+"P-12":["High","Implemented","Second label system nested in the value column; 3-size charge line","Charges flattened to standard rows in the informational Decoration & Imprint spec table: 'Setup fee — $30.00 per add'l location — first location free' / 'Add'l location — $5.95/item'. R2: the configurator's imprint-charges-table separately recomposed to user-action rows — 'First location → Included' / 'Additional location → $30.00 setup + $5.95/item' — replacing the old Setup/Run Charge column split. Variant C: 'Included' = <strong> dark ink (green retired), gray-label/dark-value rows on hairlines."],
+"P-13":["High","Implemented","Price carried zero visual emphasis; per-unit price smallest in band","Variant C: $183.00 = 24px latobold dark — the strongest buy-box text — inside the accent-spine price zone (3px orange bar, gray band retired); label and 'Price each' are deliberate 14px quiet meta beside it."],
 "P-14":["Medium","Implemented","Mobile: entire ordering flow preceded ALL product information","The existing Key Facts card orders between the hero and the Colors step at mobile widths."],
 "P-15":["Medium","Implemented","Section titles invisible to heading navigation; hierarchy inverted","Section titles wrapped in <h2> (visual stays on .pdp-section__title); Key Facts title is an <h2>; $183.00 demoted to a styled span. Outline: H1 → H2s."],
 "P-16":["Medium","Implemented","Buy box not sticky — price/CTA lost while reading content","position:sticky; top:16px on the existing right-column container."],
@@ -714,22 +733,22 @@ var REG = {
 "P-19":["Medium","Implemented","Price Breakdown asserted an imprint configuration never chosen","Breakdown captioned 'Includes: full-color imprint, one location (configured next step)' — the decoration block's own phrasing; the '1Right Chest' run-on is gone."],
 "P-20":["Medium","Annotated-only (config)","First-load interstitial + cookie banner stack; persistent teaser","Klaviyo popup delay/suppression on PDP landings and consent-banner sequencing are third-party config, not page code. The prototype shows the clean first paint."],
 "P-21":["Medium","Implemented","Accordion state desync from duplicate desktop/mobile DOM stacks","ONE content stack, reordered across breakpoints via display:contents + CSS order — no duplicate trees, so no state to desync."],
-"P-22":["Medium","Implemented","Step headers were do-nothing buttons with AT noise + false mobile ✓","Static <h2> headers reusing the .step-number/.step-label visuals; vestigial checkboxes removed; nothing focusable, no false 'completed' checkmarks."],
+"P-22":["Medium","Implemented","Step headers were do-nothing buttons with AT noise + false mobile ✓","Static <h2> headers; vestigial checkboxes removed; nothing focusable, no false 'completed' checkmarks. Variant C: the charcoal 522×40 bands are retired — steps are barred text headings (3px #fe5000 spine bar + orange latobold numeral, 18px latosemibold dark)."],
 "P-23":["Medium","Implemented","Swatch names undiscoverable; targets below project minimum","aria-label + title per swatch (the data already feeding .color-name); 48px targets with the project-standard 8px gap."],
 "P-24":["Medium","Implemented (scope note)","Mobile: page scrolled horizontally (423px on 390px viewport)","Prototype has no horizontal scroll at 390 — the tier strip scrolls inside its own wrapper. The footer .px-5 contributor is site chrome outside this prototype; flagged for Boris."],
 "P-25":["Medium","Annotated-only (platform)","v5-intent buy-box decision aids absent (rating, sample, shipping, returns)","Platform-template blocks (marked 'platform' in the v5 prototype), not copy-pipeline items — the template half of the v5.2 rollout, flagged to Boris. Not faked here."],
 "P-26":["Medium","Implemented","Location chips styled as interactive buttons for static metadata","Locations render as comma-separated 16px latoregular text in the value cell — the Specifications 'Sizes' row precedent."],
-"P-27":["Medium","Implemented","Triple-box nesting + summary line duplicating every fact","Method summary suppressed (single-method product renders expanded); inner facts border dropped — the borderless section-body treatment of Description/Specifications. R2: the section header itself now carries a recomposed summary ('Full-color imprint · first location included') via .pdp-section__hsummary — the method-block's own summary stays suppressed."],
-"P-28":["Medium","Implemented","Three competing section-header idioms; Q&A heading weaker than body sections","Q&A headings adopt span.pdp-section__title (20px latosemibold). Step bars + Key Facts card stay as sanctioned exceptions."],
+"P-27":["Medium","Implemented","Triple-box nesting + summary line duplicating every fact","Method summary suppressed (single-method product renders expanded); inner facts border dropped. R2: the section header carries a recomposed summary ('Full-color imprint · first location included') via .pdp-section__hsummary. Variant C: the method block's filled-band header is retired — the whole block is the page's ONE quiet gray disclosure panel (shared with When-To-Choose), dark name, gray chevron."],
+"P-28":["Medium","Implemented","Three competing section-header idioms; Q&A heading weaker than body sections","Q&A headings adopt span.pdp-section__title. Variant C: ONE 18px latosemibold h2 voice page-wide — left section titles, Q&A, and the spine step headers all share it (steps add the bar, left stays barless)."],
 "P-29":["Medium","Implemented","Desktop: ~1,500px empty right column below the buy box","Closed by the sticky right column (P-16) — the pane tracks the reading position instead of leaving a dead half-page."],
 "P-30":["Low","Implemented","Gallery: unlabeled controls, truncated thumb rail, AT clone noise","aria-labels on both arrows; no clone slides exist in this render; the rail is padded so no thumbnail clips."],
 "P-31":["Low","Implemented","Spec table stated the same fact under two labels","Deduped to one row: 'Fabric — 4.3 oz lightweight (146 GSM)' — the GSM promise delivered, nothing invented. Permanent rule lands in contentV5."],
-"P-32":["Low","Implemented","useCase line elevated to a one-off italic + accent-bar callout","The italic/bar idiom is retired; the line renders as plain body text — now living in the hero subtitle per P-37."],
+"P-32":["Low","Implemented","useCase line elevated to a one-off italic + accent-bar callout","The one-off italic callout is retired from Description. Variant C deliberately RESTORES the accent bar on this line — no longer ad-hoc but as the named 'buy-path waypoint' role the whole spine system shares; it sits under the H1 as the product qualifier (P-37)."],
 "P-33":["Low","Implemented","Spec-table vs method-facts column misalignment","Method facts reuse the literal pdp-spec-table component — the two tables share one column geometry by construction."],
 "P-34":["Low","Implemented (removal)","Stray 'GO!' fragment; detached ribbon close button","Neither artifact exists in the corrected render. Real-site fix: suppress the animation resting state; re-attach the ribbon close inside its bounds."],
-"P-35":["High","Implemented","Configurator inverted text hierarchy: 13px summary vs 16px semibold slab","Method description promoted to the pane's 16px/24 latoregular body style; decision body demoted to the same, with semibold reserved for the 'Best for:' lead-in; box title joins the single kicker system. R2: the box itself is subordinated to a plain disclosure — orange tint/border stripped, border-top:1px solid #eee (the .pdp-section quiet-separator idiom); chevron stays orange (site accent)."],
-"P-36":["Medium","Implemented","Three competing uppercase-kicker systems + casing disagreement","ONE kicker style page-wide — 13px latobold dark, Title Case ('Key Facts', 'When To Choose This?'). Labels unified to Title Case ('Imprint Location'); charges th adopts the spec-table semibold pattern. R2: uppercase + letter-spacing dropped per client review — Title Case is now the kicker's own casing, not just the labels below it."],
-"P-37":["Medium","Implemented (spec note)","The page's only audience-fit line was buried at the bottom of Description","'A practical choice for teams, staff, uniforms, and company events.' closes the hero subtitle and leaves the Description body. Requires v5.2 spec §2.5 amendment. R2: split into its own .product-subtitle line below the 2-sentence subtitle paragraph (was trailing the same paragraph) — same plain 16px style, no italic/bar; P-37 chip stays on the new line."],
+"P-35":["High","Implemented","Configurator inverted text hierarchy: 13px summary vs 16px semibold slab","Method description promoted to the pane's 16px/24 latoregular body style; decision body demoted to the same, with semibold reserved for the 'Best for:' lead-in. R2: orange tint/border stripped. Variant C: When-To-Choose = a quiet #fafafa panel with radius, the standard 16px inset, hover + focus states, and a gray chevron — a defined aside, deliberately off-spine (resolves N-5's invisible-bounds percept)."],
+"P-36":["Medium","Implemented","Three competing uppercase-kicker systems + casing disagreement","ONE kicker style — 13px latobold dark Title Case, now carried by Key Facts alone. R2: uppercase + letter-spacing dropped. Variant C: 'When To Choose This?' leaves the kicker system for the 14px latosemibold disclosure-title voice of the quiet gray panel; labels stay Title Case; charges rows use the C table voice (gray label / dark value)."],
+"P-37":["Medium","Implemented (spec note)","The page's only audience-fit line was buried at the bottom of Description","'A practical choice for teams, staff, uniforms, and company events.' lives in the hero. Requires v5.2 spec §2.5 amendment. Variant C (client amendment A): the line moves ABOVE the description, directly under the H1 — the product qualifier — and carries the 3px orange spine bar as the buy path's first waypoint (adjacent to the steps it would read as a false first step)."],
 "P-38":["Medium","Implemented","Collapsed Production & Shipping hid the delivery estimate entirely","The collapsed header keeps 'Est. delivery Aug 13 – Aug 20 · 5–10 business days production' via the method-block __summary pattern. Collapse the section to see it."],
 "P-39":["Medium","Implemented","Location dropdown pushed CTA 288px; included-fact stated 3×","The listbox is a position:absolute overlay — Subtotal/Add to Cart never move. R2: the included-fact statement is now deduped to ONE — the recomposed charges table row ('First location — Included'). Three redundant repetitions removed: the anchor sentence, the '?' tooltip on Imprint #1 cost, and the 'Imprint #1 cost: Free' line itself (a fourth, previously undocumented repetition caught in live re-verification)."],
 "P-40":["Low","Implemented (via P-27)","Method summary led with a duplicate, ended with a count-only stat","Suppressed on this single-method product (P-27); the recomposed string was documented but not rendered. R2: now rendered live at the section-header level — 'Full-color imprint · first location included' (single-method wording; the documented multi-method form remains '1 full-color location included · extra location $30.00 setup + $5.95/item')."]
